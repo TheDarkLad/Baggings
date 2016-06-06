@@ -1,0 +1,67 @@
+﻿<nav class="navbar navbar-default">
+    <div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Baggins</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <select id="AuthorDropDown" [(ngModel)]="selectedAuthor">
+                        <option style="color:grey" value="undefined">Authors</option>
+                        <option *ngFor="#item of Authors" value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" [ngClass]="{'active': isActive()}" (click)="toggleFilter()">{{Books.length}} Boeken</a></li>
+                <li><a href="#" [ngClass]="{'active': isActive('readBooks')}" (click)="toggleFilter('readBooks')">{{ReadBooks}} Gelezen</a></li>
+                <li><a href="#" [ngClass]="{'active': isActive('unreadBooks')}" (click)="toggleFilter('unreadBooks')">{{UnReadBooks}} Nog te lezen</a></li>
+                <li><a href="#" [ngClass]="{'active': isActive('readingBooks')}" (click)="toggleFilter('readingBooks')">{{Reading}} Mee bezig</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="row author" *ngFor="#bookList of bookLists | authorFilter:selectedAuthor; #$Aindex = index" [hidden]="(bookList | readFilter:readBooks).length == 0 || (bookList | unreadFilter:unreadBooks).length == 0 || (bookList | readingFilter:readingBooks).length == 0">
+    <h3 class="col-sm-12">{{bookList[0].Author}}</h3>
+    <div class="books col-sm-12">
+        <div class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" *ngFor="#book of bookList | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks; #$Bindex = index">
+            <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
+            <div ng-hide="editmode">                
+                <div class="col-xs-6 col-sm-12 image">
+                    <img data-id="{{$Aindex + '_' + $Bindex}}" src="{{book.Image}}" class="cover img-center" alt="image">
+                </div>
+                <div class="col-xs-6 col-sm-12 data">
+                    <p data-id="{{$Aindex + '_' + $Bindex}}" class="title">{{book.Title}}</p>
+                    <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Subtitle}}</p>
+                    <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Series}}</p>
+                </div>
+            </div>
+            <div class="banner" *ngIf="book.Read && !book.Listening">
+                <svg height="100" width="100">
+                    <polygon points="0,0 50,0 110,60 110,109" style="fill:#52AA39;" />
+                    <text x="39" y="-12" fill="WHITE" transform="rotate(45)">GELEZEN </text>
+                </svg>
+            </div>
+            <div class="banner" *ngIf="book.Read && book.Listening">
+                <svg height="100" width="100">
+                    <polygon points="0,0 50,0 110,60 110,109" style="fill:#E77E22;" />
+                    <text x="30" y="-12" fill="WHITE" transform="rotate(45)">GELUISTERD</text>
+                </svg>
+            </div>
+            <div class="banner" *ngIf="book.Reading">
+                <svg height="100" width="100">
+                    <polygon points="0,0 50,0 110,60 110,109" style="fill:#2A80B9;" />
+                    <text x="35" y="-12" fill="WHITE" transform="rotate(45)">MEE BEZIG</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
