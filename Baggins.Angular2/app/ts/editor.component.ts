@@ -78,8 +78,6 @@ export class EditorComponent extends BookLoader {
     }
     Save(uploadFile: boolean) {
         if (uploadFile) {
-            //Remove old
-            this.RemoveImage(this.Book.Image);
             //Upload new
             this.GetAndUploadImage('uploadOverwrite');
         }
@@ -108,10 +106,18 @@ export class EditorComponent extends BookLoader {
         //var files = uploadFiles.files;
         var ele: any = document.getElementById(elementName)        
         var files = ele.files;
-        for (var i = 0; i < files.length; i++) {            
-            var fileName = Config.ImageFolder + files[i].name;
-            this.Book.Image = fileName;
-            this.UploadImage(files[i]);
+
+        if (files.length > 0) {
+            //Remove old
+            if (this.Book.Image != undefined && this.Book.Image != "") {
+                this.RemoveImage(this.Book.Image);
+            }
+
+            for (var i = 0; i < files.length; i++) {
+                var fileName = Config.ImageFolder + files[i].name;
+                this.Book.Image = fileName;
+                this.UploadImage(files[i]);
+            }
         }
     }
 }
