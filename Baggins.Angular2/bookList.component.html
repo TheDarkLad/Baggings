@@ -86,7 +86,20 @@
                 <label>Series:</label>
                 <p>{{selectedBook.Series || "-"}}</p>
             </span>
+
+            <div class="form-group">
+                <input id="uxReading" type="checkbox" [(ngModel)]="selectedBook.Reading" />
+                <label for="uxReading">Reading</label>
+            </div>
+
+            <div class="form-group">
+                <input id="uxRead" type="checkbox" [(ngModel)]="selectedBook.Read" />
+                <label for="uxRead">Read</label>
+            </div>
         </div>
         <div class="clear"></div>
     </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-primary right" (click)="close()">Save</button>
+    </modal-footer>
 </modal>

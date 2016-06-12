@@ -40,7 +40,7 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', './B
             EditorComponent = (function (_super) {
                 __extends(EditorComponent, _super);
                 function EditorComponent(http) {
-                    _super.call(this, http);
+                    _super.call(this, http, true);
                     this.Books = new Array();
                     this.Book = new Book_1.Book();
                 }
@@ -87,12 +87,7 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', './B
                     location.href = location.href += '?bookid=' + newKey;
                 };
                 EditorComponent.prototype.Save = function (uploadFile) {
-                    if (uploadFile) {
-                        //Remove old
-                        this.RemoveImage(this.Book.Image);
-                        //Upload new
-                        this.GetAndUploadImage('uploadOverwrite');
-                    }
+                    this.GetAndUploadImage('uploadOverwrite');
                     this.SaveBook(this.Books);
                 };
                 EditorComponent.prototype.Remove = function (bookID) {
@@ -114,10 +109,16 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', './B
                     //var files = uploadFiles.files;
                     var ele = document.getElementById(elementName);
                     var files = ele.files;
-                    for (var i = 0; i < files.length; i++) {
-                        var fileName = Config_1.Config.ImageFolder + files[i].name;
-                        this.Book.Image = fileName;
-                        this.UploadImage(files[i]);
+                    if (files != undefined && files.length > 0) {
+                        //Remove old
+                        if (this.Book.Image != undefined && this.Book.Image != "") {
+                            this.RemoveImage(this.Book.Image);
+                        }
+                        for (var i = 0; i < files.length; i++) {
+                            var fileName = Config_1.Config.ImageFolder + files[i].name;
+                            this.Book.Image = fileName;
+                            this.UploadImage(files[i]);
+                        }
                     }
                 };
                 EditorComponent = __decorate([

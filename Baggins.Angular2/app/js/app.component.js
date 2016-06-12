@@ -40,7 +40,7 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', './B
             AppComponent = (function (_super) {
                 __extends(AppComponent, _super);
                 function AppComponent(http) {
-                    _super.call(this, http);
+                    _super.call(this, http, true);
                     this.Books = new Array();
                     this.AuthorBook = new Array();
                     this.ReadBooks = 0;

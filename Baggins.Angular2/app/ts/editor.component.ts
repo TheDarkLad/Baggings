@@ -9,20 +9,19 @@ import {BookLoader} from './BookLoader';
 import {Book} from './Book';
 import {Config} from './Config';
 
-
 @Component({
     selector: 'my-editor',
     viewProviders: [HTTP_PROVIDERS],
     templateUrl: 'editor.component.html',
 })
 
-export class EditorComponent extends BookLoader {
-    Books: Array<Book>;
-    CurrentBookID: number;
+export class EditorComponent extends BookLoader { 
+    Books: Array<Book>; 
+    CurrentBookID: number; 
     Book: Book;
 
     constructor(http: Http) {
-        super(http);
+        super(http, true);
         this.Books = new Array<Book>();
         this.Book = new Book();
     }
@@ -77,10 +76,7 @@ export class EditorComponent extends BookLoader {
         location.href = location.href += '?bookid=' + newKey;
     }
     Save(uploadFile: boolean) {
-        if (uploadFile) {
-            //Upload new
-            this.GetAndUploadImage('uploadOverwrite');
-        }
+        this.GetAndUploadImage('uploadOverwrite');
         this.SaveBook(this.Books);
     }
 
@@ -107,7 +103,7 @@ export class EditorComponent extends BookLoader {
         var ele: any = document.getElementById(elementName)        
         var files = ele.files;
 
-        if (files.length > 0) {
+        if (files != undefined && files.length > 0) {
             //Remove old
             if (this.Book.Image != undefined && this.Book.Image != "") {
                 this.RemoveImage(this.Book.Image);

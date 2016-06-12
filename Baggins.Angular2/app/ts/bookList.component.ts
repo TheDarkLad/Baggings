@@ -1,13 +1,17 @@
-﻿import {Component, Input, EventEmitter, ViewChild} from 'angular2/core';
-import {authorFilter, readFilter, readingFilter, unreadFilter} from './filters';
-import { MODAL_DIRECTIVES, ModalComponent  } from 'ng2-bs3-modal/ng2-bs3-modal';
-import {Book} from './Book';
+﻿//Angular imports
+import {Http, HTTP_PROVIDERS} from 'angular2/http';
+import 'rxjs/add/operator/map'
+import { Component, Input, EventEmitter, ViewChild } from 'angular2/core';
+import { authorFilter, readFilter, readingFilter, unreadFilter } from './filters';
+import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BookLoader } from './BookLoader';
+import { Book } from './Book';
 
 @Component({
     selector: 'bookList',
     templateUrl: 'bookList.component.html',
     directives: [MODAL_DIRECTIVES],
-    inputs: ['bookLists', 'Books', 'ReadBooks', 'UnReadBooks', 'Reading', 'Authors'],
+    inputs: ['bookLists', 'ReadBooks', 'UnReadBooks', 'Reading', 'Authors'],
     pipes: [authorFilter, readFilter, readingFilter, unreadFilter]
 })
 
@@ -17,17 +21,19 @@ export class BookListComponent {
     readingBooks: boolean;
     modelOpened: boolean;
     selectedBook: Book;
-
+    @Input() Books: Array<Book>
+    bookloader: BookLoader;
     @ViewChild('myModal')
-    modal: ModalComponent;
-
-    constructor() {
+    modal: ModalComponent; 
+    
+    constructor(http: Http){
         this.readBooks = false;
         this.unreadBooks = false;
         this.readingBooks = false;
         this.modelOpened = false;
         this.selectedBook = new Book();
-    }
+        this.bookloader = new BookLoader(http, false);
+    } 
 
     toggleFilter(property) {
         this.readBooks = false;
@@ -38,7 +44,7 @@ export class BookListComponent {
         }
     }
     isActive(property) {
-        if (property != undefined) {
+        if (property != undefined) { 
             return this[property] == true;
         }
         else
@@ -47,11 +53,12 @@ export class BookListComponent {
 
 
     close() {
+        this.bookloader.SaveBook(this.Books);
         this.modal.close();
     }
 
     open(book: Book) {
         this.selectedBook = book;
         this.modal.open();
-    }
+    } 
 } 

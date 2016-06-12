@@ -13,13 +13,18 @@ System.register(['angular2/http', './Config'], function(exports_1, context_1) {
             }],
         execute: function() {
             BookLoader = (function () {
-                function BookLoader(http) {
+                function BookLoader(http, loadbooks) {
                     this.http = http;
-                    this.LoadBooks();
+                    if (loadbooks)
+                        this.LoadBooks();
                 }
                 BookLoader.prototype.LoadBooks = function () {
                     var _this = this;
-                    this.http.get(Config_1.Config.JSONPATH)
+                    var headers = new http_1.Headers();
+                    headers.append("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+                    headers.append("Pragma", "no-cache"); // HTTP 1.0.
+                    headers.append("Expires", "0"); // Proxies.
+                    this.http.get(Config_1.Config.JSONPATH, headers)
                         .map(function (res) { return res.json(); })
                         .subscribe(function (data) { return _this.HandleResponse(data); }, function (err) { return console.log(err); });
                 };

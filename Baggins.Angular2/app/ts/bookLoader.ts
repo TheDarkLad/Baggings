@@ -6,17 +6,23 @@ import {Book} from './Book';
 export class BookLoader {
     http: Http;
 
-    constructor(http: Http) {
+    constructor(http: Http, loadbooks: boolean) {
         this.http = http;
-        this.LoadBooks();
+        if (loadbooks)
+            this.LoadBooks();
     }
 
     private LoadBooks() {
-        this.http.get(Config.JSONPATH)
+        let headers = new Headers();
+        headers.append("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        headers.append("Pragma", "no-cache"); // HTTP 1.0.
+        headers.append("Expires", "0"); // Proxies.
+
+        this.http.get(Config.JSONPATH, headers)
             .map(res => res.json())
             .subscribe(
             data => this.HandleResponse(data),
-            err => console.log(err)
+            err => console.log(err) 
             );
     }
 

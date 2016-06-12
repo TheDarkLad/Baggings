@@ -28,7 +28,7 @@ export class AppComponent extends BookLoader {
     http: Http;
 
     constructor(http: Http) {
-        super(http);
+        super(http, true);
         this.Books = new Array<Book>();
         this.AuthorBook = new Array<Array<Book>>();
         this.ReadBooks = 0;
