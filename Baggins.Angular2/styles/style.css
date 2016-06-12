@@ -150,3 +150,19 @@ input[type=file] {
     display: inline-block;
     width: 200px;
 }
+
+.modal-body{
+    display:flex;
+}
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}
+.clear{
+    clear:both;
+}
+.infopanel{
+    margin-left:10px;
+}

@@ -1,4 +1,4 @@
-System.register(['angular2/core', './filters'], function(exports_1, context_1) {
+System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './filters'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, filters_1;
+    var core_1, filters_1, ng2_bs3_modal_1;
     var BookListComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['angular2/core', './filters'], function(exports_1, context_1) {
             },
             function (filters_1_1) {
                 filters_1 = filters_1_1;
+            },
+            function (ng2_bs3_modal_1_1) {
+                ng2_bs3_modal_1 = ng2_bs3_modal_1_1;
             }],
         execute: function() {
             BookListComponent = (function () {
@@ -26,6 +29,7 @@ System.register(['angular2/core', './filters'], function(exports_1, context_1) {
                     this.readBooks = false;
                     this.unreadBooks = false;
                     this.readingBooks = false;
+                    this.modelOpened = false;
                 }
                 BookListComponent.prototype.toggleFilter = function (property) {
                     this.readBooks = false;
@@ -42,10 +46,21 @@ System.register(['angular2/core', './filters'], function(exports_1, context_1) {
                     else
                         return false;
                 };
+                BookListComponent.prototype.close = function () {
+                    this.modal.close();
+                };
+                BookListComponent.prototype.open = function () {
+                    this.modal.open();
+                };
+                __decorate([
+                    core_1.ViewChild('myModal'), 
+                    __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
+                ], BookListComponent.prototype, "modal", void 0);
                 BookListComponent = __decorate([
                     core_1.Component({
                         selector: 'bookList',
                         templateUrl: 'bookList.component.html',
+                        directives: [ng2_bs3_modal_1.MODAL_DIRECTIVES],
                         inputs: ['bookLists', 'Books', 'ReadBooks', 'UnReadBooks', 'Reading', 'Authors'],
                         pipes: [filters_1.authorFilter, filters_1.readFilter, filters_1.readingFilter, filters_1.unreadFilter]
                     }), 

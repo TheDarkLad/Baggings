@@ -27,8 +27,14 @@
     <Content Include="bookList.component.html" />
     <Content Include="Edit.html" />
     <Content Include="Index.html" />
+    <Content Include="scripts\angular2-polyfills.js" />
+    <Content Include="scripts\angular2.dev.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\http.dev.js" />
     <Content Include="scripts\jquery-1.11.1.min.js" />
+    <Content Include="scripts\Rx.js" />
+    <Content Include="scripts\shims_for_IE.js" />
+    <Content Include="scripts\system.src.js" />
     <Content Include="styles\style.css" />
   </ItemGroup>
   <ItemGroup>

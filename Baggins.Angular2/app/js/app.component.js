@@ -36,7 +36,7 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', './B
                 bookList_component_1 = bookList_component_1_1;
             }],
         execute: function() {
-            core_1.enableProdMode();
+            //Libraries
             AppComponent = (function (_super) {
                 __extends(AppComponent, _super);
                 function AppComponent(http) {
