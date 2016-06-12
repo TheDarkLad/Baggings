@@ -11,21 +11,7 @@
     public Listening: boolean;
 
     constructor() {
-
     }
-
-    //constructor(key: number, title: string, author: string, subtitle: string, series: string, numberinseries: number, imageURL: string, read: boolean, reading: boolean, listening: boolean) {
-    //    this.Key = key;
-    //    this.Title = title;
-    //    this.Author = author;
-    //    this.SubTitle = subtitle;
-    //    this.Series = series;
-    //    this.Number = numberinseries;
-    //    this.Image = imageURL;
-    //    this.Read = read;
-    //    this.Reading = reading;
-    //    this.Listening = listening;
-    //}  
 
     //Order by Author
     public static sortByKey(array, key, key2, key3) {

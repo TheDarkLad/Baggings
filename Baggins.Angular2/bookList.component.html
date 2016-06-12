@@ -32,16 +32,16 @@
 <div class="row author" *ngFor="#bookList of bookLists | authorFilter:selectedAuthor; #$Aindex = index" [hidden]="(bookList | readFilter:readBooks).length == 0 || (bookList | unreadFilter:unreadBooks).length == 0 || (bookList | readingFilter:readingBooks).length == 0">
     <h3 class="col-sm-12">{{bookList[0].Author}}</h3>
     <div class="books col-sm-12">
-        <div (click)="open()" class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" *ngFor="#book of bookList | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks; #$Bindex = index">
+        <div (click)="open(book)" class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" *ngFor="#book of bookList | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks; #$Bindex = index">
             <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
-            <div ng-hide="editmode">                
+            <div ng-hide="editmode">
                 <div class="col-xs-6 col-sm-12 image">
                     <img data-id="{{$Aindex + '_' + $Bindex}}" src="{{book.Image}}" class="cover img-center" alt="image">
                 </div>
                 <div class="col-xs-6 col-sm-12 data">
                     <p data-id="{{$Aindex + '_' + $Bindex}}" class="title">{{book.Title}}</p>
                     <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Subtitle}}</p>
-                    <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Series}}</p>        
+                    <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Series}}</p>
                 </div>
             </div>
             <div class="banner" *ngIf="book.Read && !book.Listening">
@@ -62,32 +62,31 @@
                     <text x="35" y="-12" fill="WHITE" transform="rotate(45)">MEE BEZIG</text>
                 </svg>
             </div>
-            
-            <modal #myModal>
-                <modal-header [show-close]="true">
-                    <h4 class="modal-title">{{book.Title}}</h4>
-                </modal-header>
-                <modal-body>
-                    <img data-id="{{$Aindex + '_' + $Bindex}}" src="{{book.Image}}" class="left" alt="image">
-                    <div class="infopanel">
-                        <span *ngIf="book.Author">
-                            <label>Author:</label>
-                            <p>{{book.Author}}</p>
-                        </span>
-
-                        <span *ngIf="book.Subtitle">
-                            <label>Subtitle:</label>
-                            <p>{{book.Subtitle || "-"}}</p>
-                        </span>
-
-                        <span *ngIf="book.Series">
-                            <label>Series:</label>
-                            <p>{{book.Series || "-"}}</p>
-                        </span>
-                    </div>
-                    <div class="clear"></div>
-                </modal-body>
-            </modal>
         </div>
     </div>
 </div>
+<modal #myModal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">{{selectedBook.Title}}</h4>
+    </modal-header>
+    <modal-body>
+        <img src="{{selectedBook.Image}}" class="left" alt="image">
+        <div class="infopanel">
+            <span *ngIf="selectedBook.Author">
+                <label>Author:</label>
+                <p>{{selectedBook.Author}}</p>
+            </span>
+
+            <span *ngIf="selectedBook.Subtitle">
+                <label>Subtitle:</label>
+                <p>{{selectedBook.Subtitle || "-"}}</p>
+            </span>
+
+            <span *ngIf="selectedBook.Series">
+                <label>Series:</label>
+                <p>{{selectedBook.Series || "-"}}</p>
+            </span>
+        </div>
+        <div class="clear"></div>
+    </modal-body>
+</modal>

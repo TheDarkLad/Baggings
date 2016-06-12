@@ -1,6 +1,7 @@
 ﻿import {Component, Input, EventEmitter, ViewChild} from 'angular2/core';
 import {authorFilter, readFilter, readingFilter, unreadFilter} from './filters';
 import { MODAL_DIRECTIVES, ModalComponent  } from 'ng2-bs3-modal/ng2-bs3-modal';
+import {Book} from './Book';
 
 @Component({
     selector: 'bookList',
@@ -15,6 +16,7 @@ export class BookListComponent {
     unreadBooks: boolean;
     readingBooks: boolean;
     modelOpened: boolean;
+    selectedBook: Book;
 
     @ViewChild('myModal')
     modal: ModalComponent;
@@ -24,6 +26,7 @@ export class BookListComponent {
         this.unreadBooks = false;
         this.readingBooks = false;
         this.modelOpened = false;
+        this.selectedBook = new Book();
     }
 
     toggleFilter(property) {
@@ -34,7 +37,7 @@ export class BookListComponent {
             this[property] = true;
         }
     }
-    isActive(property) {      
+    isActive(property) {
         if (property != undefined) {
             return this[property] == true;
         }
@@ -47,7 +50,8 @@ export class BookListComponent {
         this.modal.close();
     }
 
-    open() {
+    open(book: Book) {
+        this.selectedBook = book;
         this.modal.open();
     }
 } 

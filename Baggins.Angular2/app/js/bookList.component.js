@@ -1,4 +1,4 @@
-System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal'], function(exports_1, context_1) {
+System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal', './Book'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal'], f
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, filters_1, ng2_bs3_modal_1;
+    var core_1, filters_1, ng2_bs3_modal_1, Book_1;
     var BookListComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal'], f
             },
             function (ng2_bs3_modal_1_1) {
                 ng2_bs3_modal_1 = ng2_bs3_modal_1_1;
+            },
+            function (Book_1_1) {
+                Book_1 = Book_1_1;
             }],
         execute: function() {
             BookListComponent = (function () {
@@ -30,6 +33,7 @@ System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal'], f
                     this.unreadBooks = false;
                     this.readingBooks = false;
                     this.modelOpened = false;
+                    this.selectedBook = new Book_1.Book();
                 }
                 BookListComponent.prototype.toggleFilter = function (property) {
                     this.readBooks = false;
@@ -49,7 +53,8 @@ System.register(['angular2/core', './filters', 'ng2-bs3-modal/ng2-bs3-modal'], f
                 BookListComponent.prototype.close = function () {
                     this.modal.close();
                 };
-                BookListComponent.prototype.open = function () {
+                BookListComponent.prototype.open = function (book) {
+                    this.selectedBook = book;
                     this.modal.open();
                 };
                 __decorate([
