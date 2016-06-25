@@ -32,13 +32,13 @@
 <div class="row author" *ngFor="#bookList of bookLists | authorFilter:selectedAuthor; #$Aindex = index" [hidden]="(bookList | readFilter:readBooks).length == 0 || (bookList | unreadFilter:unreadBooks).length == 0 || (bookList | readingFilter:readingBooks).length == 0">
     <h3 class="col-sm-12">{{bookList[0].Author}}</h3>
     <div class="books col-sm-12">
-        <div (click)="open(book)" class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" *ngFor="#book of bookList | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks; #$Bindex = index">
+        <div (click)="open(book)" class="book col-xs-6 col-sm-4 col-md-2 text-center" id="{{book.Author}}" *ngFor="#book of bookList | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks; #$Bindex = index">
             <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
             <div ng-hide="editmode">
-                <div class="col-xs-6 col-sm-12 image">
+                <div class="col-xs-12 col-sm-12 image">
                     <img data-id="{{$Aindex + '_' + $Bindex}}" src="{{book.Image}}" class="cover img-center" alt="image">
                 </div>
-                <div class="col-xs-6 col-sm-12 data">
+                <div class="col-xs-12 col-sm-12 data">
                     <p data-id="{{$Aindex + '_' + $Bindex}}" class="title">{{book.Title}}</p>
                     <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Subtitle}}</p>
                     <p data-id="{{$Aindex + '_' + $Bindex}}" class="series">{{book.Series}}</p>
