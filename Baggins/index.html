@@ -17,6 +17,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="js/bootstrap.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-store" />
 </head>
 <body ng-app="BookApp">
     <div class="container" ng-controller="BookController" ng-cloak>
@@ -44,20 +45,23 @@
                         </div>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">{{Books.length}} Boeken</a></li>
-                        <li><a href="#">{{ReadBooks.length}} Gelezen</a></li>
-                        <li><a href="#">{{UnReadBooks.length}} Nog te lezen</a></li>
-                        <li><a href="#">{{Reading.length}} Mee bezig</a></li>
+                        <li><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
+                        <li><a href="#" ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
+                        <li><a href="#" ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
+                        <li><a href="#" ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
 
 
-        <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor">
+        <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor"
+             ng-hide="(item | readFilter : readBooks).length == 0
+             || (item | unreadFilter:unreadBooks).length == 0 
+             || (item | readingFilter:readingBooks).length == 0">
             <h3 class="col-sm-12">{{item[0].Author}}</h3>
             <div class="books col-sm-12">
-                <div class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" ng-repeat="book in item" ng-init="read = book.Read; audio = book.Listened; reading = book.Reading">
+                <div class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" ng-init="read = book.Read; audio = book.Listened; reading = book.Reading">
                     <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
                     <div ng-hide="editmode">
                         <div class="col-xs-6 col-sm-12 image">

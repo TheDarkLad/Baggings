@@ -32,10 +32,40 @@ function errorHandler(e) {
     alert(e);
 }
 
-
+bookApp.filter('readFilter', function () {
+    return function (bookList, args) {
+        return bookList.filter(book => {
+            if (args != undefined && args != "" && args != "undefined")
+                return book.Read == true;
+            else
+                return book
+        });
+    }
+});
+bookApp.filter('unreadFilter', function () {
+    return function (bookList, args) {
+        return bookList.filter(book => {
+            if (args != undefined && args != "" && args != "undefined")
+                return book.Read == false && book.Reading == false;
+            else
+                return book
+        });
+    }
+});
+bookApp.filter('readingFilter', function () {
+    return function (bookList, args) {
+        return bookList.filter(book => {
+            if (args != undefined && args != "" && args != "undefined")
+                return book.Reading == true;
+            else
+                return book
+        });
+    }
+});
 
 bookApp.controller('BookController', ['$scope', function ($scope) {
     Baggins.Book.Load();
+    $scope.all = true;
     var json = Baggins.books;
 
     //Order by Author
@@ -119,7 +149,22 @@ bookApp.controller('BookController', ['$scope', function ($scope) {
         return AuthorList;
     }
 
-
+    $scope.toggleFilter = function($elem) {
+        $scope.readBooks = false;
+        $scope.unreadBooks = false;
+        $scope.readingBooks = false;
+        $scope.all = false;
+        if ($elem != undefined) {
+            $scope[$elem] = true;
+        }
+    }
+    $scope.isActive = function(property) {
+        if (property != undefined) {
+            return this[property] == true;
+        }
+        else
+            return false;
+    }
     $scope.Authors = CreatePropertyList("Author");
 
 }]);

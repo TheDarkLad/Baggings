@@ -126,3 +126,11 @@ p:empty{
     margin: auto;
     width: 50px;
 }
+a.active {
+    font-weight: bold !important;
+    cursor: default;
+}
+.navbar-default .navbar-nav > li > a.active:hover, 
+.navbar-default .navbar-nav > li > a.active:focus{
+    color:#777!important;
+}
