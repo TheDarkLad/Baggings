@@ -122,7 +122,7 @@ bookApp.controller('BookController', ['$scope', function ($scope) {
     function UnReadBooks(json) {
         var readbooks = [];
         for (var i = 0; i < json.length; i++) {
-            if (json[i].Read == false) {
+            if (json[i].Read == false && json[i].Reading == false) {
                 readbooks.push(json[i]);
             }
         }
