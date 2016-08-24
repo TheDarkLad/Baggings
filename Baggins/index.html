@@ -61,15 +61,15 @@
              || (item | readingFilter:readingBooks).length == 0">
             <h3 class="col-sm-12">{{item[0].Author}}</h3>
             <div class="books col-sm-12">
-                <div class="book col-xs-12 col-sm-4 col-md-2 text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" ng-init="read = book.Read; audio = book.Listened; reading = book.Reading">
+                <div class="book col-xs-12 col-sm-4 col-md-3 col-lg-2 text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" ng-init="read = book.Read; audio = book.Listened; reading = book.Reading">
                     <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
-                    <div ng-hide="editmode">
+                    <div class="flexBook" ng-hide="editmode">
                         <div class="col-xs-6 col-sm-12 image">
                             <img data-id="{{$index}}" ng-src="{{book.Image || 'images/noimage.jpg'}}" class="cover img-center" alt="image">
                         </div>
                         <div class="col-xs-6 col-sm-12 data">
                             <p data-id="{{$index}}" class="title">{{book.Title}}</p>
-                            <p data-id="{{$index}}" class="series">{{book.Subtitle}}</p>
+                            <p data-id="{{$index}}" class="subtitle">{{book.Subtitle}}</p>
                             <p data-id="{{$index}}" class="series">{{book.Series}}</p>
                         </div>
                     </div>
