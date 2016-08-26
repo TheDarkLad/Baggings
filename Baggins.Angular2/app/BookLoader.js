@@ -61,4 +61,4 @@ var BookLoader = (function () {
     return BookLoader;
 }());
 exports.BookLoader = BookLoader;
-//# sourceMappingURL=BookLoader.js.map
+//# sourceMappingURL=bookLoader.js.map

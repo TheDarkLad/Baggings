@@ -3,9 +3,9 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 import {Component, Input, OnInit, OnChanges, SimpleChange, Pipe, enableProdMode} from '@angular/core';
 import 'rxjs/add/operator/map'
 //My Imports
-import {Book} from './Book';
-import {Config} from './Config';
-import {BookLoader} from './BookLoader';
+import {Book} from '../Book';
+import {Config} from '../Config';
+import {BookLoader} from '../BookLoader';
 import {BookListComponent} from './bookList.component';
 //Libraries
 

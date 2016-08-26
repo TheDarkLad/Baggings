@@ -5,9 +5,9 @@ import 'rxjs/add/operator/map'
 enableProdMode();
 
 //My Imports
-import {BookLoader} from './BookLoader';
-import {Book} from './Book';
-import {Config} from './Config';
+import {BookLoader} from '../BookLoader';
+import {Book} from '../Book';
+import {Config} from '../Config';
 
 @Component({
     selector: 'my-editor',

@@ -2,10 +2,10 @@
 import {Http, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Component, Input, EventEmitter, ViewChild } from '@angular/core';
-import { authorFilter, readFilter, readingFilter, unreadFilter } from './filters';
+import { authorFilter, readFilter, readingFilter, unreadFilter } from '../filters';
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { BookLoader } from './BookLoader';
-import { Book } from './Book';
+import { BookLoader } from '../BookLoader';
+import { Book } from '../Book';
 
 @Component({
     selector: 'bookList',

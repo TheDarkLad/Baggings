@@ -40,17 +40,17 @@
     <Folder Include="scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\editor.module.ts" />
-    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\main\app.component.ts" />
+    <TypeScriptCompile Include="app\editor\editor.module.ts" />
+    <TypeScriptCompile Include="app\main\app.module.ts" />
     <TypeScriptCompile Include="app\book.ts" />
-    <TypeScriptCompile Include="app\bookList.component.ts" />
+    <TypeScriptCompile Include="app\main\bookList.component.ts" />
     <TypeScriptCompile Include="app\bookLoader.ts" />
     <TypeScriptCompile Include="app\Config.ts" />
-    <TypeScriptCompile Include="app\editor.component.ts" />
-    <TypeScriptCompile Include="app\editor.ts" />
+    <TypeScriptCompile Include="app\editor\editor.component.ts" />
+    <TypeScriptCompile Include="app\editor\editor.ts" />
     <TypeScriptCompile Include="app\filters.ts" />
-    <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\main\main.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
