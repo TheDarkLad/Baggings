@@ -27,37 +27,31 @@
     <Content Include="bookList.component.html" />
     <Content Include="Edit.html" />
     <Content Include="Index.html" />
-    <Content Include="scripts\angular2-polyfills.js" />
-    <Content Include="scripts\angular2.dev.js" />
-    <Content Include="scripts\bootstrap.min.js" />
-    <Content Include="scripts\es6-shim.min.js" />
-    <Content Include="scripts\http.dev.js" />
-    <Content Include="scripts\jquery-1.11.1.min.js" />
-    <Content Include="scripts\ng2-bs3-modal.min.js" />
-    <Content Include="scripts\Rx.js" />
-    <Content Include="scripts\shims_for_IE.js" />
-    <Content Include="scripts\system.src.js" />
     <Content Include="styles\bootstrap.min.css" />
     <Content Include="styles\style.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />
+    <Content Include="systemjs.config.js" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\ts\bookLoader.ts" />
-    <TypeScriptCompile Include="app\ts\Config.ts" />
-    <TypeScriptCompile Include="app\ts\editor.component.ts" />
-    <TypeScriptCompile Include="app\ts\editorApp.ts" />
-    <TypeScriptCompile Include="app\ts\filters.ts" />
-    <TypeScriptCompile Include="app\ts\bookList.component.ts" />
-    <TypeScriptCompile Include="app\ts\app.component.ts" />
-    <TypeScriptCompile Include="app\ts\mainApp.ts" />
-    <TypeScriptCompile Include="app\ts\book.ts" />
-    <TypeScriptCompile Include="app\ts\rxjs-operators.ts" />
+    <Folder Include="scripts\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\editor.module.ts" />
+    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\book.ts" />
+    <TypeScriptCompile Include="app\bookList.component.ts" />
+    <TypeScriptCompile Include="app\bookLoader.ts" />
+    <TypeScriptCompile Include="app\Config.ts" />
+    <TypeScriptCompile Include="app\editor.component.ts" />
+    <TypeScriptCompile Include="app\editor.ts" />
+    <TypeScriptCompile Include="app\filters.ts" />
+    <TypeScriptCompile Include="app\main.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
