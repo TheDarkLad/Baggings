@@ -4,4 +4,4 @@
     static UploadFileEndpoint: string = "upload.php";
     static RemoveFileEndpoint: string = "remove.php";
     static ImageFolder: string = "uploads/";
-}
+} 
