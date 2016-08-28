@@ -1,11 +1,8 @@
-﻿var Baggins;
+var Baggins;
 (function (Baggins) {
-    Baggins.books;
-
     function levelRequestListener() {
         Baggins.books = JSON.parse(this.responseText);
     }
-
     var Book = (function () {
         function Book(id, title, author, subtitle, series, numberinseries, imageURL, read) {
             this.ID = id;
@@ -18,17 +15,17 @@
             this.Read = read;
         }
         Book.Save = function (books) {
-            $.post("SaveFile.php", { json: JSON.stringify(books) }, function (data) {
-            });
+            $.post("SaveFile.php", { json: JSON.stringify(books) }, function (data) { });
         };
-
         Book.Load = function () {
             var request = new XMLHttpRequest();
+            var filepath = "books.json?v=" + Date.now().valueOf();
             request.onload = levelRequestListener;
-            request.open("get", "books.json", false);
+            request.open("get", filepath, false);
             request.send();
         };
         return Book;
-    })();
+    }());
     Baggins.Book = Book;
 })(Baggins || (Baggins = {}));
+//# sourceMappingURL=Book.js.map

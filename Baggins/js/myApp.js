@@ -1,7 +1,5 @@
 /// <reference path="Book.ts" />
-
 var bookApp = angular.module('BookApp', []);
-
 function onInitFs(fs) {
     var booksString = JSON.stringify(books);
     fs.root.getFile('books.json', { create: true }, function (fileEntry) {
@@ -46,7 +44,7 @@ bookApp.filter('unreadFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
             if (args != undefined && args != "" && args != "undefined")
-                return book.Read == false && book.Reading == false;
+                return book.Read == false;
             else
                 return book
         });
@@ -122,7 +120,7 @@ bookApp.controller('BookController', ['$scope', function ($scope) {
     function UnReadBooks(json) {
         var readbooks = [];
         for (var i = 0; i < json.length; i++) {
-            if (json[i].Read == false && json[i].Reading == false) {
+            if (json[i].Read == false) {
                 readbooks.push(json[i]);
             }
         }
@@ -312,3 +310,15 @@ bookApp.controller('EditController', ['$scope', function ($scope) {
 
 
 }]);
+
+bookApp.directive('errSrc', function () {
+    return {
+        link: function (scope, element, attrs) {
+            element.bind('error', function () {
+                if (attrs.src != attrs.errSrc) {
+                    attrs.$set('src', attrs.errSrc);
+                }
+            });
+        }
+    }
+});

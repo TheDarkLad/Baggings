@@ -65,7 +65,7 @@
                     <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
                     <div class="flexBook" ng-hide="editmode">
                         <div class="col-xs-6 col-sm-12 image">
-                            <img data-id="{{$index}}" ng-src="{{book.Image || 'images/noimage.jpg'}}" class="cover img-center" alt="image">
+                            <img data-id="{{$index}}" ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
                         </div>
                         <div class="col-xs-6 col-sm-12 data">
                             <p data-id="{{$index}}" class="title">{{book.Title}}</p>

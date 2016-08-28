@@ -15,8 +15,7 @@
         public ImageURL: string;
         public Read: boolean;
 
-        constructor(id: number, title: string, author: string, subtitle: string, series: string, numberinseries: number, imageURL: string, read: boolean)
-        {
+        constructor(id: number, title: string, author: string, subtitle: string, series: string, numberinseries: number, imageURL: string, read: boolean) {
             this.ID = id;
             this.Title = title;
             this.Author = author;
@@ -27,16 +26,15 @@
             this.Read = read;
         }
 
-        public static Save(books : Book[])
-        {
-            $.post("SaveFile.php", { json: JSON.stringify(books) }, function (data) { } );
+        public static Save(books: Book[]) {
+            $.post("SaveFile.php", { json: JSON.stringify(books) }, function (data) { });
         }
 
-        public static Load()
-        {
+        public static Load() {
             var request = new XMLHttpRequest();
+            var filepath = "books.json?v=" + Date.now().valueOf();
             request.onload = levelRequestListener;
-            request.open("get", "books.json", false);
+            request.open("get", filepath, false);
             request.send();
         }
     }
