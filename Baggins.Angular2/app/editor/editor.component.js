@@ -108,9 +108,10 @@ var EditorComponent = (function (_super) {
     };
     EditorComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-editor',
             viewProviders: [http_1.HTTP_PROVIDERS],
-            templateUrl: 'editor.component.html',
+            templateUrl: './editor.component.html',
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], EditorComponent);

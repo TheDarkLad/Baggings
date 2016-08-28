@@ -2,14 +2,16 @@
 import {Http, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Component, Input, EventEmitter, ViewChild } from '@angular/core';
-import { authorFilter, readFilter, readingFilter, unreadFilter } from '../filters';
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { BookLoader } from '../BookLoader';
 import { Book } from '../Book';
+//Local Imports
+import { authorFilter, readFilter, readingFilter, unreadFilter } from '../_pipes/toggle.pipe';
 
 @Component({
+    moduleId: module.id,
     selector: 'bookList',
-    templateUrl: 'bookList.component.html',
+    templateUrl: './bookList.component.html',
     directives: [MODAL_DIRECTIVES],
     inputs: ['bookLists', 'ReadBooks', 'UnReadBooks', 'Reading', 'Authors'],
     pipes: [authorFilter, readFilter, readingFilter, unreadFilter]

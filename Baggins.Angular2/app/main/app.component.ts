@@ -11,9 +11,10 @@ import {BookListComponent} from './bookList.component';
 
 
 @Component({
+    moduleId: module.id,
     selector: 'my-app', 
     viewProviders: [HTTP_PROVIDERS],
-    templateUrl: 'app.component.html',
+    templateUrl: './app.component.html',
     directives: [BookListComponent],
 })
 

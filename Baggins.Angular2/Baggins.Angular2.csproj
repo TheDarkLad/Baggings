@@ -22,10 +22,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.component.html" />
-    <Content Include="editor.component.html" />
-    <Content Include="bookList.component.html" />
+    <Content Include="app\main\app.component.html" />
+    <Content Include="app\editor\editor.component.html" />
+    <Content Include="app\main\bookList.component.html" />
     <Content Include="Edit.html" />
+    <Content Include="images\noimage.jpg" />
     <Content Include="Index.html" />
     <Content Include="styles\bootstrap.min.css" />
     <Content Include="styles\style.css" />
@@ -49,7 +50,7 @@
     <TypeScriptCompile Include="app\Config.ts" />
     <TypeScriptCompile Include="app\editor\editor.component.ts" />
     <TypeScriptCompile Include="app\editor\editor.ts" />
-    <TypeScriptCompile Include="app\filters.ts" />
+    <TypeScriptCompile Include="app\_pipes\toggle.pipe.ts" />
     <TypeScriptCompile Include="app\main\main.ts" />
   </ItemGroup>
   <PropertyGroup>

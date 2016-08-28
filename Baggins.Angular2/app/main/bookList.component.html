@@ -35,7 +35,7 @@
             <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
             <div ng-hide="editmode">
                 <div class="col-xs-12 col-sm-12 image">
-                    <img data-id="{{$Aindex + '_' + $Bindex}}" src="{{book.Image}}" class="cover img-center" alt="image">
+                    <img ErrSrc data-id="{{$Aindex + '_' + $Bindex}}" src="{{book.Image}}" class="cover img-center" alt="image">
                 </div>
                 <div class="col-xs-12 col-sm-12 data">
                     <p data-id="{{$Aindex + '_' + $Bindex}}" class="title">{{book.Title}}</p>

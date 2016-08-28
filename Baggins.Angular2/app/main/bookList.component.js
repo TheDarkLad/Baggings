@@ -12,10 +12,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 var core_1 = require('@angular/core');
-var filters_1 = require('../filters');
 var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var BookLoader_1 = require('../BookLoader');
 var Book_1 = require('../Book');
+//Local Imports
+var toggle_pipe_1 = require('../_pipes/toggle.pipe');
 var BookListComponent = (function () {
     function BookListComponent(http) {
         this.readBooks = false;
@@ -58,11 +59,12 @@ var BookListComponent = (function () {
     ], BookListComponent.prototype, "modal", void 0);
     BookListComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'bookList',
-            templateUrl: 'bookList.component.html',
+            templateUrl: './bookList.component.html',
             directives: [ng2_bs3_modal_1.MODAL_DIRECTIVES],
             inputs: ['bookLists', 'ReadBooks', 'UnReadBooks', 'Reading', 'Authors'],
-            pipes: [filters_1.authorFilter, filters_1.readFilter, filters_1.readingFilter, filters_1.unreadFilter]
+            pipes: [toggle_pipe_1.authorFilter, toggle_pipe_1.readFilter, toggle_pipe_1.readingFilter, toggle_pipe_1.unreadFilter]
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], BookListComponent);

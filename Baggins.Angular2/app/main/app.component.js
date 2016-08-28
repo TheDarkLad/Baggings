@@ -98,9 +98,10 @@ var AppComponent = (function (_super) {
     ], AppComponent.prototype, "model", void 0);
     AppComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-app',
             viewProviders: [http_1.HTTP_PROVIDERS],
-            templateUrl: 'app.component.html',
+            templateUrl: './app.component.html',
             directives: [bookList_component_1.BookListComponent],
         }), 
         __metadata('design:paramtypes', [http_1.Http])

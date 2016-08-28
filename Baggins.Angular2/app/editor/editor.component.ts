@@ -10,9 +10,10 @@ import {Book} from '../Book';
 import {Config} from '../Config';
 
 @Component({
+    moduleId: module.id,
     selector: 'my-editor',
     viewProviders: [HTTP_PROVIDERS],
-    templateUrl: 'editor.component.html',
+    templateUrl: './editor.component.html',
 })
 
 export class EditorComponent extends BookLoader { 
