@@ -6,16 +6,18 @@
     <title>Books</title>
     <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/jquery-ui-1.11.1.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/myApp.js"></script>
-    <link href="css/style.css?v=2" rel="stylesheet" />
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <script src="books.json"></script>
-    <script src="js/Book.js"></script>
+    
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="js/bootstrap.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <script src="scripts/jquery-1.11.1.min.js"></script>  
+    <script src="scripts/angular.min.js"></script>    
+    <script src="scripts/myApp.js"></script>
+    
+    <script src="scripts/Book.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>  
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Cache-Control" content="no-store" />
 </head>
@@ -53,8 +55,7 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-
-
+        
         <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor"
              ng-hide="(item | readFilter : readBooks).length == 0
              || (item | unreadFilter:unreadBooks).length == 0 

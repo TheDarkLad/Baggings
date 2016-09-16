@@ -6,18 +6,21 @@
     <title>Books</title>
     <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
-	<meta http-equiv="Cache-Control" content="no-store" />
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/jquery-ui-1.11.1.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/myApp.js"></script>
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
-    <link href="css/flat-ui.css" rel="stylesheet" />
-    <link href="css/jquery-ui.css" rel="stylesheet" />
-    <script src="books.json"></script>
-    <script src="js/Book.js"></script>
-    <script src="js/combobox.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <script src="scripts/jquery-1.11.1.min.js"></script>  
+    <script src="scripts/jquery-ui-1.11.1.min.js"></script>  
+
+    <script src="scripts/angular.min.js"></script>    
+    <script src="scripts/myApp.js"></script>
+    
+    <script src="scripts/Book.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-store" />
     <script>
 		$(document).ready(function (){
 			document.getElementById('returnURL').value = window.location.href.split('?bookid=')[0];
@@ -26,7 +29,7 @@
 </head>
 <body ng-app="BookApp">
     <div class="container-fluid" ng-controller="EditController">
-        <table>
+        <table class="table table-condensed ">
             <thead>
                 <tr>
                     <th></th>
@@ -38,10 +41,10 @@
                     <th>Image</th>
                     <th>Read</th>
                     <th>Audio</th>
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-hide="{{HasID}}"><td>New</td></tr>
                 <tr ng-hide="{{HasID}}">
                     <td><input id="Reading_0" type="checkbox" /></td>
                     <td><input id="Title_0" type="text" class="editbox" /></td>
@@ -50,17 +53,16 @@
                     <td><input id="Author_0" type="text" class="editbox AuthorAutoComplete" /></td>
                     <td><input id="Number_0" type="number"></td>				
      				<form action="upload.php" method="post" enctype="multipart/form-data">
-					<td>
-						<input type="file" name="fileToUpload" id="Image_0" />
-					</td>
-					<td><input id="Read_0" type="checkbox" style="margin:auto;width:50px" /></td>
-					<td><input id="Listened_0" type="checkbox" style="margin:auto;width:50px" /></td>
-					<td>
-						<button type="submit" value="Add" ng-click="Save($event, 0)"><span class="fui-plus"></span></button>
-					</td>
+                        <td>
+                            <input type="file" name="fileToUpload" id="Image_0" />
+                        </td>
+                        <td><input id="Read_0" type="checkbox" style="margin:auto;width:50px" /></td>
+                        <td><input id="Listened_0" type="checkbox" style="margin:auto;width:50px" /></td>
+                        <td>
+                            <button type="submit" value="Add" ng-click="Save($event, 0)"><span class="fa fa-plus"></span></button>
+                        </td>
 					</form>
                 </tr>
-                <tr ng-show="{{HasID}}"><td>Books</td></tr>
                 <tr ng-show="{{HasID}}" class="editor" id="{{book.Title}}" ng-repeat="book in Books">
                     <td><input type="checkbox" ng-checked="{{book.Reading}}" ng-click="Save($event, book.Key)" id="Reading_{{book.Key}}" /></td>
                     <td><input type="text" class="editbox" id="Title_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Title}}" /></td>
@@ -86,19 +88,26 @@
 						<form action="remove.php" method="post" enctype="multipart/form-data">
 							<input type="hidden" value="{{book.Image}}" name="fileToRemove" id="fileToRemove" />
 							<input type="hidden" name="returnURL" id="returnURL" />
-							<button type="submit" value="Delete" ng-click="Remove($event, book.Key)"><span class="fui-cross"></span></button>
+							<button type="submit" value="Delete" ng-click="Remove($event, book.Key)"><span class="fa fa-times"></span></button>
 						</form>
 					</td>
             </tbody>
-        </table>
-    </div>
+        </table>  
 
-    <div class="container-fluid" ng-controller="GetBookController">
-		<ul>
-			<li ng-repeat="book in AllBooks">
-				<a  href="?bookid={{book.Key}}">{{book.Title}} - {{book.Author}}</a>
-			</li>
-		</ul>
+        <div ng-controller="GetBookController">
+            <table class="table table-striped ">
+                <tr ng-repeat="book in AllBooks | orderBy: 'Author' ">
+                    <td> 
+                        <a href="?bookid={{book.Key}}">
+                            <table class="table table-clear">
+                                <td>{{book.Title}}</td>
+                                <td>{{book.Author}}</td>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>

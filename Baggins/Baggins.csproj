@@ -96,83 +96,39 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\bootstrap-theme.css" />
-    <Content Include="css\bootstrap-theme.min.css" />
-    <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\flat-ui.css" />
-    <Content Include="css\jquery-ui.css" />
-    <Content Include="css\style.css" />
+    <None Include="css\style.scss" />
     <Content Include="Edit.html" />
-    <Content Include="fonts\flat-ui-icons-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\lato\lato-black.svg" />
-    <Content Include="fonts\lato\lato-bold.svg" />
-    <Content Include="fonts\lato\lato-bolditalic.svg" />
-    <Content Include="fonts\lato\lato-italic.svg" />
-    <Content Include="fonts\lato\lato-light.svg" />
-    <Content Include="fonts\lato\lato-regular.svg" />
     <Content Include="images\noimage.jpg" />
     <Content Include="index.html" />
-    <Content Include="js\angular.min.js" />
-    <Content Include="js\bootstrap.js" />
-    <Content Include="js\bootstrap.min.js" />
-    <Content Include="js\combobox.js" />
-    <Content Include="js\jquery-1.11.1.min.js" />
-    <Content Include="js\jquery-ui-1.11.1.min.js" />
-    <Content Include="js\jquery.shorten.js" />
-    <Content Include="js\myApp.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="books.json" />
-    <Content Include="css\bootstrap-theme.css.map" />
-    <Content Include="css\bootstrap.css.map" />
-    <Content Include="fonts\flat-ui-icons-regular.eot" />
-    <Content Include="fonts\flat-ui-icons-regular.ttf" />
-    <Content Include="fonts\flat-ui-icons-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\lato\lato-black.eot" />
-    <Content Include="fonts\lato\lato-black.ttf" />
-    <Content Include="fonts\lato\lato-black.woff" />
-    <Content Include="fonts\lato\lato-bold.eot" />
-    <Content Include="fonts\lato\lato-bold.ttf" />
-    <Content Include="fonts\lato\lato-bold.woff" />
-    <Content Include="fonts\lato\lato-bolditalic.eot" />
-    <Content Include="fonts\lato\lato-bolditalic.ttf" />
-    <Content Include="fonts\lato\lato-bolditalic.woff" />
-    <Content Include="fonts\lato\lato-italic.eot" />
-    <Content Include="fonts\lato\lato-italic.ttf" />
-    <Content Include="fonts\lato\lato-italic.woff" />
-    <Content Include="fonts\lato\lato-light.eot" />
-    <Content Include="fonts\lato\lato-light.ttf" />
-    <Content Include="fonts\lato\lato-light.woff" />
-    <Content Include="fonts\lato\lato-regular.eot" />
-    <Content Include="fonts\lato\lato-regular.ttf" />
-    <Content Include="fonts\lato\lato-regular.woff" />
     <Content Include="remove.php" />
     <Content Include="SaveFile.php" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\Book.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\jquery-1.11.1.min.js" />
+    <Content Include="scripts\jquery-ui-1.11.1.min.js" />
+    <Content Include="scripts\myApp.js" />
     <Content Include="upload.php" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\ai.0.22.9-build00167.js" />
-    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="js\Book.ts" />
-    <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Web - TST.pubxml" />
+    <Content Include="scripts\Book.js.map" />
+    <Content Include="tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\Book.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
