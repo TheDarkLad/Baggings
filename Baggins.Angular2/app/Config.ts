@@ -1,4 +1,5 @@
 ﻿export class Config {
+    //static JSONPATH: string = "books.json";
     static JSONPATH: string = "books.json";
     static SaveFileEndpoint: string = "SaveFile.php";
     static UploadFileEndpoint: string = "upload.php";
