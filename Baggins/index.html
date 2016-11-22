@@ -20,6 +20,13 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Cache-Control" content="no-store" />
+	
+	<!-- Chrome, Firefox OS and Opera -->
+<meta name="theme-color" content="#4285f4">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#4285f4">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
 </head>
 <body ng-app="BookApp">
     <div class="container" ng-controller="BookController" ng-cloak>
@@ -40,11 +47,14 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <select id="AuthorDropDown" ng-model="selectedAuthor">
+                            <select id="AuthorDropDown" class="select" ng-model="selectedAuthor">
                                 <option style="color:grey" value="">Authors</option>
                                 <option ng-repeat="item in Authors" value="{{item}}">{{item}}</option>
                             </select>
                         </div>
+						<div class="form-group">
+						<input type="text" ng-model="searchText" placeholder="filter title or author">
+						</div>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
@@ -55,20 +65,23 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        
-        <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor"
+		
+        <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText"
              ng-hide="(item | readFilter : readBooks).length == 0
              || (item | unreadFilter:unreadBooks).length == 0 
              || (item | readingFilter:readingBooks).length == 0">
             <h3 class="col-sm-12">{{item[0].Author}}</h3>
             <div class="books col-sm-12">
-                <div class="book col-xs-12 col-sm-4 col-md-3 col-lg-2 text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" ng-init="read = book.Read; audio = book.Listened; reading = book.Reading">
+                <div class="book col-xs-12 col-sm-4 col-md-3 col-lg-2 text-center" id="{{book.Author}}" 
+				ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" 
+				ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;" 
+				>
                     <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
                     <div class="flexBook" ng-hide="editmode">
-                        <div class="col-xs-6 col-sm-12 image">
+                        <div class="image">
                             <img data-id="{{$index}}" ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
                         </div>
-                        <div class="col-xs-6 col-sm-12 data">
+                        <div class=" data">
                             <p data-id="{{$index}}" class="title">{{book.Title}}</p>
                             <p data-id="{{$index}}" class="subtitle">{{book.Subtitle}}</p>
                             <p data-id="{{$index}}" class="series">{{book.Series}}</p>

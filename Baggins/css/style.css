@@ -6,17 +6,36 @@
     p {
         text-align: left;
     }
+	
+	.image{
+		min-width:162px;
+	}
+	.flexBook{
+		flex-direction:row!important;
+	}
+	
     .data {
         padding-top: 10px;
     }
 	.data p {
         white-space: initial !important;
+		padding:0px 10px;
     }
 
     .banner svg {
         transform: rotate(270deg);
         left: 0;
     }
+	
+	.navbar-default{
+		margin: 0 -20px;
+	}
+}
+
+@media (max-width: 992px) {
+	.navbar-nav.navbar-right:last-child{
+		width:100%;
+	}
 }
 
 body {
@@ -30,6 +49,10 @@ body {
         padding: 0 20px 20px;
         min-height: 100vh;
     }
+	
+.select{
+	height:26px;
+}
 
 .books {
     display: flex;
@@ -38,7 +61,7 @@ body {
 
 .book {
     border: 1px solid #CECECE;
-    padding: 0 !important;
+    padding: 10px !important;
 }
 
     .book:hover {
@@ -48,16 +71,40 @@ body {
     }
 
 .cover {
-    margin: 10px auto;
     display: block;
     max-width: 100%;
 	width: auto;
     height: 240px;	
+	
 }
 
 abbr {
     border-bottom: none !important;
     cursor: default !important;
+}
+
+.flexBook{	
+    float: left;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.image img{
+	margin:0px auto;
+}
+
+.data{
+    flex-grow: 1;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0 0 0;
+}
+
+.data p.series{
+	margin-bottom:0;
 }
 
 p:empty{

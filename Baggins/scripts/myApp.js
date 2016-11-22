@@ -163,6 +163,7 @@ bookApp.controller('BookController', ['$scope', function ($scope) {
         else
             return false;
     }
+
     $scope.Authors = CreatePropertyList("Author");
 
 }]);

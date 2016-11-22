@@ -32,7 +32,7 @@
         <table class="table table-condensed ">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>Reading</th>
                     <th>Title</th>
                     <th>Subtitle</th>
                     <th>Series</th>
@@ -69,7 +69,7 @@
                     <td><input type="text" class="editbox" id="Subtitle_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Subtitle}}" /></td>
                     <td><input type="text" class="editbox" id="Series_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Series}}" /></td>
                     <td><input type="text" class="editbox AuthorAutoComplete" id="Author_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Author}}" /></td>
-                    <td><input type="number" value="{{book.Number}}" ng-blur="Save($event, book.Key)" id="Number_{{book.Key}}" /></td>
+                    <td><input type="text" value="{{book.Number}}" ng-blur="Save($event, book.Key)" id="Number_{{book.Key}}" /></td>
 
                     <td>
                         <div class="editbox imageBox">
@@ -95,8 +95,17 @@
         </table>  
 
         <div ng-controller="GetBookController">
+			<input type="text" ng-model="searchText" placeholder="filter title or author">
             <table class="table table-striped ">
-                <tr ng-repeat="book in AllBooks | orderBy: 'Author' ">
+			<tr>
+				<th>
+				<table class="table table-clear">
+					<td>Title</td>
+					<td>Author</td>
+				</table>
+				</th>
+			</tr>
+                <tr ng-repeat="book in AllBooks | filter:searchText | orderBy: 'Author'">
                     <td> 
                         <a href="?bookid={{book.Key}}">
                             <table class="table table-clear">
