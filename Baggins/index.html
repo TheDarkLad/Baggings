@@ -31,7 +31,7 @@
 <body ng-app="BookApp">
     <div class="container" ng-controller="BookController" ng-cloak>
         <nav class="navbar navbar-default">
-            <div class="container">
+            <div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -72,7 +72,7 @@
              || (item | readingFilter:readingBooks).length == 0">
             <h3 class="col-sm-12">{{item[0].Author}}</h3>
             <div class="books col-sm-12">
-                <div class="book col-xs-12 col-sm-4 col-md-3 col-lg-2 text-center" id="{{book.Author}}" 
+                <div class="book grow col-xs-12 col-sm-3 col-md-3 col-lg-2 text-center" id="{{book.Author}}" 
 				ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" 
 				ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;" 
 				>
@@ -81,7 +81,7 @@
                         <div class="image">
                             <img data-id="{{$index}}" ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
                         </div>
-                        <div class=" data">
+                        <div class="data">
                             <p data-id="{{$index}}" class="title">{{book.Title}}</p>
                             <p data-id="{{$index}}" class="subtitle">{{book.Subtitle}}</p>
                             <p data-id="{{$index}}" class="series">{{book.Series}}</p>
@@ -90,19 +90,19 @@
 
                     <div class="banner" ng-if="read && !audio">
                         <svg height="100" width="100">
-                            <polygon points="0,0 50,0 110,60 110,109" style="fill:#52AA39;" />
+                            <polygon points="0,0 50,0 100,50 100,100" style="fill:#52AA39;" />
                             <text x="39" y="-12" fill="WHITE" transform="rotate(45)">GELEZEN </text>
                         </svg>
                     </div>
                     <div class="banner" ng-if="read && audio">
                         <svg height="100" width="100">
-                            <polygon points="0,0 50,0 110,60 110,109" style="fill:#E77E22;" />
+                            <polygon points="0,0 50,0 100,50 100,100" style="fill:#E77E22;" />
                             <text x="30" y="-12" fill="WHITE" transform="rotate(45)">GELUISTERD</text>
                         </svg>
                     </div>
                     <div class="banner" ng-if="reading">
                         <svg height="100" width="100">
-                            <polygon points="0,0 50,0 110,60 110,109" style="fill:#2A80B9;" />
+                            <polygon points="0,0 50,0 100,50 100,100" style="fill:#2A80B9;" />
                             <text x="35" y="-12" fill="WHITE" transform="rotate(45)">MEE BEZIG</text>
                         </svg>
                     </div>
