@@ -1,46 +1,39 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8">
     <title>Books</title>
-    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
-    
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="styles/style.css" rel="stylesheet" />
 
-    <script src="scripts/jquery-1.11.1.min.js"></script>  
-    <script src="scripts/angular.min.js"></script>    
+    <script src="scripts/jquery-1.11.1.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
     <script src="scripts/myApp.js"></script>
-    
+
     <script src="scripts/Book.js"></script>
-    <script src="scripts/bootstrap.min.js"></script>  
+    <script src="scripts/bootstrap.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Cache-Control" content="no-store" />
-	
-	<!-- Chrome, Firefox OS and Opera -->
-<meta name="theme-color" content="#4285f4">
-<!-- Windows Phone -->
-<meta name="msapplication-navbutton-color" content="#4285f4">
-<!-- iOS Safari -->
-<meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
+    <meta http-equiv="Cache-Control" content="no-store" />
 </head>
+
 <body ng-app="BookApp">
     <div class="container" ng-controller="BookController" ng-cloak>
         <nav class="navbar navbar-default">
             <div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Baggins</a>
+                        </button>
+                        <a class="navbar-brand" href="#">Baggins</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,9 +45,9 @@
                                 <option ng-repeat="item in Authors" value="{{item}}">{{item}}</option>
                             </select>
                         </div>
-						<div class="form-group">
-						<input type="text" ng-model="searchText" placeholder="filter title or author">
-						</div>
+                        <div class="form-group">
+                            <input type="text" ng-model="searchText" placeholder="filter title or author">
+                        </div>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
@@ -62,22 +55,17 @@
                         <li><a href="#" ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
                         <li><a href="#" ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                </div>
+            </div>
         </nav>
-		
-        <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText"
-             ng-hide="(item | readFilter : readBooks).length == 0
-             || (item | unreadFilter:unreadBooks).length == 0 
-             || (item | readingFilter:readingBooks).length == 0">
+
+        <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText" ng-hide="(item | readFilter : readBooks).length == 0 || (item | unreadFilter:unreadBooks).length == 0  || (item | readingFilter:readingBooks).length == 0">
             <h3 class="col-sm-12">{{item[0].Author}}</h3>
             <div class="books col-sm-12">
-                <div class="book grow col-xs-12 col-sm-3 col-md-3 col-lg-2 text-center" id="{{book.Author}}" 
-				ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks" 
-				ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;" 
-				>
+                <div class="book grow col-xs-12 col-sm-3 col-md-3 col-lg-2 text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks"
+                    ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;">
                     <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
-                    <div class="flexBook" ng-hide="editmode">
+                    <div class="flexBook">
                         <div class="image">
                             <img data-id="{{$index}}" ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
                         </div>
@@ -90,25 +78,25 @@
 
                     <div class="banner" ng-if="read && !audio">
                         <svg height="100" width="100">
-                            <polygon points="0,0 50,0 100,50 100,100" style="fill:#52AA39;" />
+                            <polygon points="0,0 50,0 100,50 100,100" class="finished" />
                             <text x="39" y="-12" fill="WHITE" transform="rotate(45)">GELEZEN </text>
                         </svg>
                     </div>
                     <div class="banner" ng-if="read && audio">
                         <svg height="100" width="100">
-                            <polygon points="0,0 50,0 100,50 100,100" style="fill:#E77E22;" />
+                            <polygon points="0,0 50,0 100,50 100,100" class="audio" />
                             <text x="30" y="-12" fill="WHITE" transform="rotate(45)">GELUISTERD</text>
                         </svg>
                     </div>
                     <div class="banner" ng-if="reading">
                         <svg height="100" width="100">
-                            <polygon points="0,0 50,0 100,50 100,100" style="fill:#2A80B9;" />
+                            <polygon points="0,0 50,0 100,50 100,100" class="reading" />
                             <text x="35" y="-12" fill="WHITE" transform="rotate(45)">MEE BEZIG</text>
                         </svg>
                     </div>
-                </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 </html>

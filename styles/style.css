@@ -1,0 +1,114 @@
+body {
+  background-color: #fafafa !important; }
+  body > .container {
+    -webkit-box-shadow: 0px 0px 79px 0px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 0px 79px 0px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 0px 79px 0px rgba(0, 0, 0, 0.61);
+    padding: 0 20px 20px;
+    min-height: 100vh; }
+
+a.active {
+  font-weight: bold !important;
+  cursor: default; }
+
+.books {
+  display: flex;
+  flex-wrap: wrap; }
+  .books .book {
+    border: 1px solid #CECECE;
+    padding: 10px !important; }
+    .books .book:hover {
+      -webkit-box-shadow: 0px 0px 36px 12px rgba(0, 0, 0, 0.18);
+      -moz-box-shadow: 0px 0px 36px 12px rgba(0, 0, 0, 0.18);
+      box-shadow: 0px 0px 36px 12px rgba(0, 0, 0, 0.18); }
+    .books .book img {
+      display: block;
+      max-width: 100%;
+      width: auto;
+      height: 236px;
+      margin: 0px auto; }
+    .books .book .flexBook {
+      float: left;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column; }
+    .books .book .data {
+      flex-grow: 1;
+      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
+      padding: 5px 0 0 0; }
+      .books .book .data .series {
+        margin-bottom: 0; }
+    .books .book .banner svg {
+      z-index: 10;
+      position: absolute;
+      right: 0;
+      top: 0; }
+      .books .book .banner svg .finished {
+        fill: #52AA39; }
+      .books .book .banner svg .audio {
+        fill: #E77E22; }
+      .books .book .banner svg .reading {
+        fill: #2A80B9; }
+
+p:empty {
+  display: none; }
+
+input {
+  width: 100%; }
+
+input[type=file] {
+  display: inline-block;
+  width: 200px; }
+
+table.table {
+  margin-top: 10px; }
+  table.table.table-clear {
+    background-color: transparent !important;
+    border: none;
+    margin: 0; }
+    table.table.table-clear td {
+      border: none;
+      width: 50%;
+      padding: 0; }
+  table.table.table-striped {
+    margin-top: 25px !important; }
+  table.table thead tr th {
+    padding-right: 10px; }
+  table.table tbody tr td input[type="checkbox"] {
+    margin: auto;
+    width: 50px; }
+
+@media (max-width: 768px) {
+  .cover {
+    width: initial;
+    height: initial; }
+  p {
+    text-align: left; }
+  .image {
+    min-width: 162px; }
+  .flexBook {
+    flex-direction: row !important; }
+  .data {
+    padding-top: 10px; }
+  .data p {
+    white-space: initial !important;
+    padding: 0px 10px; }
+  .banner svg {
+    transform: rotate(270deg);
+    left: 0; }
+  .navbar-default {
+    margin: 0 -20px; } }
+
+@media (max-width: 992px) {
+  .navbar-nav.navbar-right:last-child {
+    width: 100%; } }
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: 0 !important; }
+
+.navbar-default .navbar-nav > li > a.active:hover,
+.navbar-default .navbar-nav > li > a.active:focus {
+  color: #777 !important; }
