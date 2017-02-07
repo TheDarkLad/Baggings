@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Books</title>
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <script src="scripts/jquery-1.11.1.min.js"></script>  
+    <script src="scripts/jquery-ui-1.11.1.min.js"></script>  
+
+    <script src="scripts/angular.min.js"></script>    
+    <script src="scripts/myApp.js"></script>
+    
+    <script src="scripts/Book.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-store" />
+    <script>
+		$(document).ready(function (){
+			document.getElementById('returnURL').value = window.location.href.split('?bookid=')[0];
+		});
+    </script>
+</head>
+<body ng-app="BookApp">
+    <div class="container-fluid" ng-controller="EditController">
+        <table class="table table-condensed ">
+            <thead>
+                <tr>
+                    <th>Reading</th>
+                    <th>Title</th>
+                    <th>Subtitle</th>
+                    <th>Series</th>
+                    <th>Author</th>
+                    <th>Number</th>
+                    <th>Image</th>
+                    <th>Read</th>
+                    <th>Audio</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-hide="{{HasID}}">
+                    <td><input id="Reading_0" type="checkbox" /></td>
+                    <td><input id="Title_0" type="text" class="editbox" /></td>
+                    <td><input id="Subtitle_0" type="text" class="editbox" /></td>
+                    <td><input id="Series_0" type="text" class="editbox" /></td>
+                    <td><input id="Author_0" type="text" class="editbox AuthorAutoComplete" /></td>
+                    <td><input id="Number_0" type="number"></td>				
+     				<form action="upload.php" method="post" enctype="multipart/form-data">
+                        <td>
+                            <input type="file" name="fileToUpload" id="Image_0" />
+                        </td>
+                        <td><input id="Read_0" type="checkbox" style="margin:auto;width:50px" /></td>
+                        <td><input id="Listened_0" type="checkbox" style="margin:auto;width:50px" /></td>
+                        <td>
+                            <button type="submit" value="Add" ng-click="Save($event, 0)"><span class="fa fa-plus"></span></button>
+                        </td>
+					</form>
+                </tr>
+                <tr ng-show="{{HasID}}" class="editor" id="{{book.Title}}" ng-repeat="book in Books">
+                    <td><input type="checkbox" ng-checked="{{book.Reading}}" ng-click="Save($event, book.Key)" id="Reading_{{book.Key}}" /></td>
+                    <td><input type="text" class="editbox" id="Title_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Title}}" /></td>
+                    <td><input type="text" class="editbox" id="Subtitle_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Subtitle}}" /></td>
+                    <td><input type="text" class="editbox" id="Series_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Series}}" /></td>
+                    <td><input type="text" class="editbox AuthorAutoComplete" id="Author_{{book.Key}}" ng-blur="Save($event, book.Key)" value="{{book.Author}}" /></td>
+                    <td><input type="text" value="{{book.Number}}" ng-blur="Save($event, book.Key)" id="Number_{{book.Key}}" /></td>
+
+                    <td>
+                        <div class="editbox imageBox">
+                            <form action="upload.php" method="post" enctype="multipart/form-data">
+							<input type="text" value="{{book.Image}}" />
+                                <input type="file" name="fileToUpload" id="Image_{{book.Key}}">
+                                <input type="submit" value="Upload" name="submit" ng-click="Save($event, book.Key)">
+                            </form>
+                        </div>
+                    </td>
+
+                    <td><input type="checkbox" style="margin:auto;width:50px" ng-checked="{{book.Read}}" ng-click="Save($event, book.Key)" id="Read_{{book.Key}}" /></td>
+                    <td><input type="checkbox" style="margin:auto;width:50px" ng-checked="{{book.Listened}}" ng-click="Save($event, book.Key)" id="Listened_{{book.Key}}" /></td>
+					
+                    <td>
+						<form action="remove.php" method="post" enctype="multipart/form-data">
+							<input type="hidden" value="{{book.Image}}" name="fileToRemove" id="fileToRemove" />
+							<input type="hidden" name="returnURL" id="returnURL" />
+							<button type="submit" value="Delete" ng-click="Remove($event, book.Key)"><span class="fa fa-times"></span></button>
+						</form>
+					</td>
+            </tbody>
+        </table>  
+
+        <div ng-controller="GetBookController">
+			<input type="text" ng-model="searchText" placeholder="filter title or author">
+            <table class="table table-striped ">
+			<tr>
+				<th>
+				<table class="table table-clear">
+					<td>Title</td>
+					<td>Author</td>
+				</table>
+				</th>
+			</tr>
+                <tr ng-repeat="book in AllBooks | filter:searchText | orderBy: 'Author'">
+                    <td> 
+                        <a href="?bookid={{book.Key}}">
+                            <table class="table table-clear">
+                                <td>{{book.Title}}</td>
+                                <td>{{book.Author}}</td>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
