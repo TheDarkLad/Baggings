@@ -17,7 +17,7 @@ body {
       max-width: 100%;
       width: auto;
       height: 275px;
-      margin: 0px auto; }
+      margin: 12px auto 0; }
     .books .book .flexBook {
       float: left;
       height: 100%;
@@ -79,25 +79,26 @@ table.table {
 nav {
   background-color: #1976D2;
   color: #444; }
-
-.input-field input[type=search] {
-  min-height: 48px;
-  margin: 0; }
-
-nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-  height: 50px;
-  line-height: 50px; }
-
-@media only screen and (min-width: 601px) {
-  nav.nav-extended .nav-wrapper {
-    min-height: 48px; } }
+  nav form {
+    height: 64px; }
 
 @media only screen and (max-width: 990px) {
+  .scaleX, nav form, #mysearch {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH"; }
   nav form {
-    float: left;
-    width: 100%; }
-  .input-field input[type=search] {
-    border-top: 1px solid #444 !important;
-    border-bottom: 1px solid #444 !important; }
-  nav .input-field label i {
-    color: #444 !important; } }
+    height: 64px; }
+    nav form .input-field input[type=search] {
+      width: calc(100% - 1rem); }
+      nav form .input-field input[type=search] ~ .material-icons {
+        display: none; }
+  nav a.button-collapse {
+    z-index: 1; }
+  #mysearch {
+    position: absolute;
+    top: 0;
+    margin: 0; } }

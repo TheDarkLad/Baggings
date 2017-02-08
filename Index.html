@@ -28,21 +28,6 @@
     $(document).ready(function(){
         $(".button-collapse").sideNav();
     });
-    (function($) {
-        var $window = $(window);
-
-        function resize() {
-            if ($window.width() < 768) {
-                return $('.book').addClass('horizontal');
-            }
-
-            $('.book').removeClass('horizontal');
-        }
-
-        $window
-            .resize(resize)
-            .trigger('resize');
-    })(jQuery);
     </script>
 </head>
 
@@ -50,8 +35,15 @@
     <div  ng-controller="BookController" ng-cloak>
         <nav class="nav-extended">
             <div class="nav-wrapper">
-                <!--<a class="brand-logo" href="#">Baggins</a>-->
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
+                    <li><a href="#" ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
+                    <li><a href="#" ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
+                    <li><a href="#" ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
+                </ul>
 
                 <div class="nav-content hide-on-med-and-down">
                     <ul class="tabs tabs-transparent">
@@ -62,35 +54,20 @@
                     </ul>
                 </div>
 
-                <form class="hide-on-med-and-down">
+                <form class="flip-horizontal">
                     <div class="input-field">
-                        <input id="search" type="search" ng-model="searchText">
-                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
+                    <input id="mysearch" type="search"  ng-model="searchText">
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
                     </div>
                 </form>
 
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
-                    <li><a href="#" ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
-                    <li><a href="#" ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
-                    <li><a href="#" ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
-                    <li>
-                        <form>
-                            <div class="input-field">
-                                <input id="search" type="search" ng-model="searchText">
-                                <label class="label-icon active" for="search"><i class="material-icons">search</i></label>
-                                <i class="material-icons">close</i>
-                            </div>
-                        </form>
-                    </li>
-                </ul>
             </div>
         </nav>
 
 
         <div class="container bodyArticle">
-            <div class="row author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText" ng-hide="(item | readFilter : readBooks).length == 0 || (item | unreadFilter:unreadBooks).length == 0  || (item | readingFilter:readingBooks).length == 0">
+            <div class="author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText" ng-hide="(item | readFilter : readBooks).length == 0 || (item | unreadFilter:unreadBooks).length == 0  || (item | readingFilter:readingBooks).length == 0">
                 <h3>{{item[0].Author}}</h3>
                 <div class="books">
                     <div class="book card  text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks"
