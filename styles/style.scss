@@ -9,8 +9,8 @@ body {
     & .container {
         max-width:100%;
         min-height: 100vh;       
-    }
-}
+    } 
+} 
 
 // Books
 .books {
@@ -21,7 +21,7 @@ body {
     .book {
         width: 208px;
         &.horizontal{
-            width: 449px!important;
+            width: 449px!important; 
         }        
 
         img {
@@ -82,13 +82,13 @@ p:empty{
 }
 
 // Editor 
-input{
-    width:100%;
-}
-input[type=file] {
-    display: inline-block;
-    width: 200px;
-}
+// input{
+//     width:100%;
+// }
+// input[type=file] {
+//     display: inline-block;
+//     width: 200px;
+// }
 
 table.table {
     margin-top:10px;
@@ -119,10 +119,7 @@ table.table {
     tbody {
         tr{
             td{
-                input[type="checkbox"]{
-                    margin:auto;
-                    width:50px;
-                }
+               
             }
         }
     }

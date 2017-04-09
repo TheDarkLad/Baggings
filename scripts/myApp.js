@@ -61,7 +61,7 @@ bookApp.filter('readingFilter', function () {
     }
 });
 
-bookApp.controller('BookController', ['$scope', function ($scope) {
+bookApp.controller('BookController', ['$scope', '$location', function ($scope, $location) {
     Baggins.Book.Load();
     $scope.all = true;
     var json = Baggins.books;
@@ -154,7 +154,13 @@ bookApp.controller('BookController', ['$scope', function ($scope) {
         $scope.all = false;
         if ($elem != undefined) {
             $scope[$elem] = true;
+            $location.search('f', $elem);
         }
+    }
+    $scope.setReadFilter = function () {
+        var searchObject = $location.search();
+        if (searchObject != undefined && searchObject.f != undefined)
+            $scope.toggleFilter(searchObject.f);
     }
     $scope.isActive = function(property) {
         if (property != undefined) {
@@ -165,7 +171,7 @@ bookApp.controller('BookController', ['$scope', function ($scope) {
     }
 
     $scope.Authors = CreatePropertyList("Author");
-
+    $scope.setReadFilter();
 }]);
 bookApp.controller('GetBookController', ['$scope', function ($scope) {
 	

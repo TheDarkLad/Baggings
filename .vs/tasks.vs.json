@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-Book",
+      "appliesTo": "scripts/Book.ts",
+      "type": "command"
+    },
+    {
+      "taskName": "task-style",
+      "appliesTo": "styles/style.scss",
+      "type": "command"
+    }
+  ]
+}

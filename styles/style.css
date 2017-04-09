@@ -51,13 +51,6 @@ body {
 p:empty {
   display: none; }
 
-input {
-  width: 100%; }
-
-input[type=file] {
-  display: inline-block;
-  width: 200px; }
-
 table.table {
   margin-top: 10px; }
   table.table.table-clear {
@@ -72,9 +65,6 @@ table.table {
     margin-top: 25px !important; }
   table.table thead tr th {
     padding-right: 10px; }
-  table.table tbody tr td input[type="checkbox"] {
-    margin: auto;
-    width: 50px; }
 
 nav {
   background-color: #1976D2;

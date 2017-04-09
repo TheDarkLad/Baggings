@@ -24,55 +24,54 @@
     <meta name="msapplication-navbutton-color" content="#1976D2">
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#1976D2">
-    <link rel="icon" href="favicon.ico"> 
+    <link rel="icon" href="favicon.ico">
     <script>
-    $(document).ready(function(){
-        $(".button-collapse").sideNav();
-    });
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+        });
     </script>
 </head>
 
 <body ng-app="BookApp">
-    <div  ng-controller="BookController" ng-cloak>
+    <div ng-controller="BookController" ng-cloak>
         <nav class="nav-extended">
             <div class="nav-wrapper">
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
 
                 <ul class="side-nav" id="mobile-demo">
-                    <li><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
-                    <li><a href="#" ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
-                    <li><a href="#" ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
-                    <li><a href="#" ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
+                    <li><a ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
+                    <li><a ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
+                    <li><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
+                    <li><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
                 </ul>
 
                 <div class="nav-content hide-on-med-and-down">
                     <ul class="tabs tabs-transparent">
-                        <li class="tab"><a href="#" ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
-                        <li class="tab"><a href="#" ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
-                        <li class="tab"><a href="#" ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
-                        <li class="tab"><a href="#" ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
                     </ul>
                 </div>
 
                 <form class="flip-horizontal">
                     <div class="input-field">
-                    <input id="mysearch" type="search"  ng-model="searchText">
-                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
+                        <input id="mysearch" type="search" ng-model="searchText">
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
                     </div>
                 </form>
 
             </div>
         </nav>
 
-
         <div class="container bodyArticle">
             <div class="author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText" ng-hide="(item | readFilter : readBooks).length == 0 || (item | unreadFilter:unreadBooks).length == 0  || (item | readingFilter:readingBooks).length == 0">
                 <h3>{{item[0].Author}}</h3>
                 <div class="books">
                     <div class="book card  text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks"
-                        ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;">
+                         ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;">
                         <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
                         <div class="card-image">
                             <img data-id="{{$index}}" ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
@@ -83,7 +82,7 @@
                                 <p data-id="{{$index}}" class="card-title">{{book.Title}}</p>
                                 <p data-id="{{$index}}" class="subtitle">{{book.Subtitle}}</p>
                                 <p data-id="{{$index}}" class="series">{{book.Series}}</p>
-                           </div>
+                            </div>
                         </div>
 
                         <div class="banner" ng-if="read && !audio">
@@ -104,11 +103,10 @@
                                 <text x="35" y="-12" fill="WHITE" transform="rotate(45)">MEE BEZIG</text>
                             </svg>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 </body>
-
 </html>
