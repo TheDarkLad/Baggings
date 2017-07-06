@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta charset="utf-8">
     <title>Books</title>
@@ -13,10 +12,8 @@
     <script src="scripts/myApp.js"></script>
     <script src="scripts/Book.js"></script>
     <script src="scripts/materialize.min.js"></script>
-
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Cache-Control" content="no-store" />
-    <script type="text/javascript" src="scripts/materialize.min.js"></script>
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#1976D2">
     <!-- Windows Phone -->
@@ -37,24 +34,20 @@
         <nav class="nav-extended">
             <div class="nav-wrapper">
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-
-
                 <ul class="side-nav" id="mobile-demo">
-                    <li><a ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
-                    <li><a ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
-                    <li><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
-                    <li><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
+                    <li><a ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{AllBooks}} Boeken</a></li>
+                    <li><a ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks}} Gelezen</a></li>
+                    <li><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks}} Nog te lezen</a></li>
+                    <li><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading}} Mee bezig</a></li>
                 </ul>
-
                 <div class="nav-content hide-on-med-and-down">
                     <ul class="tabs tabs-transparent">
-                        <li class="tab"><a ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{Books.length}} Boeken</a></li>
-                        <li class="tab"><a ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks.length}} Gelezen</a></li>
-                        <li class="tab"><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks.length}} Nog te lezen</a></li>
-                        <li class="tab"><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading.length}} Mee bezig</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('all')" ng-class="{'active': isActive('all')}">{{AllBooks}} Boeken</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('readBooks')" ng-class="{'active': isActive('readBooks')}">{{ReadBooks}} Gelezen</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': isActive('unreadBooks')}">{{UnReadBooks}} Nog te lezen</a></li>
+                        <li class="tab"><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': isActive('readingBooks')}">{{Reading}} Mee bezig</a></li>
                     </ul>
                 </div>
-
                 <form class="flip-horizontal">
                     <div class="input-field">
                         <input id="mysearch" type="search" ng-model="searchText">
@@ -62,42 +55,38 @@
                         <i class="material-icons">close</i>
                     </div>
                 </form>
-
             </div>
         </nav>
 
-        <div class="container bodyArticle">
-            <div class="author" ng-repeat="item in AuthorBook | filter:selectedAuthor | filter:searchText" ng-hide="(item | readFilter : readBooks).length == 0 || (item | unreadFilter:unreadBooks).length == 0  || (item | readingFilter:readingBooks).length == 0">
-                <h3>{{item[0].Author}}</h3>
+        <div class="container bodyArticle">           
+            <div class="author" ng-repeat="author in BookList | filter:selectedAuthor | filter:searchText | orderBy:'Author'" ng-hide="(author.Books | readFilter : readBooks).length == 0 || (author.Books | unreadFilter:unreadBooks).length == 0  || (author.Books | readingFilter:readingBooks).length == 0">
+                <h3>{{author.Author}}</h3>
                 <div class="books">
-                    <div class="book card  text-center" id="{{book.Author}}" ng-repeat="book in item | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks"
-                         ng-init="read = book.Read; audio = book.Listened; reading = book.Reading;">
-                        <input type="hidden" value="{{book.Title + '_' + book.Author}}" id="{{book.Title + '_' + book.Author}}" />
+                    <div class="book card text-center" id="{{book.Author}}" ng-repeat="book in author.Books  | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks |  orderBy: ['Series', 'Number']">
                         <div class="card-image">
-                            <img data-id="{{$index}}" ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
+                            <img ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
                             <a href="Edit.html?bookid={{book.Key}}" class="btn-floating halfway-fab"><i class="material-icons">edit</i></a>
                         </div>
                         <div class="card-stacked">
                             <div class="data card-content">
-                                <p data-id="{{$index}}" class="card-title">{{book.Title}}</p>
-                                <p data-id="{{$index}}" class="subtitle">{{book.Subtitle}}</p>
-                                <p data-id="{{$index}}" class="series">{{book.Series}}</p>
+                                <p class="card-title">{{book.Title}}</p>
+                                <p class="subtitle">{{book.Subtitle}}</p>
+                                <p class="series">{{book.Series}}</p>
                             </div>
                         </div>
-
-                        <div class="banner" ng-if="read && !audio">
+                        <div class="banner" ng-if="book.Read && !book.Listened">
                             <svg height="100" width="100">
                                 <polygon points="0,0 50,0 100,50 100,100" class="finished" />
                                 <text x="39" y="-12" fill="WHITE" transform="rotate(45)">GELEZEN </text>
                             </svg>
                         </div>
-                        <div class="banner" ng-if="read && audio">
+                        <div class="banner" ng-if="book.Read && book.Listened">
                             <svg height="100" width="100">
                                 <polygon points="0,0 50,0 100,50 100,100" class="audio" />
                                 <text x="30" y="-12" fill="WHITE" transform="rotate(45)">GELUISTERD</text>
                             </svg>
                         </div>
-                        <div class="banner" ng-if="reading">
+                        <div class="banner" ng-if="book.Reading">
                             <svg height="100" width="100">
                                 <polygon points="0,0 50,0 100,50 100,100" class="reading" />
                                 <text x="35" y="-12" fill="WHITE" transform="rotate(45)">MEE BEZIG</text>

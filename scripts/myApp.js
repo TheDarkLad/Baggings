@@ -1,34 +1,177 @@
 /// <reference path="Book.ts" />
 var bookApp = angular.module('BookApp', []);
-function onInitFs(fs) {
-    var booksString = JSON.stringify(books);
-    fs.root.getFile('books.json', { create: true }, function (fileEntry) {
+bookApp.controller('BookController', ['$scope', '$location', function ($scope, $location) {
+    //Order by Author
+    function sortByKey(array, key, key2, key3) {
+        return array.sort(function (a, b) {
+            var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+    $scope.BookList = [];
 
-        // Create a FileWriter object for our FileEntry (log.txt).
-        fileEntry.createWriter(function (fileWriter) {
+    $scope.Init = function () {
+        $scope.all = true;
 
-            fileWriter.onwriteend = function (e) {
-                console.log('Write completed.');
-            };
+        Baggins.Book.Http('GET', "books.json?v=" + Date.now().valueOf(), function (err, json) {
+            if (err) { throw err; }
 
-            fileWriter.onerror = function (e) {
-                console.log('Write failed: ' + e.toString());
-            };
+            var data = sortByKey(JSON.parse(json), "Author", "Series", "Number");
 
-            // Create a new Blob and write it to log.txt.
-            var blob = new Blob(Baggins.books, { type: 'text/plain' });
+            $scope.AllBooks = data.length;
+            $scope.ReadBooks = $.grep(data, function (b) {
+                return (b.Read === true);
+            }).length;
 
-            fileWriter.write(blob);
+            $scope.UnReadBooks = $.grep(data, function (b) {
+                return (b.Read === false);
+            }).length;
 
-        }, errorHandler);
+            $scope.Reading = $.grep(data, function (b) {
+                return (b.Reading === true);
+            }).length;
 
-    }, errorHandler);
+            var bookList = [];
+            var AuthorList = [];
+            var cAuthor = data[0].Author;
+            for (var i = 0; i < data.length; i++) {
+                if (cAuthor != data[i].Author) {
+                    bookList.push({
+                        Author: cAuthor,
+                        Books: AuthorList
+                    });
+                    AuthorList = [];
+                }
+                AuthorList.push(data[i]);
+                cAuthor = data[i].Author;
+            }
+            $scope.BookList = bookList;
+            $scope.$apply();
+        });
+    }
 
-}
+    $scope.toggleFilter = function ($elem) {
+        $scope.readBooks = false;
+        $scope.unreadBooks = false;
+        $scope.readingBooks = false;
+        $scope.all = false;
+        if ($elem != undefined) {
+            $scope[$elem] = true;
+            $location.search('f', $elem);
+        }
+    }
 
-function errorHandler(e) {
-    alert(e);
-}
+    $scope.isActive = function (property) {
+        if (property != undefined) {
+            return this[property] == true;
+        }
+        else
+            return false;
+    }
+
+    $scope.setReadFilter = function () {
+        var searchObject = $location.search();
+        if (searchObject != undefined && searchObject.f != undefined)
+            $scope.toggleFilter(searchObject.f);
+    }
+    $scope.Init();
+    $scope.setReadFilter();
+}]);
+
+
+bookApp.controller('EditController', ['$scope', function ($scope) {
+    function getBook() {
+        var myParam = location.search.split('bookid=')[1]
+        return myParam;
+    }
+
+    //Order by Author
+    function sortByKey(array, key, key2, key3) {
+        return array.sort(function (a, b) {
+            var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+
+    $scope.Init = function () {
+        Baggins.Book.Http('GET', "books.json?v=" + Date.now().valueOf(), function (err, json) {
+
+            var data = sortByKey(JSON.parse(json), "Author", "Series", "Number");
+
+            $scope.book = {};
+            var bookid = getBook();
+            if (bookid != undefined) {
+                $scope.book = $.grep(data, function (obj) {
+                    return (obj.Key == bookid);
+                })[0];
+            }
+
+            $scope.HasID = (bookid != undefined);
+            $scope.AllBooks = data;
+
+            $("#Author").autocomplete({
+                source: $.map($scope.AllBooks, function (o) { return o.Author; })
+            });
+
+            $("#Series").autocomplete({
+                source: $.map($scope.AllBooks, function (o) { return o.Series; })
+            });
+
+            $scope.$apply();
+        });
+    }
+    $scope.Init();
+
+    $scope.Save = function (e, key) {
+        var element = document.getElementById("Image");
+        if (element != null && element.value != undefined && element.value !== "") {
+            $scope.book.Image = "uploads/" + element.value.split("\\")[element.value.split("\\").length - 1]
+        }
+
+        if ($scope.book.Key === undefined && ($scope.book.Title !== undefined && $scope.book.Title !== "")) {
+            var keys = $.map($scope.AllBooks, function (o) { return o.Key; });
+            var newKey = Math.max.apply(this, keys);
+            $scope.book.Key = newKey + 1;
+            $scope.AllBooks.push($scope.book);
+        }
+
+        var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
+        Baggins.Book.Save(stringified);
+
+        if (key == 0)
+            location.reload();
+    };
+
+    $scope.Remove = function (e, key) {
+
+        Baggins.Book.RemoveImage($scope.book.Image);
+
+        var item = $.grep($scope.AllBooks, function (book) {
+            return (book.Key == key);
+        });
+        var removeIndex = $scope.AllBooks.indexOf(item[0]);
+
+        $scope.AllBooks.splice(removeIndex, 1);
+        var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
+        Baggins.Book.Save(stringified);
+
+        if (key > 0)
+            location.reload();// = location.href.split('?bookid=')[0];
+    };
+}]);
+
+
+bookApp.directive('errSrc', function () {
+    return {
+        link: function (scope, element, attrs) {
+            element.bind('error', function () {
+                if (attrs.src != attrs.errSrc) {
+                    attrs.$set('src', attrs.errSrc);
+                }
+            });
+        }
+    }
+});
 
 bookApp.filter('readFilter', function () {
     return function (bookList, args) {
@@ -58,274 +201,5 @@ bookApp.filter('readingFilter', function () {
             else
                 return book
         });
-    }
-});
-
-bookApp.controller('BookController', ['$scope', '$location', function ($scope, $location) {
-    Baggins.Book.Load();
-    $scope.all = true;
-    var json = Baggins.books;
-
-    //Order by Author
-    function sortByKey(array, key, key2, key3) {
-        return array.sort(function (a, b) {
-            var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        });
-    }
-    function CreateAuthorList()
-    {
-        var _bigList = [];
-        var currentAuthor;
-        var currentList = [];
-
-        currentAuthor = json[0].Author;
-        for (var i = 0; i < json.length; i++) {
-            if (currentAuthor == json[i].Author) {
-                currentList.push(json[i]);
-                currentAuthor = json[i].Author;
-            }
-            else {
-                _bigList.push(currentList);
-                currentList = [];
-
-                currentList.push(json[i]);
-                currentAuthor = json[i].Author;
-            }
-        }
-        _bigList.push(currentList);
-
-        return _bigList;
-    }
-
-    var json = sortByKey(json, "Author", "Series", "Number");
-    var bigList = CreateAuthorList();
-
-    $scope.AuthorBook = bigList;
-
-    $scope.Books = json;
-    $scope.ReadBooks = ReadBooks(json);
-    $scope.UnReadBooks = UnReadBooks(json);
-    $scope.Reading = ReadingBooks(json);
-
-    function ReadingBooks(json) {
-        var readbooks = [];
-        for (var i = 0; i < json.length; i++) {
-            if (json[i].Reading == true) {
-                readbooks.push(json[i]);
-            }
-        }
-        return readbooks;
-    }
-    function UnReadBooks(json) {
-        var readbooks = [];
-        for (var i = 0; i < json.length; i++) {
-            if (json[i].Read == false) {
-                readbooks.push(json[i]);
-            }
-        }
-        return readbooks;
-    }
-    function ReadBooks(json) {
-        var readbooks = [];
-        for (var i = 0; i < json.length; i++) {
-            if (json[i].Read == true) {
-                readbooks.push(json[i]);
-            }
-        }
-        return readbooks;
-    }
-
-    function CreatePropertyList(property)
-    {
-        var AuthorList = [];
-        for (var i = 0; i < json.length; i++) {
-            if (AuthorList.indexOf(json[i][property]) < 0) {
-                AuthorList.push(json[i][property]);
-            }
-        }
-        return AuthorList;
-    }
-
-    $scope.toggleFilter = function($elem) {
-        $scope.readBooks = false;
-        $scope.unreadBooks = false;
-        $scope.readingBooks = false;
-        $scope.all = false;
-        if ($elem != undefined) {
-            $scope[$elem] = true;
-            $location.search('f', $elem);
-        }
-    }
-    $scope.setReadFilter = function () {
-        var searchObject = $location.search();
-        if (searchObject != undefined && searchObject.f != undefined)
-            $scope.toggleFilter(searchObject.f);
-    }
-    $scope.isActive = function(property) {
-        if (property != undefined) {
-            return this[property] == true;
-        }
-        else
-            return false;
-    }
-
-    $scope.Authors = CreatePropertyList("Author");
-    $scope.setReadFilter();
-}]);
-bookApp.controller('GetBookController', ['$scope', function ($scope) {
-	
-    Baggins.Book.Load();
-    var json = Baggins.books;
-	
-	
-	function getBook() {
-		var myParam = location.search.split('bookid=')[1]
-		return myParam;
-	}
-	var bookid = getBook();
-	var bookid = getBook();
-	$scope.HasID = (bookid != undefined);
-	$scope.AllBooks = json;
-}]);
-bookApp.controller('EditController', ['$scope', function ($scope) {
-	function getBook() {
-		var myParam = location.search.split('bookid=')[1]
-		return myParam;
-	}
-	var bookid = getBook();
-		
-    Baggins.Book.Load();
-    var b = Baggins.books;
-	
-	if(bookid != undefined){
-		var json = b.filter(function( obj ) {
-		  return obj.Key == bookid;
-		});
-    }
-	else
-		var json = b;
-	
-	//Order by Author
-    function sortByKey(array, key, key2, key3) {
-        return array.sort(function (a, b) {
-            var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        });
-    }
-    var json = sortByKey(json, "Author", "Series", "Number");
-
-    $scope.Save = function (e, key) {
-		var list = Baggins.books;
-        var item = {};
-        var element = document.getElementById("Title_" + key);
-        item["Title"] = (element != null) ? element.value : "";
-        element = document.getElementById("Subtitle_" + key);
-        item["Subtitle"] = (element != null) ? element.value : "";
-        element = document.getElementById("Series_" + key);
-        item["Series"] = (element != null) ? element.value : "";
-        element = document.getElementById("Author_" + key);
-        item["Author"] = (element != null) ? element.value : "";
-        element = document.getElementById("Number_" + key);
-        item["Number"] = (element != null) ? element.value : "";
-        element = document.getElementById("Image_" + key);
-        item["Image"] = (element != null) ? "uploads/" + element.value.split("\\")[element.value.split("\\").length - 1] : "";
-        element = document.getElementById("Read_" + key);
-        item["Read"] = (element != null) ? element.checked : "";
-		element = document.getElementById("Listened_" + key);
-        item["Listened"] = (element != null) ? element.checked : "";     
-		element = document.getElementById("Reading_" + key);
-        item["Reading"] = (element != null) ? element.checked : "";     
-
-        if (key == 0) {
-            var newKey = 0;
-            for (var i = 0; i < Baggins.books.length; i++) {
-                if (list[i].Key > newKey) {
-                    newKey = list[i].Key;
-                }
-            }
-
-            newKey = newKey + 1;
-            item["Key"] = newKey;
-			var imageURL = item["Image"];
-            item["$$hashKey"] = "object:" + newKey;
-            list.push(item);
-        } else {
-            for (var i = 0; i < Baggins.books.length; i++) {
-                if (list[i].Key == key) {
-                    list[i].Title = item.Title;
-                    list[i].Subtitle = item.Subtitle;
-                    list[i].Series = item.Series;
-                    list[i].Author = item.Author;
-                    list[i].Number = item.Number;
-					if(item.Image != "uploads/"){
-						list[i].Image = item.Image;
-					}
-                    list[i].Read = item.Read;
-                    list[i].Listened = item.Listened;
-					list[i].Reading = item.Reading;
-                }
-            }
-        }
-       
-        Baggins.Book.Save(list);
-
-		
-        if (key == 0)
-            location.reload();
-    };
-	
-	$scope.Remove = function (e, key) {
-	    var list = Baggins.books;
-        
-		var imagePath = "";
-	    for (var i = 0; i < list.length; i++)
-	    {
-	        if (list[i].Key == key) {
-	            var removeIndex = i;
-				imagePath = list[i].Image;
-	        }
-	    }		
-		list.splice(removeIndex, 1);
-	    Baggins.Book.Save(list);
-		
-		if (key > 0)
-			location.reload();// = location.href.split('?bookid=')[0];
-    };
-	
-	function CreatePropertyList(property)
-	{
-        var AuthorList = [];
-        for (var i = 0; i < json.length; i++) {
-            if (AuthorList.indexOf(json[i][property]) < 0) {
-                AuthorList.push(json[i][property]);
-            }
-        }
-        return AuthorList;
-    }
-
-	$scope.HasID = (bookid != undefined);
-    $scope.Books = json;
-
-    $("#Author_0").autocomplete({
-        source: CreatePropertyList("Author")
-    });
-
-    $("#Series_0").autocomplete({
-        source:  CreatePropertyList("Series")
-    });
-
-
-}]);
-
-bookApp.directive('errSrc', function () {
-    return {
-        link: function (scope, element, attrs) {
-            element.bind('error', function () {
-                if (attrs.src != attrs.errSrc) {
-                    attrs.$set('src', attrs.errSrc);
-                }
-            });
-        }
     }
 });

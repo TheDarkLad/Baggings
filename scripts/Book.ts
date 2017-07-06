@@ -6,36 +6,25 @@
     }
 
     export class Book {
-        public ID: number;
-        public Title: string;
-        public Author: string;
-        public SubTitle: string;
-        public Series: string;
-        public Number: number;
-        public ImageURL: string;
-        public Read: boolean;
-
-        constructor(id: number, title: string, author: string, subtitle: string, series: string, numberinseries: number, imageURL: string, read: boolean) {
-            this.ID = id;
-            this.Title = title;
-            this.Author = author;
-            this.SubTitle = subtitle;
-            this.Series = series;
-            this.Number = numberinseries;
-            this.ImageURL = imageURL;
-            this.Read = read;
+        public static Save(jsonBooks: string) {
+            $.post("SaveFile.php", { json: jsonBooks }, function (data) { });
         }
 
-        public static Save(books: Book[]) {
-            $.post("SaveFile.php", { json: JSON.stringify(books) }, function (data) { });
+        public static RemoveImage(fileName) {
+            $.post("remove.php", { fileToRemove: fileName }, function (data) { });
         }
 
-        public static Load() {
-            var request = new XMLHttpRequest();
-            var filepath = "books.json?v=" + Date.now().valueOf();
-            request.onload = levelRequestListener;
-            request.open("get", filepath, false);
-            request.send();
+        public static Http(method: string, url: string, done:any)
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.onload = function () {
+                done(null, xhr.response);
+            };
+            xhr.onerror = function () {
+                done(xhr.response);
+            };
+            xhr.send();
         }
     }
 }

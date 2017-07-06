@@ -17,7 +17,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-
+    
+    h3{
+        width:100%;
+    }
     .book {
         width: 208px;
         &.horizontal{
@@ -81,14 +84,6 @@ p:empty{
     display:none;
 }
 
-// Editor 
-// input{
-//     width:100%;
-// }
-// input[type=file] {
-//     display: inline-block;
-//     width: 200px;
-// }
 
 table.table {
     margin-top:10px;

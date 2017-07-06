@@ -4,28 +4,26 @@ var Baggins;
         Baggins.books = JSON.parse(this.responseText);
     }
     var Book = (function () {
-        function Book(id, title, author, subtitle, series, numberinseries, imageURL, read) {
-            this.ID = id;
-            this.Title = title;
-            this.Author = author;
-            this.SubTitle = subtitle;
-            this.Series = series;
-            this.Number = numberinseries;
-            this.ImageURL = imageURL;
-            this.Read = read;
+        function Book() {
         }
-        Book.Save = function (books) {
-            $.post("SaveFile.php", { json: JSON.stringify(books) }, function (data) { });
+        Book.Save = function (jsonBooks) {
+            $.post("SaveFile.php", { json: jsonBooks }, function (data) { });
         };
-        Book.Load = function () {
-            var request = new XMLHttpRequest();
-            var filepath = "books.json?v=" + Date.now().valueOf();
-            request.onload = levelRequestListener;
-            request.open("get", filepath, false);
-            request.send();
+        Book.RemoveImage = function (fileName) {
+            $.post("remove.php", { fileToRemove: fileName }, function (data) { });
+        };
+        Book.Http = function (method, url, done) {
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.onload = function () {
+                done(null, xhr.response);
+            };
+            xhr.onerror = function () {
+                done(xhr.response);
+            };
+            xhr.send();
         };
         return Book;
     }());
     Baggins.Book = Book;
 })(Baggins || (Baggins = {}));
-//# sourceMappingURL=Book.js.map
