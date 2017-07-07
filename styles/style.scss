@@ -163,27 +163,25 @@ nav{
         margin:0;
          @extend .scaleX;
     } 
+    .books {
+        .book{
+            width: calc(50% - 10px);
+            margin-right: 10px;
+
+            img{
+                max-width: 90%;
+                max-height: 275px;
+                width: auto;
+                height: auto;
+            }
+
+        }
+    }
+    .card .card-title {
+        font-size: 1.4em;
+        line-height: initial!important;
+    }
+    h3 {
+        font-size: 2.32rem;
+    }
 }
-
-// @media only screen and (max-width: 710px){
-//     .books {
-//         .book {
-//             img {
-//                 margin-top:0!important
-//             }
-
-//             .btn-floating{
-//                 right: 8px;
-//                 bottom: 28px;   
-//             }
-//             .card-stacked{
-//                     height: 100%;
-//                 .card-content{
-//                     display: block;
-//                     padding-right: 55px;
-//                  }
-//             }
-           
-//         }
-//     }
-// }
