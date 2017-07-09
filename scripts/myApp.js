@@ -34,16 +34,19 @@ bookApp.controller('BookController', ['$scope', '$location', function ($scope, $
             var bookList = [];
             var AuthorList = [];
             var cAuthor = data[0].Author;
-            for (var i = 0; i < data.length; i++) {
-                if (cAuthor != data[i].Author) {
+            for (var i = 0; i <= data.length; i++) {
+                if (data[i] === undefined || cAuthor != data[i].Author) {
                     bookList.push({
                         Author: cAuthor,
                         Books: AuthorList
                     });
                     AuthorList = [];
                 }
-                AuthorList.push(data[i]);
-                cAuthor = data[i].Author;
+                if (data[i] !== undefined)
+                {
+                    AuthorList.push(data[i]);
+                    cAuthor = data[i].Author;
+                }
             }
             $scope.BookList = bookList;
             $scope.$apply();
