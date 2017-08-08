@@ -1,0 +1,204 @@
+﻿// Variables
+@finishedBannerColor:#52AA39;
+@audioBannerColor:#E77E22;
+@readingBannerColor:#2A80B9;
+@navColor:#1976D2;
+
+body {
+    background-color: #fafafa !important;
+    & .container {
+        max-width:100%;
+        min-height: 100vh;       
+    } 
+} 
+
+// Books
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+    h3{
+        width:100%;
+    }
+    .book {
+        width: 208px;
+        &.horizontal{
+            width: 449px!important; 
+        }        
+
+        img {
+            display: block;
+            max-width: 100%;
+            width: auto;
+            height: 275px;	
+            margin: 12px auto 0;
+        }
+        
+        .flexBook {	
+            float: left;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+        }
+        .card-stacked{
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 275px);
+        }
+        .data {
+            flex-grow: 1;
+            justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subtitle,
+        .series{
+            margin:0;
+        }
+        .banner {
+            svg {
+                z-index: 10;
+                position: absolute;
+                right: 0;
+                top:0;
+
+                .finished{
+                    fill:@finishedBannerColor;
+                }
+                .audio{
+                    fill:@audioBannerColor;
+                }
+                .reading{
+                    fill:@readingBannerColor;
+                }
+            }
+        }
+    }
+}
+
+p:empty{
+    display:none;
+}
+
+
+table.table {
+    margin-top:10px;
+
+    &.table-clear{
+        background-color: transparent!important;
+        border: none;
+        margin: 0;
+        td {
+            border:none;
+            width:50%;
+            padding:0;
+        }
+    }
+
+    &.table-striped{
+        margin-top:25px!important;
+    }
+
+    thead {
+        tr {
+            th {
+                padding-right:10px;
+            }
+        }
+    }
+
+    tbody {
+        tr{
+            td{
+               
+            }
+        }
+    }
+}
+
+//Material overwrite
+nav{
+    background-color:@navColor;    
+    color:#444;
+
+    form {
+        height: 64px;        
+    }
+}
+
+@media only screen and (max-width: 990px){
+    .scaleX{
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+    }
+
+    nav {
+        form {
+            height: 64px;
+            .scaleX;
+
+            .input-field input[type=search]{
+                width: calc(100% - 1rem);
+                 ~ .material-icons{
+                    display:none; 
+                }
+            }
+        }
+        a.button-collapse{
+            z-index: 1;
+        }
+    }
+
+    #mysearch{
+        position:absolute;
+        top:0;
+        margin:0;
+         .scaleX;
+    } 
+    .books {
+        .book{
+            width: calc(50% - 10px);
+            margin-right: 10px;
+
+            img{
+                max-width: 90%;
+                max-height: 275px;
+                width: auto;
+                height: auto;
+            }
+
+        }
+    }
+    .card .card-title {
+        font-size: 1.4em;
+        line-height: initial!important;
+    }
+    h3 {
+        font-size: 2.32rem;
+    }
+}
+
+.ui-autocomplete {
+    max-width: 350px;
+    border: 1px solid;
+    background: white;
+    list-style: none;
+    padding: 5px 10px;
+
+    li{
+        cursor:pointer;
+    }
+}
+
+.full,
+td input{
+    width: 100%!important;
+}

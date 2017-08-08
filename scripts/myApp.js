@@ -1,22 +1,14 @@
-/// <reference path="Book.ts" />
 var bookApp = angular.module('BookApp', []);
-bookApp.controller('BookController', ['$scope', '$location', function ($scope, $location) {
-    //Order by Author
-    function sortByKey(array, key, key2, key3) {
-        return array.sort(function (a, b) {
-            var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        });
-    }
+var booksJson = "books.json?v=" + Date.now().valueOf();
+
+bookApp.controller('BookController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
     $scope.BookList = [];
 
     $scope.Init = function () {
         $scope.all = true;
 
-        Baggins.Book.Http('GET', "books.json?v=" + Date.now().valueOf(), function (err, json) {
-            if (err) { throw err; }
-
-            var data = sortByKey(JSON.parse(json), "Author", "Series", "Number");
+        $http.get(booksJson).then(function (result) {
+            var data = sortByKey(result.data, "Author", "Series", "Number");
 
             $scope.AllBooks = data.length;
             $scope.ReadBooks = $.grep(data, function (b) {
@@ -48,7 +40,8 @@ bookApp.controller('BookController', ['$scope', '$location', function ($scope, $
                 }
             }
             $scope.BookList = bookList;
-            $scope.$apply();
+        }, function (err) {
+            console.error(err);
         });
     }
 
@@ -62,15 +55,7 @@ bookApp.controller('BookController', ['$scope', '$location', function ($scope, $
             $location.search('f', $elem);
         }
     }
-
-    $scope.isActive = function (property) {
-        if (property != undefined) {
-            return this[property] === true;
-        }
-        else
-            return false;
-    }
-
+    
     $scope.setReadFilter = function () {
         var searchObject = $location.search();
         if (searchObject != undefined && searchObject.f != undefined)
@@ -87,18 +72,9 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         return myParam;
     }
 
-    //Order by Author
-    function sortByKey(array, key, key2, key3) {
-        return array.sort(function (a, b) {
-            var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        });
-    }
-
     $scope.Init = function () {
-        Baggins.Book.Http('GET', "books.json?v=" + Date.now().valueOf(), function (err, json) {
-
-            var data = sortByKey(JSON.parse(json), "Author", "Series", "Number");
+        $http.get(booksJson).then(function (result) {
+            var data = sortByKey(result.data, "Author", "Series", "Number");
 
             $scope.book = {};
             var bookid = parseInt(getBook());
@@ -120,17 +96,16 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
             $("#Series").autocomplete({
                 source: allSeries.unique()
             });
-
-            $scope.$apply();
+        }, function (err) {
+            console.error(err);
         });
     }
-    $scope.Init();
-
+   
     $scope.Save = function (e, key) {
         var imageUploadElement = document.getElementById("fileToUpload");
         if (imageUploadElement) {
             $scope.UploadImage(imageUploadElement.files[0]);
-            $scope.book.Image = "uploads/" + element.value.split("\\")[element.value.split("\\").length - 1];
+            $scope.book.Image = "uploads/" + imageUploadElement.value.split("\\")[imageUploadElement.value.split("\\").length - 1];
         }
 
         if ($scope.book.Key === undefined && ($scope.book.Title !== undefined && $scope.book.Title !== "")) {
@@ -141,10 +116,25 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         }
 
         var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
-        Baggins.Book.Save(stringified);
+        $scope.SaveJsonBook(stringified);
 
         if (key === 0)
             location.reload();
+    };
+
+    $scope.Remove = function (e, key) {
+        $scope.RemoveImage($scope.book.Image);
+        var item = $.grep($scope.AllBooks, function (book) {
+            return (book.Key === key);
+        });
+        var removeIndex = $scope.AllBooks.indexOf(item[0]);
+
+        $scope.AllBooks.splice(removeIndex, 1);
+        var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
+        $scope.SaveJsonBook(stringified);
+
+        if (key > 0)
+            location.href = location.href.split('?bookid=')[0];
     };
 
     $scope.UploadImage = function (file) {
@@ -161,22 +151,35 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         });
     }
 
-    $scope.Remove = function (e, key) {
+    $scope.RemoveImage = function (fileName) {
+        var fd = new FormData();
+        fd.append('fileToRemove', fileName);
 
-        Baggins.Book.RemoveImage($scope.book.Image);
-
-        var item = $.grep($scope.AllBooks, function (book) {
-            return (book.Key === key);
+        $http.post("remove.php", fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined, 'Process-Data': false }
+        }).then(function () {
+            console.log("OK");
+        }, function (err) {
+            console.log(err);
         });
-        var removeIndex = $scope.AllBooks.indexOf(item[0]);
+    }
 
-        $scope.AllBooks.splice(removeIndex, 1);
-        var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
-        Baggins.Book.Save(stringified);
+    $scope.SaveJsonBook = function (jsonBooks) {
+        var fd = new FormData();
+        fd.append('json', jsonBooks);
 
-        if (key > 0)
-            location.href = location.href.split('?bookid=')[0];
-    };
+        $http.post("SaveFile.php", fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined, 'Process-Data': false }
+        }).then(function () {
+            console.log("OK");
+        }, function (err) {
+            console.log(err);
+        });
+    }
+
+    $scope.Init();
 }]);
 
 
@@ -238,4 +241,11 @@ Array.prototype.unique = function () {
         }
     }
     return arr;
+}
+
+function sortByKey(array, key, key2, key3) {
+    return array.sort(function (a, b) {
+        var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
 }

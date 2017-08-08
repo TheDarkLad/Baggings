@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\styles"
   ],
-  "SelectedNode": "\\scripts",
+  "SelectedNode": "\\styles\\style.less",
   "PreviewInSolutionExplorer": false
 }
