@@ -42,8 +42,7 @@ bookApp.controller('BookController', ['$scope', '$location', function ($scope, $
                     });
                     AuthorList = [];
                 }
-                if (data[i] !== undefined)
-                {
+                if (data[i] !== undefined) {
                     AuthorList.push(data[i]);
                     cAuthor = data[i].Author;
                 }
@@ -66,7 +65,7 @@ bookApp.controller('BookController', ['$scope', '$location', function ($scope, $
 
     $scope.isActive = function (property) {
         if (property != undefined) {
-            return this[property] == true;
+            return this[property] === true;
         }
         else
             return false;
@@ -82,7 +81,7 @@ bookApp.controller('BookController', ['$scope', '$location', function ($scope, $
 }]);
 
 
-bookApp.controller('EditController', ['$scope', function ($scope) {
+bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http) {
     function getBook() {
         var myParam = location.search.split('bookid=')[1]
         return myParam;
@@ -102,22 +101,24 @@ bookApp.controller('EditController', ['$scope', function ($scope) {
             var data = sortByKey(JSON.parse(json), "Author", "Series", "Number");
 
             $scope.book = {};
-            var bookid = getBook();
+            var bookid = parseInt(getBook());
             if (bookid != undefined) {
                 $scope.book = $.grep(data, function (obj) {
-                    return (obj.Key == bookid);
+                    return (obj.Key === bookid);
                 })[0];
             }
 
             $scope.HasID = (bookid != undefined);
             $scope.AllBooks = data;
 
+            var allAuthors = $.map($scope.AllBooks, function (o) { return o.Author; });
             $("#Author").autocomplete({
-                source: $.map($scope.AllBooks, function (o) { return o.Author; })
+                source: allAuthors.unique()
             });
 
+            var allSeries = $.map($scope.AllBooks, function (o) { return o.Series; });
             $("#Series").autocomplete({
-                source: $.map($scope.AllBooks, function (o) { return o.Series; })
+                source: allSeries.unique()
             });
 
             $scope.$apply();
@@ -126,9 +127,10 @@ bookApp.controller('EditController', ['$scope', function ($scope) {
     $scope.Init();
 
     $scope.Save = function (e, key) {
-        var element = document.getElementById("Image");
-        if (element != null && element.value != undefined && element.value !== "") {
-            $scope.book.Image = "uploads/" + element.value.split("\\")[element.value.split("\\").length - 1]
+        var imageUploadElement = document.getElementById("fileToUpload");
+        if (imageUploadElement) {
+            $scope.UploadImage(imageUploadElement.files[0]);
+            $scope.book.Image = "uploads/" + element.value.split("\\")[element.value.split("\\").length - 1];
         }
 
         if ($scope.book.Key === undefined && ($scope.book.Title !== undefined && $scope.book.Title !== "")) {
@@ -141,16 +143,30 @@ bookApp.controller('EditController', ['$scope', function ($scope) {
         var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
         Baggins.Book.Save(stringified);
 
-        if (key == 0)
+        if (key === 0)
             location.reload();
     };
+
+    $scope.UploadImage = function (file) {
+        var fd = new FormData();
+        fd.append('fileToUpload', file);
+
+        $http.post("upload.php", fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined, 'Process-Data': false }
+        }).then(function () {
+            console.log("OK");
+        }, function (err) {
+            console.log(err);
+        });
+    }
 
     $scope.Remove = function (e, key) {
 
         Baggins.Book.RemoveImage($scope.book.Image);
 
         var item = $.grep($scope.AllBooks, function (book) {
-            return (book.Key == key);
+            return (book.Key === key);
         });
         var removeIndex = $scope.AllBooks.indexOf(item[0]);
 
@@ -159,7 +175,7 @@ bookApp.controller('EditController', ['$scope', function ($scope) {
         Baggins.Book.Save(stringified);
 
         if (key > 0)
-            location.reload();// = location.href.split('?bookid=')[0];
+            location.href = location.href.split('?bookid=')[0];
     };
 }]);
 
@@ -180,7 +196,7 @@ bookApp.filter('readFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
             if (args != undefined && args != "" && args != "undefined")
-                return book.Read == true;
+                return book.Read === true;
             else
                 return book
         });
@@ -190,7 +206,7 @@ bookApp.filter('unreadFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
             if (args != undefined && args != "" && args != "undefined")
-                return book.Read == false;
+                return book.Read === false;
             else
                 return book
         });
@@ -200,9 +216,26 @@ bookApp.filter('readingFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
             if (args != undefined && args != "" && args != "undefined")
-                return book.Reading == true;
+                return book.Reading === true;
             else
                 return book
         });
     }
 });
+
+Array.prototype.contains = function (v) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] === v) return true;
+    }
+    return false;
+};
+
+Array.prototype.unique = function () {
+    var arr = [];
+    for (var i = 0; i < this.length; i++) {
+        if (!arr.contains(this[i])) {
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+}

@@ -5,8 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>Books</title>
-    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."
-    />
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -25,7 +24,7 @@
 
     <script>
         $(document).ready(function () {
-            document.getElementById('returnURL').value = window.location.href.split('?booki        ')[0]
+            document.getElementById('returnURL').value = window.location.href.split('?bookid')[0]
         });
     </script>
 </head>
@@ -43,7 +42,6 @@
                     <th>Number</th>
                     <th>Image</th>
                     <th>Read</th>
-                    <th>Audio</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -55,34 +53,16 @@
                     <td><input type="text" ng-model="book.Series" class="editbox" id="Series" /></td>
                     <td><input type="text" ng-model="book.Author" class="editbox AuthorAutoComplete" id="Author" /></td>
                     <td><input type="text" ng-model="book.Number" id="Number" /></td>
-
-                    <td>
-                        <div class="editbox imageBox">
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <input type="text" ng-model="book.Image" ng-show="{{HasID}}" />
-                                <input type="file" name="fileToUpload" id="Image">
-                                <input type="submit" value="Upload" name="submit" ng-hide="true">
-                            </form>
-                        </div>
-                    </td>
-
+                    <td><input type="file" name="fileToUpload" id="fileToUpload"><label for="fileToUpload">{{book.Image}}</label></td>
                     <td><input type="checkbox" style="margin:auto;width:50px" ng-model="book.Read" id="Read" /></td>
-                    <td><input type="checkbox" style="margin:auto;width:50px" ng-model="book.Listened" id="Listened" /></td>
-
                     <td>
-                        <form action="remove.php" method="post" enctype="multipart/form-data">
-                            <input type="hidden" ng-model="book.Image" name="fileToRemove" id="fileToRemove" />
-                            <input type="hidden" name="returnURL" id="returnURL" />
-                            <button type="submit" value="Delete" ng-click="Remove($event, book.Key)" ng-show="{{HasID}}"><span class="fa fa-times"></span></button>
-                        </form>
-                    </td>
-                    <td>
-                        <button type="submit" value="Add" ng-click="Save($event, 0)"><span class="fa fa-save"></span></button>
+                        <button value="Delete" ng-click="Remove($event, book.Key)" ng-hide="book.Key === undefined || book.Key === 0"><span class="fa fa-times"></span></button>
+                        <button value="Add" ng-click="Save($event, 0)"><span class="fa fa-save"></span></button>
                     </td>
             </tbody>
         </table>
 
-        <input type="text" ng-model="searchText" placeholder="filter title or author">
+        <input type="text" ng-model="searchText" placeholder="filter title or author" class="full">
         <table class="table table-striped ">
             <tr>
                 <th>

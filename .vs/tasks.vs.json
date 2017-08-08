@@ -10,6 +10,11 @@
       "taskName": "task-style",
       "appliesTo": "styles/style.scss",
       "type": "command"
+    },
+    {
+      "taskName": "task-Book",
+      "appliesTo": "scripts/Book.ts",
+      "type": "command"
     }
   ]
 }
