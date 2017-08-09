@@ -63,8 +63,6 @@ table.table {
       border: none;
       width: 50%;
       padding: 0; }
-  table.table.table-striped {
-    margin-top: 25px !important; }
   table.table thead tr th {
     padding-right: 10px; }
 
@@ -82,6 +80,7 @@ nav {
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: "FlipH"; }
+
   nav form {
     height: 64px; }
     nav form .input-field input[type=search] {
@@ -90,10 +89,12 @@ nav {
         display: none; }
   nav a.button-collapse {
     z-index: 1; }
+
   #mysearch {
     position: absolute;
     top: 0;
     margin: 0; }
+
   .books .book {
     width: calc(50% - 10px);
     margin-right: 10px; }
@@ -102,12 +103,13 @@ nav {
       max-height: 275px;
       width: auto;
       height: auto; }
+
   .card .card-title {
     font-size: 1.4em;
     line-height: initial !important; }
+
   h3 {
     font-size: 2.32rem; } }
-
 .ui-autocomplete {
   max-width: 350px;
   border: 1px solid;
@@ -120,3 +122,22 @@ nav {
 .full,
 td input {
   width: 100% !important; }
+
+.custom-file-control:after {
+  content: '' !important; }
+
+.table-striped tbody tr:hover {
+  cursor: pointer !important;
+  background: lightgrey !important; }
+
+form {
+  margin-top: 25px; }
+  form:first-of-type {
+    margin-top: 10px !important; }
+
+.abbr {
+  width: 195px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block; }

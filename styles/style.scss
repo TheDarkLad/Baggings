@@ -1,53 +1,57 @@
 ﻿// Variables
-$finishedBannerColor:#52AA39;
-$audioBannerColor:#E77E22;
-$readingBannerColor:#2A80B9;
-$navColor:#1976D2;
+$finishedBannerColor: #52AA39;
+$audioBannerColor: #E77E22;
+$readingBannerColor: #2A80B9;
+$navColor: #1976D2;
 
 body {
     background-color: #fafafa !important;
+
     & .container {
-        max-width:100%;
-        min-height: 100vh;       
-    } 
-} 
+        max-width: 100%;
+        min-height: 100vh;
+    }
+}
 
 // Books
 .books {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    
-    h3{
-        width:100%;
+
+    h3 {
+        width: 100%;
     }
+
     .book {
         width: 208px;
-        &.horizontal{
-            width: 449px!important; 
-        }        
+
+        &.horizontal {
+            width: 449px !important;
+        }
 
         img {
             display: block;
             max-width: 100%;
             width: auto;
-            height: 275px;	
+            height: 275px;
             margin: 12px auto 0;
         }
-        
-        .flexBook {	
+
+        .flexBook {
             float: left;
             height: 100%;
             width: 100%;
             display: flex;
             flex-direction: column;
-
         }
-        .card-stacked{
+
+        .card-stacked {
             display: flex;
             flex-direction: column;
             height: calc(100% - 275px);
         }
+
         .data {
             flex-grow: 1;
             justify-content: space-between;
@@ -56,82 +60,81 @@ body {
         }
 
         .subtitle,
-        .series{
-            margin:0;
+        .series {
+            margin: 0;
         }
+
         .banner {
             svg {
                 z-index: 10;
                 position: absolute;
                 right: 0;
-                top:0;
+                top: 0;
 
-                .finished{
-                    fill:$finishedBannerColor;
+                .finished {
+                    fill: $finishedBannerColor;
                 }
-                .audio{
-                    fill:$audioBannerColor;
+
+                .audio {
+                    fill: $audioBannerColor;
                 }
-                .reading{
-                    fill:$readingBannerColor;
+
+                .reading {
+                    fill: $readingBannerColor;
                 }
             }
         }
     }
 }
 
-p:empty{
-    display:none;
+p:empty {
+    display: none;
 }
 
 
 table.table {
-    margin-top:10px;
+    margin-top: 10px;
 
-    &.table-clear{
-        background-color: transparent!important;
+    &.table-clear {
+        background-color: transparent !important;
         border: none;
         margin: 0;
-        td {
-            border:none;
-            width:50%;
-            padding:0;
-        }
-    }
 
-    &.table-striped{
-        margin-top:25px!important;
+        td {
+            border: none;
+            width: 50%;
+            padding: 0;
+        }
     }
 
     thead {
         tr {
             th {
-                padding-right:10px;
+                padding-right: 10px;
             }
         }
     }
 
     tbody {
-        tr{
-            td{
-               
+        tr {
+            td {
             }
         }
     }
 }
 
 //Material overwrite
-nav{
-    background-color:$navColor;    
-    color:#444;
+nav {
+    background-color: $navColor;
+    color: #444;
 
     form {
-        height: 64px;        
+        height: 64px;
     }
 }
 
-@media only screen and (max-width: 990px){
-    .scaleX{
+@media only screen and (max-width: 990px) {
+    .scaleX {
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
@@ -145,42 +148,46 @@ nav{
             height: 64px;
             @extend .scaleX;
 
-            .input-field input[type=search]{
+            .input-field input[type=search] {
                 width: calc(100% - 1rem);
-                 ~ .material-icons{
-                    display:none; 
+
+                ~ .material-icons {
+                    display: none;
                 }
             }
         }
-        a.button-collapse{
+
+        a.button-collapse {
             z-index: 1;
         }
     }
 
-    #mysearch{
-        position:absolute;
-        top:0;
-        margin:0;
-         @extend .scaleX;
-    } 
+    #mysearch {
+        position: absolute;
+        top: 0;
+        margin: 0;
+        @extend .scaleX;
+    }
+
     .books {
-        .book{
+        .book {
             width: calc(50% - 10px);
             margin-right: 10px;
 
-            img{
+            img {
                 max-width: 90%;
                 max-height: 275px;
                 width: auto;
                 height: auto;
             }
-
         }
     }
+
     .card .card-title {
         font-size: 1.4em;
-        line-height: initial!important;
+        line-height: initial !important;
     }
+
     h3 {
         font-size: 2.32rem;
     }
@@ -193,11 +200,40 @@ nav{
     list-style: none;
     padding: 5px 10px;
 
-    li{
-        cursor:pointer;
+    li {
+        cursor: pointer;
     }
 }
+
 .full,
-td input{
-    width: 100%!important;
+td input {
+    width: 100% !important;
+}
+
+.custom-file-control {
+    &:after {
+        content: '' !important;
+    }
+}
+
+.table-striped tbody tr {
+    &:hover {
+        cursor: pointer !important;
+        background: lightgrey !important;
+    }
+}
+
+form {
+    margin-top: 25px;
+    &:first-of-type{
+        margin-top:10px!important
+    }
+}
+
+.abbr {
+    width: 195px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
