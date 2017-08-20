@@ -103,7 +103,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
    
     $scope.Save = function (e, key) {
         var imageUploadElement = document.getElementById("fileToUpload");
-        if (imageUploadElement) {
+        if (imageUploadElement && imageUploadElement.files.length > 0) {
             $scope.UploadImage(imageUploadElement.files[0]);
             $scope.book.Image = "uploads/" + imageUploadElement.value.split("\\")[imageUploadElement.value.split("\\").length - 1];
         }
