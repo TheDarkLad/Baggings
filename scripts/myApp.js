@@ -179,10 +179,6 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         });
     }
 
-    $scope.go = function (book) {
-        window.location.href = window.location.href.split('?')[0] + "?bookid=" + book.Key;
-    }
-
     $scope.Init();
 }]);
 
