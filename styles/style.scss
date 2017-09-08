@@ -222,14 +222,14 @@ td input {
         background: lightgrey !important;
     }
 }
-
-form {
-    margin-top: 25px;
-    &:first-of-type{
-        margin-top:10px!important
+.edit {
+    form {
+        margin-top: 25px;
+        &:first-of-type{
+            margin-top:10px!important
+        }
     }
 }
-
 .abbr {
     width: 195px !important;
     white-space: nowrap;

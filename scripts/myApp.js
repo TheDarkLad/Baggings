@@ -27,7 +27,7 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', function (
             var AuthorList = [];
             var cAuthor = data[0].Author;
             for (var i = 0; i <= data.length; i++) {
-                if (data[i] === undefined || cAuthor != data[i].Author) {
+                if (data[i] === undefined || cAuthor !== data[i].Author) {
                     bookList.push({
                         Author: cAuthor,
                         Books: AuthorList
@@ -50,7 +50,7 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', function (
         $scope.unreadBooks = false;
         $scope.readingBooks = false;
         $scope.all = false;
-        if ($elem != undefined) {
+        if ($elem) {
             $scope[$elem] = true;
             $location.search('f', $elem);
         }
@@ -58,7 +58,7 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', function (
     
     $scope.setReadFilter = function () {
         var searchObject = $location.search();
-        if (searchObject != undefined && searchObject.f != undefined)
+        if (searchObject && searchObject.f)
             $scope.toggleFilter(searchObject.f);
     }
     $scope.Init();
@@ -78,13 +78,13 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
 
             $scope.book = {};
             var bookid = parseInt(getBook());
-            if (bookid != undefined) {
+            if (bookid) {
                 $scope.book = $.grep(data, function (obj) {
                     return (obj.Key === bookid);
                 })[0];
             }
 
-            $scope.HasID = (bookid != undefined);
+            $scope.HasID = (bookid);
             $scope.AllBooks = data;
 
             var allAuthors = $.map($scope.AllBooks, function (o) { return o.Author; });
@@ -187,7 +187,7 @@ bookApp.directive('errSrc', function () {
     return {
         link: function (scope, element, attrs) {
             element.bind('error', function () {
-                if (attrs.src != attrs.errSrc) {
+                if (attrs.src !== attrs.errSrc) {
                     attrs.$set('src', attrs.errSrc);
                 }
             });
@@ -198,7 +198,7 @@ bookApp.directive('errSrc', function () {
 bookApp.filter('readFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
-            if (args != undefined && args != "" && args != "undefined")
+            if (args && args !== "" && args !== "undefined")
                 return book.Read === true;
             else
                 return book
@@ -208,7 +208,7 @@ bookApp.filter('readFilter', function () {
 bookApp.filter('unreadFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
-            if (args != undefined && args != "" && args != "undefined")
+            if (args && args !== "" && args !== "undefined")
                 return book.Read === false;
             else
                 return book
@@ -218,7 +218,7 @@ bookApp.filter('unreadFilter', function () {
 bookApp.filter('readingFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
-            if (args != undefined && args != "" && args != "undefined")
+            if (args && args !== "" && args !== "undefined")
                 return book.Reading === true;
             else
                 return book

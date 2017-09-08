@@ -129,11 +129,11 @@ td input {
 .table-striped tbody tr:hover {
   cursor: pointer !important;
   background: lightgrey !important; }
-
-form {
+.edit form {
   margin-top: 25px; }
-  form:first-of-type {
-    margin-top: 10px !important; }
+    .edit form:first-of-type {
+        margin-top: 10px !important;
+    }
 
 .abbr {
   width: 195px !important;
