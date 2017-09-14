@@ -1,7 +1,7 @@
 var bookApp = angular.module('BookApp', []);
 var booksJson = "books.json?v=" + Date.now().valueOf();
 
-bookApp.controller('BookController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
+bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter', function ($scope, $location, $http, $filter) {
     $scope.BookList = [];
 
     $scope.Init = function () {
@@ -11,17 +11,9 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', function (
             var data = sortByKey(result.data, "Author", "Series", "Number");
 
             $scope.AllBooks = data.length;
-            $scope.ReadBooks = $.grep(data, function (b) {
-                return (b.Read === true);
-            }).length;
-
-            $scope.UnReadBooks = $.grep(data, function (b) {
-                return (b.Read === false);
-            }).length;
-
-            $scope.Reading = $.grep(data, function (b) {
-                return (b.Reading === true);
-            }).length;
+            $scope.ReadBooks = $filter('readFilter')(data, true).length;
+            $scope.UnReadBooks = $filter('unreadFilter')(data, true).length;        
+            $scope.Reading = $filter('readingFilter')(data, true).length;
 
             var bookList = [];
             var AuthorList = [];
@@ -55,7 +47,7 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', function (
             $location.search('f', $elem);
         }
     }
-    
+
     $scope.setReadFilter = function () {
         var searchObject = $location.search();
         if (searchObject && searchObject.f)
@@ -100,7 +92,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
             console.error(err);
         });
     }
-   
+
     $scope.Save = function (e, key) {
         var imageUploadElement = document.getElementById("fileToUpload");
         if (imageUploadElement && imageUploadElement.files.length > 0) {
@@ -209,7 +201,7 @@ bookApp.filter('unreadFilter', function () {
     return function (bookList, args) {
         return bookList.filter(book => {
             if (args && args !== "" && args !== "undefined")
-                return book.Read === false;
+                return !book.Read || book.Read === false;
             else
                 return book
         });
