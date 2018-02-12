@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <title>Books</title>
-    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."
+    />
     <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -38,10 +39,16 @@
             <div class="form-group mr-sm-2">
                 <input type="text" ng-model="book.Number" class="form-control" id="Number" placeholder="Number" />
             </div>
+
+            <div class="form-group mr-sm-2">
+                <textarea class="form-control" id="exampleTextarea" rows="1" ng-model="book.Comment" placeholder="Comment"></textarea>
+            </div>
             <div class="form-group mr-sm-2">
                 <label class="custom-file">
                     <input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input">
-                    <span class="custom-file-control"><span class="abbr">{{book.Image || 'Choose file...'}}</span></span>
+                    <span class="custom-file-control">
+                        <span class="abbr">{{book.Image || 'Choose file...'}}</span>
+                    </span>
                 </label>
             </div>
             <div class="form-check mr-sm-2">
@@ -54,10 +61,13 @@
                     <input type="checkbox" class="form-check-input" ng-model="book.Read" id="Read" /> Read
                 </label>
             </div>
-
             <div class="form-group mr-sm-2">
-                <button value="Add" class="btn btn-primary mr-sm-2" ng-click="Save($event, 0)"><span class="fa fa-save"></span></button>
-                <button value="Delete" class="btn btn-danger mr-sm-2" ng-click="Remove($event, book.Key)" ng-hide="book.Key === undefined || book.Key === 0"><span class="fa fa-times"></span></button>
+                <button value="Add" class="btn btn-primary mr-sm-2" ng-click="Save($event, 0)">
+                    <span class="fa fa-save"></span>
+                </button>
+                <button value="Delete" class="btn btn-danger mr-sm-2" ng-click="Remove($event, book.Key)" ng-hide="book.Key === undefined || book.Key === 0">
+                    <span class="fa fa-times"></span>
+                </button>
             </div>
         </form>
 
@@ -75,4 +85,5 @@
         </ul>
     </div>
 </body>
+
 </html>
