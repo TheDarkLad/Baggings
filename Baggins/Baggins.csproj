@@ -136,6 +136,9 @@
     <Content Include="styles\style.css">
       <DependentUpon>style.less</DependentUpon>
     </Content>
+    <Content Include="styles\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="upload.php" />
     <Content Include="uploads\a-new-dawn.jpg" />
     <Content Include="uploads\abhorsen.jpg" />

@@ -6,10 +6,10 @@
     <link href="styles/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="styles/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="styles/style.css" rel="stylesheet" />
+    <link href="styles/style.min.css?v=1" rel="stylesheet" />
     <script src="scripts/jquery-2.1.1.min.js"></script>
     <script src="scripts/angular.min.js"></script>
-    <script src="scripts/myApp.js"></script>
+    <script src="scripts/myApp.js?v=1"></script>
     <script src="scripts/materialize.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Cache-Control" content="no-store" />
@@ -21,11 +21,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#1976D2">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" href="favicon.ico">
-    <script> 
-        $(document).ready(function () {
-            $(".button-collapse").sideNav();
-        });
-    </script>
 </head>
 
 <body ng-app="BookApp">
@@ -34,10 +29,10 @@
             <div class="nav-wrapper">
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
-                        <li class="tab"><a ng-click="toggleFilter('all')" ng-class="{'active': all}">{{AllBooks}} Boeken</a></li>
-                        <li class="tab"><a ng-click="toggleFilter('readBooks')" ng-class="{'active': readBooks}">{{ReadBooks}} Gelezen</a></li>
-                        <li class="tab"><a ng-click="toggleFilter('unreadBooks')" ng-class="{'active': unreadBooks}">{{UnReadBooks}} Nog te lezen</a></li>
-                        <li class="tab"><a ng-click="toggleFilter('readingBooks')" ng-class="{'active': readingBooks}">{{Reading}} Mee bezig</a></li>
+                        <li class="tab"><a ng-click="toggleFilter(filterTypes.all)" ng-class="{'active': filter == filterTypes.all}">{{(AllBooks | readFilter:true).length}} Boeken</a></li>
+                        <li class="tab"><a ng-click="toggleFilter(filterTypes.read)" ng-class="{'active': filter == filterTypes.read}">{{(AllBooks | readFilter:true).length}} Gelezen</a></li>
+                        <li class="tab"><a ng-click="toggleFilter(filterTypes.unread)" ng-class="{'active': filter == filterTypes.unread}">{{(AllBooks | unreadFilter:true).length}} Nog te lezen</a></li>
+                        <li class="tab"><a ng-click="toggleFilter(filterTypes.reading)" ng-class="{'active': filter == filterTypes.reading}">{{(AllBooks | readingFilter:true).length}} Mee bezig</a></li>
                     </ul>
                 </div>
                 <form class="flip-horizontal">
@@ -50,11 +45,11 @@
             </div>
         </nav>
 
-        <div class="container bodyArticle">           
-            <div class="author" ng-repeat="author in BookList | filter:selectedAuthor | filter:searchText | orderBy:'Author'" ng-hide="(author.Books | readFilter : readBooks).length == 0 || (author.Books | unreadFilter:unreadBooks).length == 0  || (author.Books | readingFilter:readingBooks).length == 0">
+        <div class="container bodyArticle">
+            <div class="author" ng-repeat="author in AllBooks | groupBy:'Author' | orderBy:'Author'| filter:searchText" ng-hide="(author.items | readFilter : filter === filterTypes.read).length == 0 || (author.items | unreadFilter:filter === filterTypes.unread).length == 0  || (author.items | readingFilter:filter === filterTypes.reading).length == 0">
                 <h3>{{author.Author}}</h3>
                 <div class="books">
-                    <div class="book card text-center" id="{{book.Author}}" ng-repeat="book in author.Books  | readFilter:readBooks | unreadFilter:unreadBooks | readingFilter:readingBooks |  orderBy: ['Series', 'Number']">
+                    <div class="book card text-center" id="{{book.Author}}" ng-repeat="book in author.items | readFilter:(filter === filterTypes.read) | unreadFilter:(filter === filterTypes.unread)  | readingFilter:(filter === filterTypes.reading)  |  orderBy: ['Series', 'Number']">
                         <div class="card-image">
                             <img ng-src="{{book.Image}}" err-src="images/noimage.jpg" class="cover img-center" alt="image">
                             <a href="Edit.html?bookid={{book.Key}}" class="btn-floating halfway-fab"><i class="material-icons">edit</i></a>

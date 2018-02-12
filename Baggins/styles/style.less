@@ -4,23 +4,22 @@
 @readingBannerColor: #2A80B9;
 @navColor: #1976D2;
 
-body { 
+body {
     background-color: #fafafa !important;
 
     & .container {
         max-width: 100%;
-        min-height: 100vh; 
     }
 }
 
 // Books
-.books { 
+.books {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 
-    h3 { 
-        width: 100%;
+    h3 {
+        width: 100%; 
     }
 
     .book {
@@ -49,7 +48,7 @@ body {
         .card-stacked {
             display: flex;
             flex-direction: column;
-            height: calc(100% - 275px);
+            height: calc(~"100% - 275px");
         }
 
         .data {
@@ -149,7 +148,7 @@ nav {
             .scaleX;
 
             .input-field input[type=search] {
-                width: calc(100% - 1rem);
+                width: calc(~"100% - 1rem");
 
                 ~ .material-icons {
                     display: none;
@@ -171,7 +170,7 @@ nav {
 
     .books {
         .book {
-            width: calc(50% - 10px);
+            width: calc(~"25% - 10px");
             margin-right: 10px;
 
             img {
@@ -193,7 +192,22 @@ nav {
     }
 }
 
-.ui-autocomplete {
+@media only screen and (max-width: 720px) {
+    .books {
+        .book {
+            width: calc(~"40% - 10px");
+        }
+    }
+}
+@media only screen and (max-width: 375px) {
+    .books {
+        .book {
+            width: calc(~"50% - 10px");
+        }
+    }
+}
+
+ .ui-autocomplete {
     max-width: 350px;
     border: 1px solid;
     background: white;
@@ -222,14 +236,17 @@ td input {
         background: lightgrey !important;
     }
 }
+
 .edit {
     form {
         margin-top: 25px;
-        &:first-of-type{
-            margin-top:10px!important
+
+        &:first-of-type {
+            margin-top: 10px !important
         }
     }
 }
+
 .abbr {
     width: 195px !important;
     white-space: nowrap;

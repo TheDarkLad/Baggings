@@ -1,57 +1,37 @@
 var bookApp = angular.module('BookApp', []);
 var booksJson = "books.json?v=" + Date.now().valueOf();
 
-bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter', function ($scope, $location, $http, $filter) {
-    $scope.BookList = [];
+bookApp.constant('filterTypes', {
+    all: 0,
+    read: 1,
+    unread: 2,
+    reading: 3
+});
+
+bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter', 'filterTypes', function ($scope, $location, $http, $filter, filterTypes) {
+    $scope.AllBooks = [];
+    $scope.filterTypes = filterTypes;
+    $scope.filter = $scope.filterTypes.all;
 
     $scope.Init = function () {
         $scope.all = true;
 
         $http.get(booksJson).then(function (result) {
-            var data = sortByKey(result.data, "Author", "Series", "Number");
-
-            $scope.AllBooks = data.length;
-            $scope.ReadBooks = $filter('readFilter')(data, true).length;
-            $scope.UnReadBooks = $filter('unreadFilter')(data, true).length;        
-            $scope.Reading = $filter('readingFilter')(data, true).length;
-
-            var bookList = [];
-            var AuthorList = [];
-            var cAuthor = data[0].Author;
-            for (var i = 0; i <= data.length; i++) {
-                if (data[i] === undefined || cAuthor !== data[i].Author) {
-                    bookList.push({
-                        Author: cAuthor,
-                        Books: AuthorList
-                    });
-                    AuthorList = [];
-                }
-                if (data[i] !== undefined) {
-                    AuthorList.push(data[i]);
-                    cAuthor = data[i].Author;
-                }
-            }
-            $scope.BookList = bookList;
+            $scope.AllBooks = result.data
         }, function (err) {
             console.error(err);
         });
     }
 
     $scope.toggleFilter = function ($elem) {
-        $scope.readBooks = false;
-        $scope.unreadBooks = false;
-        $scope.readingBooks = false;
-        $scope.all = false;
-        if ($elem) {
-            $scope[$elem] = true;
-            $location.search('f', $elem);
-        }
+        $scope.filter = $elem;
+        $location.search('f', $elem);
     }
 
     $scope.setReadFilter = function () {
         var searchObject = $location.search();
         if (searchObject && searchObject.f)
-            $scope.toggleFilter(searchObject.f);
+            $scope.toggleFilter(parseInt(searchObject.f));
     }
     $scope.Init();
     $scope.setReadFilter();
@@ -66,7 +46,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
 
     $scope.Init = function () {
         $http.get(booksJson).then(function (result) {
-            var data = sortByKey(result.data, "Author", "Series", "Number");
+            var data = result.data;
 
             $scope.book = {};
             var bookid = parseInt(getBook());
@@ -107,7 +87,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
             $scope.AllBooks.push($scope.book);
         }
 
-        var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
+        var stringified = angular.toJson($scope.AllBooks, "Key", "Key", "Key");
         $scope.SaveJsonBook(stringified);
 
         if (key === 0)
@@ -122,7 +102,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         var removeIndex = $scope.AllBooks.indexOf(item[0]);
 
         $scope.AllBooks.splice(removeIndex, 1);
-        var stringified = angular.toJson(sortByKey($scope.AllBooks, "Key", "Key", "Key"));
+        var stringified = angular.toJson($scope.AllBooks, "Key", "Key", "Key");
         $scope.SaveJsonBook(stringified);
 
         if (key > 0)
@@ -218,6 +198,33 @@ bookApp.filter('readingFilter', function () {
     }
 });
 
+bookApp.filter("groupBy", function () {
+    var mArr = null,
+        mGroupBy = null,
+        mRetArr = null;
+    return function (arr, groupBy) {
+        if (!angular.equals(mArr, arr) || mGroupBy !== groupBy) {
+            mArr = angular.copy(arr);
+            mGroupBy = groupBy;
+            mRetArr = [];
+            var groups = {};
+            angular.forEach(arr, function (item) {
+                var groupValue = item[groupBy]
+                if (groups[groupValue]) {
+                    groups[groupValue].items.push(item);
+                } else {
+                    groups[groupValue] = {
+                        items: [item]
+                    };
+                    groups[groupValue][groupBy] = groupValue;
+                    mRetArr.push(groups[groupValue]);
+                }
+            });
+        }
+        return mRetArr;
+    };
+});
+
 Array.prototype.contains = function (v) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] === v) return true;
@@ -233,11 +240,4 @@ Array.prototype.unique = function () {
         }
     }
     return arr;
-}
-
-function sortByKey(array, key, key2, key3) {
-    return array.sort(function (a, b) {
-        var x = a[key] + a[key2] + a[key3]; var y = b[key] + b[key2] + b[key3];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    });
 }
