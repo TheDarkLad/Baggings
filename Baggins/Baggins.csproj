@@ -1,0 +1,345 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F38F57E6-C19D-4BFA-93BD-7E415080C620}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Baggins</RootNamespace>
+    <AssemblyName>Baggins</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Baggins.dll" />
+    <Content Include="bin\Baggins.pdb" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.Process.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.DriveInfo.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.IO.Pipes.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Security.AccessControl.dll" />
+    <Content Include="bin\roslyn\System.Security.Claims.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Security.Principal.Windows.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Thread.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="Edit.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="images\noimage.jpg" />
+    <Content Include="Index.html" />
+    <Content Include="obj\Debug\Baggins.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\Baggins.dll" />
+    <Content Include="obj\Debug\Baggins.pdb" />
+    <Content Include="remove.php" />
+    <Content Include="SaveFile.php" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\jquery-2.1.1.min.js" />
+    <Content Include="scripts\jquery-ui-1.11.1.min.js" />
+    <Content Include="scripts\materialize.min.js" />
+    <Content Include="scripts\myApp.js" />
+    <Content Include="styles\bootstrap.min.css" />
+    <Content Include="styles\font-awesome.min.css" />
+    <Content Include="styles\materialize.min.css" />
+    <Content Include="styles\style.css">
+      <DependentUpon>style.less</DependentUpon>
+    </Content>
+    <Content Include="upload.php" />
+    <Content Include="uploads\a-new-dawn.jpg" />
+    <Content Include="uploads\abhorsen.jpg" />
+    <Content Include="uploads\aftermath.jpg" />
+    <Content Include="uploads\ahsoka.jpg" />
+    <Content Include="uploads\Azkaban.jpg" />
+    <Content Include="uploads\battlefront_twilight.jpg" />
+    <Content Include="uploads\before.jpg" />
+    <Content Include="uploads\bende.jpg" />
+    <Content Include="uploads\beschermheer.jpg" />
+    <Content Include="uploads\bloedbroederschap.jpg" />
+    <Content Include="uploads\bloedGoud.jpg" />
+    <Content Include="uploads\bloodline.jpg" />
+    <Content Include="uploads\boekvankennis.jpg" />
+    <Content Include="uploads\bombadil.jpg" />
+    <Content Include="uploads\brief-voor-de-koning.jpg" />
+    <Content Include="uploads\brisingr.jpg" />
+    <Content Include="uploads\caspian.jpg" />
+    <Content Include="uploads\catalyst.jpg" />
+    <Content Include="uploads\chrisie_golden_inferno_squad.jpg" />
+    <Content Include="uploads\DansDraken2.jpg" />
+    <Content Include="uploads\dark_deciple.jpg" />
+    <Content Include="uploads\DasnDraken1.jpg" />
+    <Content Include="uploads\De-Vertelsels-van-Baker-de-Bard.jpg" />
+    <Content Include="uploads\DeOnbekendeRidder.jpg" />
+    <Content Include="uploads\de_elfen.jpg" />
+    <Content Include="uploads\driehuurlingen.jpg" />
+    <Content Include="uploads\eed_van_trouw.jpg" />
+    <Content Include="uploads\eerstekoning.jpg" />
+    <Content Include="uploads\eervolle.jpg" />
+    <Content Include="uploads\elfenlicht.jpg" />
+    <Content Include="uploads\elfenwinter.jpg" />
+    <Content Include="uploads\elfen_koningin.jpg" />
+    <Content Include="uploads\elvenstenen.jpg" />
+    <Content Include="uploads\emaendor.jpg" />
+    <Content Include="uploads\Empires_End_cover.jpg" />
+    <Content Include="uploads\eragon.jpg" />
+    <Content Include="uploads\erfenis.jpg" />
+    <Content Include="uploads\Erfgenaam van Bloed.jpg" />
+    <Content Include="uploads\FeestmaalKraaien.jpg" />
+    <Content Include="uploads\fiander.jpg" />
+    <Content Include="uploads\geheime.jpg" />
+    <Content Include="uploads\hagenridder.jpg" />
+    <Content Include="uploads\half-bloed.jpg" />
+    <Content Include="uploads\Heat-Wave-book-cover.jpg" />
+    <Content Include="uploads\Heir_to_the_Jedi.jpg" />
+    <Content Include="uploads\het verloren labyrint.jpg" />
+    <Content Include="uploads\hichhikers_guide.jpg" />
+    <Content Include="uploads\hobbit.jpg" />
+    <Content Include="uploads\hogwarts-an-incomplete-and-unreliable-guide.jpg" />
+    <Content Include="uploads\hogwarts-of-heroism.jpg" />
+    <Content Include="uploads\hogwarts-of-power.jpg" />
+    <Content Include="uploads\IJsdraak.jpg" />
+    <Content Include="uploads\isolde.jpg" />
+    <Content Include="uploads\keizerin.jpg" />
+    <Content Include="uploads\kinderen.jpg" />
+    <Content Include="uploads\koningVanSchadow.jpg" />
+    <Content Include="uploads\legende_sigurd.jpg" />
+    <Content Include="uploads\Leia_-_Princess_of_Alderaan_-_new_cover.jpg" />
+    <Content Include="uploads\life_debt.jpg" />
+    <Content Include="uploads\life_universe.jpg" />
+    <Content Include="uploads\Lirael.jpg" />
+    <Content Include="uploads\Lords_of_the_Sith.jpg" />
+    <Content Include="uploads\lost_stars.jpg" />
+    <Content Include="uploads\mckenna_j_eedvdzwaardvechter_2001_1.jpg" />
+    <Content Include="uploads\mckenna_j_livaksfortuin_2002_1e.jpg" />
+    <Content Include="uploads\mckenna_j_livakswaagstuk_2000_1e.jpg" />
+    <Content Include="uploads\meester_van_shaduw.jpg" />
+    <Content Include="uploads\mostly.jpg" />
+    <Content Include="uploads\moving_target.jpg" />
+    <Content Include="uploads\nachtraven.jpg" />
+    <Content Include="uploads\naked-heat.jpg" />
+    <Content Include="uploads\narnia_1.jpg" />
+    <Content Include="uploads\narnia_3.jpg" />
+    <Content Include="uploads\niemandsland.jpg" />
+    <Content Include="uploads\ondergang.jpg" />
+    <Content Include="uploads\orde-van-de-fenix.jpg" />
+    <Content Include="uploads\oudste.jpg" />
+    <Content Include="uploads\over_de_muur.jpg" />
+    <Content Include="uploads\phasma-book-cover.jpg" />
+    <Content Include="uploads\rastoth.jpg" />
+    <Content Include="uploads\reis-door-de-nacht.jpg" />
+    <Content Include="uploads\reisgenoten.jpg" />
+    <Content Include="uploads\relieken.jpg" />
+    <Content Include="uploads\restaurant.jpg" />
+    <Content Include="uploads\robbie.jpg" />
+    <Content Include="uploads\rogue_one.jpg" />
+    <Content Include="uploads\roverandom.jpg" />
+    <Content Include="uploads\sabriel.jpg" />
+    <Content Include="uploads\silmarillion.jpg" />
+    <Content Include="uploads\smit.jpg" />
+    <Content Include="uploads\smugglers_run.jpg" />
+    <Content Include="uploads\so_long.jpg" />
+    <Content Include="uploads\spelDerTronen.jpg" />
+    <Content Include="uploads\sperling.jpg" />
+    <Content Include="uploads\spiegels.jpg" />
+    <Content Include="uploads\StaalenSneeuw.jpg" />
+    <Content Include="uploads\Star_Wars_Rebel_Rising_final_cover_art.jpg" />
+    <Content Include="uploads\Star_Wars_Rogue_One_Ultimate_Visual_Guide_final.jpg" />
+    <Content Include="uploads\steen.jpg" />
+    <Content Include="uploads\steendertranen.jpg" />
+    <Content Include="uploads\ster.jpg" />
+    <Content Include="uploads\strijdDerKoningen.jpg" />
+    <Content Include="uploads\terugkeer.jpg" />
+    <Content Include="uploads\tfa.jpg" />
+    <Content Include="uploads\The_Force_Awakens_Visual_Dictionary_cover.jpg" />
+    <Content Include="uploads\The_Perfect_Weapon_final_cover.jpg" />
+    <Content Include="uploads\thrawn.jpg" />
+    <Content Include="uploads\tolkien_3_min.jpg" />
+    <Content Include="uploads\toorn-waanzinige-god.jpg" />
+    <Content Include="uploads\twee-torens.jpg" />
+    <Content Include="uploads\unfinished_tales.jpg" />
+    <Content Include="uploads\vloch.jpg" />
+    <Content Include="uploads\vuurbeker.jpg" />
+    <Content Include="uploads\weapon_of_a_jedi.jpg" />
+    <Content Include="uploads\wenslied.jpg" />
+    <Content Include="uploads\winter_van_veraad.jpg" />
+    <Content Include="uploads\zwaard.jpg" />
+    <Content Include="uploads\Zwaarden_van_Eer.jpg" />
+    <Content Include="uploads\zwaardvanwaarheid.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="books.json" />
+    <Content Include="fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="fonts\roboto\Roboto-Light.eot" />
+    <Content Include="fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="fonts\roboto\Roboto-Light.woff" />
+    <Content Include="fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="obj\Debug\Baggins.csproj.CopyComplete" />
+    <Content Include="obj\Debug\Baggins.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\Baggins.csprojResolveAssemblyReference.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="styles\style.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53747</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53747/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

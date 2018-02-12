@@ -1,25 +1,25 @@
 ﻿// Variables
-$finishedBannerColor: #52AA39;
-$audioBannerColor: #E77E22;
-$readingBannerColor: #2A80B9;
-$navColor: #1976D2;
+@finishedBannerColor: #52AA39;
+@audioBannerColor: #E77E22;
+@readingBannerColor: #2A80B9;
+@navColor: #1976D2;
 
-body {
+body { 
     background-color: #fafafa !important;
 
     & .container {
         max-width: 100%;
-        min-height: 100vh;
+        min-height: 100vh; 
     }
 }
 
 // Books
-.books {
+.books { 
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 
-    h3 {
+    h3 { 
         width: 100%;
     }
 
@@ -72,15 +72,15 @@ body {
                 top: 0;
 
                 .finished {
-                    fill: $finishedBannerColor;
+                    fill: @finishedBannerColor;
                 }
 
                 .audio {
-                    fill: $audioBannerColor;
+                    fill: @audioBannerColor;
                 }
 
                 .reading {
-                    fill: $readingBannerColor;
+                    fill: @readingBannerColor;
                 }
             }
         }
@@ -125,7 +125,7 @@ table.table {
 
 //Material overwrite
 nav {
-    background-color: $navColor;
+    background-color: @navColor;
     color: #444;
 
     form {
