@@ -100,7 +100,12 @@ nav form {
   }
   nav form {
     height: 64px;
-    @extend .scaleX;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
   }
   nav form .input-field input[type=search] {
     width: calc(99%);
@@ -115,7 +120,12 @@ nav form {
     position: absolute;
     top: 0;
     margin: 0;
-    @extend .scaleX;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
   }
   .books .book {
     width: calc(40%);
