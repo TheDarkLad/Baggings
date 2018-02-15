@@ -140,6 +140,7 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="upload.php" />
+    <Content Include="uploads\13153954.jpg" />
     <Content Include="uploads\a-new-dawn.jpg" />
     <Content Include="uploads\abhorsen.jpg" />
     <Content Include="uploads\aftermath.jpg" />
@@ -156,9 +157,11 @@
     <Content Include="uploads\bombadil.jpg" />
     <Content Include="uploads\brief-voor-de-koning.jpg" />
     <Content Include="uploads\brisingr.jpg" />
+    <Content Include="uploads\canto-bight-cover.jpg" />
     <Content Include="uploads\caspian.jpg" />
     <Content Include="uploads\catalyst.jpg" />
     <Content Include="uploads\chrisie_golden_inferno_squad.jpg" />
+    <Content Include="uploads\CobaltSquadBook.jpg" />
     <Content Include="uploads\DansDraken2.jpg" />
     <Content Include="uploads\dark_deciple.jpg" />
     <Content Include="uploads\DasnDraken1.jpg" />
@@ -236,6 +239,7 @@
     <Content Include="uploads\sperling.jpg" />
     <Content Include="uploads\spiegels.jpg" />
     <Content Include="uploads\StaalenSneeuw.jpg" />
+    <Content Include="uploads\Star_Wars_From_a_Certain_Point_of_View.jpg" />
     <Content Include="uploads\Star_Wars_Rebel_Rising_final_cover_art.jpg" />
     <Content Include="uploads\Star_Wars_Rogue_One_Ultimate_Visual_Guide_final.jpg" />
     <Content Include="uploads\steen.jpg" />
@@ -244,9 +248,11 @@
     <Content Include="uploads\strijdDerKoningen.jpg" />
     <Content Include="uploads\terugkeer.jpg" />
     <Content Include="uploads\tfa.jpg" />
+    <Content Include="uploads\the_colour_of_magic.jpg" />
     <Content Include="uploads\The_Force_Awakens_Visual_Dictionary_cover.jpg" />
     <Content Include="uploads\The_Perfect_Weapon_final_cover.jpg" />
     <Content Include="uploads\thrawn.jpg" />
+    <Content Include="uploads\tlj-visual-dictionary.jpg" />
     <Content Include="uploads\tolkien_3_min.jpg" />
     <Content Include="uploads\toorn-waanzinige-god.jpg" />
     <Content Include="uploads\twee-torens.jpg" />
