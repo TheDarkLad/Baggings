@@ -1,5 +1,6 @@
 var bookApp = angular.module('BookApp', []);
-var booksJson = "books.json?v=" + Date.now().valueOf();
+var bookJson = "books.json";
+var bookJsonUrl = bookJson + "?v=" + Date.now().valueOf();
 
 bookApp.constant('filterTypes', {
     all: 0,
@@ -11,7 +12,7 @@ bookApp.constant('filterTypes', {
 bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter', 'filterTypes', function ($scope, $location, $http, $filter, filterTypes) {
     $scope.AllBooks = [];
     $scope.filterTypes = filterTypes;
-    $scope.filter = $scope.filterTypes.all;    
+    $scope.filter = $scope.filterTypes.all;
 
     $scope.toggleFilter = function ($elem) {
         $scope.filter = $elem;
@@ -28,7 +29,7 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter',
         $scope.setReadFilter();
         $scope.all = true;
 
-        $http.get(booksJson).then(function (result) {
+        $http.get(bookJsonUrl).then(function (result) {
             $scope.AllBooks = result.data;
         }, function (err) {
             console.error(err);
@@ -104,9 +105,10 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
 
     $scope.SaveJsonBook = function (jsonBooks) {
         var fd = new FormData();
+        fd.append('target', bookJson);
         fd.append('json', jsonBooks);
 
-        $http.post("SaveFile.php", fd, {
+        $http.post("save.php", fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined, 'Process-Data': false }
         }).then(function () {
@@ -117,7 +119,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
     };
 
     $scope.Init = function () {
-        $http.get(booksJson).then(function (result) {
+        $http.get(bookJsonUrl).then(function (result) {
             var data = result.data;
 
             $scope.book = {};
