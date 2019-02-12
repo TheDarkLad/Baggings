@@ -11,17 +11,7 @@ bookApp.constant('filterTypes', {
 bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter', 'filterTypes', function ($scope, $location, $http, $filter, filterTypes) {
     $scope.AllBooks = [];
     $scope.filterTypes = filterTypes;
-    $scope.filter = $scope.filterTypes.all;
-
-    $scope.Init = function () {
-        $scope.all = true;
-
-        $http.get(booksJson).then(function (result) {
-            $scope.AllBooks = result.data;
-        }, function (err) {
-            console.error(err);
-        });
-    };
+    $scope.filter = $scope.filterTypes.all;    
 
     $scope.toggleFilter = function ($elem) {
         $scope.filter = $elem;
@@ -33,46 +23,21 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter',
         if (searchObject && searchObject.f)
             $scope.toggleFilter(parseInt(searchObject.f));
     };
-    $scope.Init();
-    $scope.setReadFilter();
+
+    $scope.Init = function () {
+        $scope.setReadFilter();
+        $scope.all = true;
+
+        $http.get(booksJson).then(function (result) {
+            $scope.AllBooks = result.data;
+        }, function (err) {
+            console.error(err);
+        });
+    }();
 }]);
 
 
 bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http) {
-    function getBook() {
-        var myParam = location.search.split('bookid=')[1];
-        return myParam;
-    }
-
-    $scope.Init = function () {
-        $http.get(booksJson).then(function (result) {
-            var data = result.data;
-
-            $scope.book = {};
-            var bookid = parseInt(getBook());
-            if (bookid) {
-                $scope.book = $.grep(data, function (obj) {
-                    return (obj.Key === bookid);
-                })[0];
-            }
-
-            $scope.HasID = (bookid);
-            $scope.AllBooks = data;
-
-            var allAuthors = $.map($scope.AllBooks, function (o) { return o.Author; });
-            $("#Author").autocomplete({
-                source: allAuthors.unique()
-            });
-
-            var allSeries = $.map($scope.AllBooks, function (o) { return o.Series; });
-            $("#Series").autocomplete({
-                source: allSeries.unique()
-            });
-        }, function (err) {
-            console.error(err);
-        });
-    };
-
     $scope.Save = function (e, key) {
         var imageUploadElement = document.getElementById("fileToUpload");
         if (imageUploadElement && imageUploadElement.files.length > 0) {
@@ -151,7 +116,35 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         });
     };
 
-    $scope.Init();
+    $scope.Init = function () {
+        $http.get(booksJson).then(function (result) {
+            var data = result.data;
+
+            $scope.book = {};
+            var myParam = location.search.split('bookid=')[1];
+            var bookid = parseInt(myParam);
+            if (bookid) {
+                $scope.book = $.grep(data, function (obj) {
+                    return (obj.Key === bookid);
+                })[0];
+            }
+
+            $scope.HasID = (bookid);
+            $scope.AllBooks = data;
+
+            var allAuthors = $.map($scope.AllBooks, function (o) { return o.Author; });
+            $("#Author").autocomplete({
+                source: allAuthors.unique()
+            });
+
+            var allSeries = $.map($scope.AllBooks, function (o) { return o.Series; });
+            $("#Series").autocomplete({
+                source: allSeries.unique()
+            });
+        }, function (err) {
+            console.error(err);
+        });
+    }();
 }]);
 
 
