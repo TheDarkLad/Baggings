@@ -91,7 +91,7 @@
     "Read": true,
     "Subtitle": "",
     "Series": "",
-    "Number": "1",
+    "Number": "",
     "Listened": false,
     "Reading": false
   },
@@ -122,12 +122,12 @@
   {
     "Key": 11,
     "Title": "De Hobbit",
-    "Subtitle": "",
+    "Subtitle": "Of Daarheen en Weer Terug",
     "Series": "",
     "Author": "J.R.R. Tolkien",
     "Image": "uploads/hobbit.jpg",
     "Read": true,
-    "Number": "4",
+    "Number": "",
     "Listened": false,
     "Reading": false
   },
@@ -139,7 +139,7 @@
     "Author": "J.R.R. Tolkien",
     "Image": "uploads/silmarillion.jpg",
     "Read": true,
-    "Number": "3",
+    "Number": "",
     "Listened": false,
     "Reading": false
   },
@@ -281,7 +281,7 @@
     "Series": "Het Lied van IJs en Vuur",
     "Author": "George R.R. Martin",
     "Number": "5",
-    "Image": "uploads/DansDraken2.jpg",
+    "Image": "uploads/DansDraken1.jpg",
     "Read": false,
     "Key": 25,
     "Listened": false,
@@ -293,7 +293,7 @@
     "Series": "Het Lied van IJs en Vuur",
     "Author": "George R.R. Martin",
     "Number": "5",
-    "Image": "uploads/DasnDraken1.jpg",
+    "Image": "uploads/DansDraken2.jpg",
     "Read": false,
     "Key": 26,
     "Listened": false,
@@ -1012,7 +1012,7 @@
     "Subtitle": "",
     "Series": "",
     "Author": "J.R.R. Tolkien",
-    "Number": "0",
+    "Number": "",
     "Image": "uploads/legende_sigurd.jpg",
     "Read": true,
     "Listened": false,
@@ -1399,9 +1399,10 @@
     "Series": "Discworld",
     "Author": "Terry Pratchett",
     "Number": "2",
-    "Image": "uploads/13153954.jpg",
+    "Image": "uploads/LightFantastic.jpg",
     "Key": 128,
-    "Reading": true
+    "Reading": false,
+    "Read": true
   },
   {
     "Title": "Star Wars: The Last Jedi: The Visual Dictionary",
@@ -1464,20 +1465,107 @@
     "Read": true
   },
   {
+    "Title": "Thrawn Alliances",
+    "Series": "Star Wars",
+    "Author": "Timothy Zahn",
+    "Number": "2",
+    "Image": "uploads/output-onlinejpgtools.jpg",
+    "Key": 135,
+    "Reading": true
+  },
+  {
     "Title": "Fantastic Beast and Where To Find Them",
     "Series": "The Hogwarts Library",
     "Author": "J.K. Rowling",
     "Number": "1",
     "Read": true,
-    "Image": "uploads/51rVHgjc2aL.jpg",
+    "Image": "uploads/FantasticBeast.jpg",
     "Key": 136
   },
   {
-    "Title": "Thrawn Alliances",
-    "Series": "Star Wars",
-    "Author": "Timothy Zahn",
-    "Number": "2",
-    "Image": "uploads/Thrawn_Alliances_cover.jpg",
+    "Title": "Solo: A Star Wars Story: The Official Guide",
+    "Author": "Pablo Hidalgo",
+    "Number": "4",
+    "Image": "uploads/Solo_The_Official_Guide.jpg",
     "Key": 137
+  },
+  {
+    "Title": "Solo: A Star Wars Story",
+    "Series": "Star Wars",
+    "Author": "Mur Lafferty",
+    "Image": "uploads/solo-a-star-wars-story.jpg",
+    "Key": 138,
+    "Reading": false,
+    "Read": true
+  },
+  {
+    "Title": "The Hobbit",
+    "Subtitle": "Or There and Back Again",
+    "Series": "",
+    "Author": "J.R.R. Tolkien",
+    "Number": "",
+    "Reading": false,
+    "Image": "uploads/the-hobbit.jpg",
+    "Key": 139,
+    "Comment": "",
+    "Read": true
+  },
+  {
+    "Title": "The Fellowship of the Ring",
+    "Series": "The Lord of the Rings",
+    "Author": "J.R.R. Tolkien",
+    "Number": "1",
+    "Image": "uploads/fellowship-of-the-ring.jpg",
+    "Key": 140,
+    "Reading": true
+  },
+  {
+    "Title": "The Two Towers",
+    "Series": "The Lord of the Rings",
+    "Author": "J.R.R. Tolkien",
+    "Number": "2",
+    "Image": "uploads/the-two-towers.jpg",
+    "Key": 141
+  },
+  {
+    "Title": "The Return of the King",
+    "Series": "The Lord of the Rings",
+    "Author": "J.R.R. Tolkien",
+    "Number": "3",
+    "Image": "uploads/return-of-the-king.jpg",
+    "Key": 142
+  },
+  {
+    "Title": "The Silmarillion",
+    "Author": "J.R.R. Tolkien",
+    "Image": "uploads/the-silmarillion.jpg",
+    "Key": 143
+  },
+  {
+    "Title": "Harry Potter and the Cursed Child",
+    "Series": "Harry Potter",
+    "Author": "J.K. Rowling",
+    "Number": "8",
+    "Comment": "Screenplay",
+    "Read": true,
+    "Image": "uploads/CursedChild.jpg",
+    "Key": 144
+  },
+  {
+    "Title": "Batman: The Court of Owls",
+    "Series": "Batman: The New 52",
+    "Author": "Scott Snyder",
+    "Number": "1",
+    "Reading": true,
+    "Image": "uploads/court-of-owls.jpg",
+    "Key": 145
+  },
+  {
+    "Author": "Scott Snyder",
+    "Series": "Batman: The New 52",
+    "Title": "Batman: The City of Owls",
+    "Number": "2",
+    "Image": "uploads/Batman-_The_City_of_Owls__Collected_.jpg",
+    "Key": 146
   }
 ]
