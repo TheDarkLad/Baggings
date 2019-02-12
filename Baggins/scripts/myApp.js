@@ -87,7 +87,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
             $scope.AllBooks.push($scope.book);
         }
 
-        var stringified = angular.toJson($scope.AllBooks, "Key", "Key", "Key");
+        var stringified = JSON.stringify($scope.AllBooks);
         $scope.SaveJsonBook(stringified);
 
         if (key === 0)
@@ -102,7 +102,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         var removeIndex = $scope.AllBooks.indexOf(item[0]);
 
         $scope.AllBooks.splice(removeIndex, 1);
-        var stringified = angular.toJson($scope.AllBooks, "Key", "Key", "Key");
+        var stringified = JSON.stringify($scope.AllBooks, "Key", "Key", "Key");
         $scope.SaveJsonBook(stringified);
 
         if (key > 0)
