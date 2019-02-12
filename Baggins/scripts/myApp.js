@@ -17,22 +17,22 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter',
         $scope.all = true;
 
         $http.get(booksJson).then(function (result) {
-            $scope.AllBooks = result.data
+            $scope.AllBooks = result.data;
         }, function (err) {
             console.error(err);
         });
-    }
+    };
 
     $scope.toggleFilter = function ($elem) {
         $scope.filter = $elem;
         $location.search('f', $elem);
-    }
+    };
 
     $scope.setReadFilter = function () {
         var searchObject = $location.search();
         if (searchObject && searchObject.f)
             $scope.toggleFilter(parseInt(searchObject.f));
-    }
+    };
     $scope.Init();
     $scope.setReadFilter();
 }]);
@@ -40,7 +40,7 @@ bookApp.controller('BookController', ['$scope', '$location', '$http', '$filter',
 
 bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http) {
     function getBook() {
-        var myParam = location.search.split('bookid=')[1]
+        var myParam = location.search.split('bookid=')[1];
         return myParam;
     }
 
@@ -71,7 +71,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         }, function (err) {
             console.error(err);
         });
-    }
+    };
 
     $scope.Save = function (e, key) {
         var imageUploadElement = document.getElementById("fileToUpload");
@@ -121,7 +121,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         }, function (err) {
             console.log(err);
         });
-    }
+    };
 
     $scope.RemoveImage = function (fileName) {
         var fd = new FormData();
@@ -135,7 +135,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         }, function (err) {
             console.log(err);
         });
-    }
+    };
 
     $scope.SaveJsonBook = function (jsonBooks) {
         var fd = new FormData();
@@ -149,7 +149,7 @@ bookApp.controller('EditController', ['$scope', '$http', function ($scope, $http
         }, function (err) {
             console.log(err);
         });
-    }
+    };
 
     $scope.Init();
 }]);
@@ -164,7 +164,7 @@ bookApp.directive('errSrc', function () {
                 }
             });
         }
-    }
+    };
 });
 
 bookApp.filter('readFilter', function () {
@@ -173,9 +173,9 @@ bookApp.filter('readFilter', function () {
             if (args && args !== "" && args !== "undefined")
                 return book.Read === true;
             else
-                return book
+                return book;
         });
-    }
+    };
 });
 bookApp.filter('unreadFilter', function () {
     return function (bookList, args) {
@@ -183,9 +183,9 @@ bookApp.filter('unreadFilter', function () {
             if (args && args !== "" && args !== "undefined")
                 return !book.Read || book.Read === false;
             else
-                return book
+                return book;
         });
-    }
+    };
 });
 bookApp.filter('readingFilter', function () {
     return function (bookList, args) {
@@ -193,9 +193,9 @@ bookApp.filter('readingFilter', function () {
             if (args && args !== "" && args !== "undefined")
                 return book.Reading === true;
             else
-                return book
+                return book;
         });
-    }
+    };
 });
 
 bookApp.filter("groupBy", function () {
@@ -209,7 +209,7 @@ bookApp.filter("groupBy", function () {
             mRetArr = [];
             var groups = {};
             angular.forEach(arr, function (item) {
-                var groupValue = item[groupBy]
+                var groupValue = item[groupBy];
                 if (groups[groupValue]) {
                     groups[groupValue].items.push(item);
                 } else {
@@ -240,4 +240,4 @@ Array.prototype.unique = function () {
         }
     }
     return arr;
-}
+};
