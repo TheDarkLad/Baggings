@@ -18,12 +18,15 @@ body .container {
 .books .book.horizontal {
   width: 449px !important;
 }
-.books .book img {
-  display: block;
-  max-width: 100%;
-  width: auto;
+.books .book figure {
   height: 275px;
-  margin: 12px auto 0;
+  margin: 10px 10px 0 10px;
+}
+.books .book figure img {
+  max-width: 100%;
+  width: inherit;
+  max-height: 100%;
+  margin: 0 auto;
 }
 .books .book .flexBook {
   float: left;
