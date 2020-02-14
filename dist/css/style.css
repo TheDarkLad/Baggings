@@ -23,9 +23,9 @@ body {
     width: 185px;
     margin-bottom: 25px;
     border: 1px solid #d6d6d6;
-    position: relative;
-    padding: 15px; }
+    position: relative; }
     .books .book > a {
+      padding: 15px;
       color: black !important;
       text-decoration: none;
       display: flex;
