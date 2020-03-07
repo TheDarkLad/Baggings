@@ -10,6 +10,7 @@ Vue.prototype.$http = axios
 import App from './App.vue'
 import Home from './components/BookOverview.vue';
 import Edit from './components/BookEditor.vue';
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 
@@ -24,6 +25,7 @@ const router = new VueRouter({
 
 new Vue({
   el:'#app',
-  router,  
+  router,
+  vuetify,
   render: h => h(App)
 });
