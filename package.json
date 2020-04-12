@@ -21,7 +21,9 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "acorn": ">=6.4.1",
+    "minimist": ">=1.2.3"
   },
   "eslintConfig": {
     "root": true,
