@@ -1,3 +1,0 @@
-# Baggins
-
-Book Collection
