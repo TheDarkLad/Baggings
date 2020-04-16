@@ -39,6 +39,13 @@ body {
         margin-bottom:25px;
         border: 1px solid #d6d6d6;
         position: relative;
+        background: #FFF;
+        
+        &:hover{
+            z-index: 1;
+            transform: scale(1.05);
+            box-shadow: 0px 0px 7px -3px;
+        }
 
         > a {
             padding: 15px 0;

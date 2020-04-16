@@ -24,7 +24,12 @@ body {
     width: 185px;
     margin-bottom: 25px;
     border: 1px solid #d6d6d6;
-    position: relative; }
+    position: relative;
+    background: #FFF; }
+    .books div.book:hover {
+      z-index: 1;
+      transform: scale(1.05);
+      box-shadow: 0px 0px 7px -3px; }
     .books div.book > a {
       padding: 15px 0;
       color: black !important;
