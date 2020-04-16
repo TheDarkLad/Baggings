@@ -68,6 +68,16 @@
                         ></option>
                     </select>
                 </div>
+                <div class="form-check mr-sm-2">
+                    <select v-model="currentBook.type" class="form-control">
+                        <option
+                            v-for="type in bookTypes"
+                            :key="type.id"
+                            :value="type.id"
+                            v-html="type.text"
+                        ></option>
+                    </select>
+                </div>
             </fieldset>
             <fieldset>
                 <div>
@@ -139,6 +149,12 @@ export default {
                 { text: "Nog te lezen", id: 0 },
                 { text: "Gelezen", id: 1 },
                 { text: "Mee Bezig", id: 2 }
+            ],
+            bookTypes: [
+                { text: "Boek", id: 1 },
+                { text: "Comic", id: 2 },
+                { text: "Reference", id: 3 },
+                { text: "Audiobook", id: 4 }
             ]
         };
     },

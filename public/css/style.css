@@ -20,42 +20,57 @@ body {
   flex-direction: row; }
   .books h3 {
     width: 100%; }
-  .books .book {
+  .books div.book {
     width: 185px;
     margin-bottom: 25px;
     border: 1px solid #d6d6d6;
     position: relative; }
-    .books .book > a {
-      padding: 15px;
+    .books div.book > a {
+      padding: 15px 0;
       color: black !important;
       text-decoration: none;
       display: flex;
       flex-direction: column;
       height: 100%; }
-      .books .book > a:hover {
+      .books div.book > a .header {
+        width: 100%; }
+        .books div.book > a .header figure.reference, .books div.book > a .header figure.comic {
+          height: 185px;
+          text-align: center;
+          margin: 0; }
+          .books div.book > a .header figure.reference img, .books div.book > a .header figure.comic img {
+            height: 100%; }
+        .books div.book > a .header figure.audio {
+          height: 150px;
+          text-align: center;
+          margin: 0; }
+          .books div.book > a .header figure.audio img {
+            height: 100%; }
+        .books div.book > a .header figure.book {
+          height: 225px;
+          text-align: center;
+          margin: 0; }
+          .books div.book > a .header figure.book img {
+            height: 100%;
+            max-width: 100%; }
+      .books div.book > a:hover {
         color: inherit; }
-    .books .book figure {
-      max-height: 275px;
-      text-align: center;
-      margin: 0; }
-      .books .book figure img {
-        max-height: inherit;
-        max-width: 100%; }
-    .books .book .content {
+    .books div.book .content {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; }
-      .books .book .content p:not(:first-child) {
+      justify-content: space-between;
+      padding: 0 15px; }
+      .books div.book .content p:not(:first-child) {
         margin: 0; }
-    .books .book .banner svg {
+    .books div.book .banner {
       z-index: 10;
       position: absolute;
       right: 0;
       top: 0; }
-      .books .book .banner svg .finished {
+      .books div.book .banner svg .finished {
         fill: #52AA39; }
-      .books .book .banner svg .reading {
+      .books div.book .banner svg .reading {
         fill: #2A80B9; }
 
 .ui-autocomplete {
