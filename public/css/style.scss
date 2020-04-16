@@ -211,26 +211,3 @@ input{
     padding: 7px 7px;
     margin-bottom: 10px;
 }
-
-@media only screen and (max-width: 720px) {
-    .books {
-        .book {
-            width: 33%;
-        }
-    }
-
-    form{
-        flex-direction: column;
-        fieldset{            
-            width:100%;        
-        }
-    }
-}
-
-@media only screen and (max-width: 520px) {
-    .books {
-        .book {
-            width: 50%;
-        }
-    }
-}
