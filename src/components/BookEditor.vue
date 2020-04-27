@@ -78,6 +78,19 @@
                         ></option>
                     </select>
                 </div>
+                  <div>
+                    <button value="Add" @click="save($event, 0)">
+                        <span class="fa fa-save"></span>
+                    </button>
+                    <button
+                        value="Delete"
+                        class="delete"
+                        @click="remove($event, currentBook.key)"
+                        v-if="currentBook.key"
+                    >
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
             </fieldset>
             <fieldset>
                 <div>
@@ -91,21 +104,6 @@
                     </label>
 
                     <img v-if="currentBook.image" :src="currentBook.image" alt="currentBook.image" />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <button value="Add" @click="save($event, 0)">
-                        <span class="fa fa-save"></span>
-                    </button>
-                    <button
-                        value="Delete"
-                        class="delete"
-                        @click="remove($event, currentBook.key)"
-                        v-if="currentBook.key"
-                    >
-                        <span class="fa fa-times"></span>
-                    </button>
                 </div>
             </fieldset>
         </form>
