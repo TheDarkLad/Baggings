@@ -143,7 +143,6 @@ export default {
             currentBook: {},
             searchText: undefined,
             filterStatuses: [
-                { text: "", id: -1 },
                 { text: "Nog te lezen", id: 0 },
                 { text: "Gelezen", id: 1 },
                 { text: "Mee Bezig", id: 2 }

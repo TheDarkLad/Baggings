@@ -19,7 +19,10 @@ const router = new VueRouter({
     { name: 'home', path: '/', component: Home },
     { name: 'add', path: '/add', component: Edit },
     { name: 'edit', path: '/edit/:id', component: Edit, params: { id } },
-  ]
+  ],
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  }
 })
 
 new Vue({

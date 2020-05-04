@@ -181,17 +181,13 @@ body {
 
 form{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     fieldset{
         border:1px solid #f6f6f6;
         flex:1;
         padding: 0;
         margin: 0;
-
-        &:nth-child(2){
-            margin-left:10px;
-        }
     }
 }
 
@@ -227,11 +223,15 @@ ul{
     }
 }
 
-@media only screen and (max-width: 768px) {    
+@media only screen and (min-width: 768px) {    
     form{
-        flex-direction: column;
-        fieldset{
-            margin:0;
+        flex-direction: row;
+        fieldset{         
+            margin: 0;
+    
+            &:nth-child(2){
+                margin-left:20px;
+            }
         }
     }
 }
