@@ -5,11 +5,10 @@
     </div>
     <div class="form-group">
       <select v-model="filterStatus" class="form-control">
-        <option
-          v-for="status in filterStatuses"
-          :key="status.id"
-          :value="status.id"
-          v-html="status.text"
+        <option v-for="status in filterStatuses" 
+        :key="status.id"
+        :value="status.id"
+        v-html="getCount(status)"
         ></option>
       </select>
     </div>
@@ -50,6 +49,13 @@ export default {
     book
   },
   methods: {
+    getCount(status){
+      if(!this.books || status.id < 0)
+        return status.text;
+        
+      let count = this.books.filter(r => r.status === status.id).length;
+      return `${status.text} (${count})`
+    },
     groupBy(arr, prop) {
       const map = new Map(Array.from(arr, obj => [obj[prop], []]));
       arr.forEach(obj => map.get(obj[prop]).push(obj));
