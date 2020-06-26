@@ -1,132 +1,116 @@
 <template>
-    <div>
-        <books-menu></books-menu>
-        <form>
-            <fieldset>
-                <div>
-                    <input
-                        type="text"
-                        v-model="currentBook.title"
-                        class="form-control"
-                        id="Title"
-                        placeholder="Title"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        v-model="currentBook.subtitle"
-                        class="form-control"
-                        id="Subtitle"
-                        placeholder="Subtitle"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        v-model="currentBook.series"
-                        class="form-control"
-                        id="Series"
-                        placeholder="Series"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        v-model="currentBook.author"
-                        class="form-control AuthorAutoComplete"
-                        id="Author"
-                        placeholder="Author"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        v-model="currentBook.number"
-                        class="form-control"
-                        id="Number"
-                        placeholder="Number"
-                    />
-                </div>
-
-                <div>
-                    <textarea
-                        class="form-control"
-                        id="exampleTextarea"
-                        rows="2"
-                        v-model="currentBook.comment"
-                        placeholder="Comment"
-                    ></textarea>
-                </div>
-                <div class="form-check mr-sm-2">
-                    <select v-model="currentBook.status" class="form-control">
-                        <option
-                            v-for="status in filterStatuses"
-                            :key="status.id"
-                            :value="status.id"
-                            v-html="status.text"
-                        ></option>
-                    </select>
-                </div>
-                <div class="form-check mr-sm-2">
-                    <select v-model="currentBook.type" class="form-control">
-                        <option
-                            v-for="type in bookTypes"
-                            :key="type.id"
-                            :value="type.id"
-                            v-html="type.text"
-                        ></option>
-                    </select>
-                </div>
-                  <div>
-                    <button value="Add" @click="save($event, 0)">
-                        <span class="fa fa-save"></span>
-                    </button>
-                    <button
-                        value="Delete"
-                        class="delete"
-                        @click="remove($event, currentBook.key)"
-                        v-if="currentBook.key"
-                    >
-                        <span class="fa fa-times"></span>
-                    </button>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label class="custom-file">
-                        <input
-                            type="file"
-                            name="fileToUpload"
-                            id="fileToUpload"
-                            class="custom-file-input"
-                        />
-                    </label>
-
-                    <img v-if="currentBook.image" :src="currentBook.image" alt="currentBook.image" />
-                </div>
-            </fieldset>
-        </form>
-        <br />
-        <div class="form-group">
-            <input
-                type="text"
-                v-model="searchText"
-                class="form-control"
-                id="Title"
-                placeholder="Search"
-            />
+  <div>
+    <books-menu></books-menu>
+    <form v-if="currentBook">
+      <fieldset>
+        <div>
+          <input
+            type="text"
+            v-model="currentBook.title"
+            class="form-control"
+            id="Title"
+            placeholder="Title"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            v-model="currentBook.subtitle"
+            class="form-control"
+            id="Subtitle"
+            placeholder="Subtitle"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            v-model="currentBook.series"
+            class="form-control"
+            id="Series"
+            placeholder="Series"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            v-model="currentBook.author"
+            class="form-control AuthorAutoComplete"
+            id="Author"
+            placeholder="Author"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            v-model="currentBook.number"
+            class="form-control"
+            id="Number"
+            placeholder="Number"
+          />
         </div>
 
-        <ul v-if="books && books.length">
-            <li v-for="book in filteredBooks" :key="book.key">
-                <router-link :to="'/edit/' + book.key">{{ book.title }} - {{ book.author }}</router-link>
-            </li>
-        </ul>
-        <router-link :to="'/add/'" class="button add">
-            <i class="fa fa-plus"></i>
-        </router-link>
+        <div>
+          <textarea
+            class="form-control"
+            id="exampleTextarea"
+            rows="2"
+            v-model="currentBook.comment"
+            placeholder="Comment"
+          ></textarea>
+        </div>
+        <div class="form-check mr-sm-2">
+          <select v-model="currentBook.status" class="form-control">
+            <option
+              v-for="status in filterStatuses"
+              :key="status.id"
+              :value="status.id"
+              v-html="status.text"
+            ></option>
+          </select>
+        </div>
+        <div class="form-check mr-sm-2">
+          <select v-model="currentBook.type" class="form-control">
+            <option v-for="type in bookTypes" :key="type.id" :value="type.id" v-html="type.text"></option>
+          </select>
+        </div>
+        <div>
+          <button value="Add" @click="save($event, 0)">
+            <span class="fa fa-save"></span>
+          </button>
+          <button
+            value="Delete"
+            class="delete"
+            @click="remove($event, currentBook.key)"
+            v-if="currentBook.key"
+          >
+            <span class="fa fa-times"></span>
+          </button>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div>
+          <label class="custom-file">
+            <input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input" />
+          </label>
+
+          <img v-if="currentBook.image" :src="currentBook.image" alt="currentBook.image" />
+        </div>
+      </fieldset>
+    </form>
+    <br />
+    <div class="form-group">
+      <input type="text" v-model="searchText" class="form-control" id="Title" placeholder="Search" />
     </div>
+
+    <ul v-if="books && books.length">
+      <li v-for="book in filteredBooks" :key="book.key">
+        <router-link :to="'/edit/' + book.key">{{ book.title }} - {{ book.author }}</router-link>
+      </li>
+    </ul>
+    <router-link :to="'/add/'" class="button add">
+      <i class="fa fa-plus"></i>
+    </router-link>
+  </div>
 </template>
 <script>
 import shared from "./../shared";
@@ -140,7 +124,7 @@ export default {
     data() {
         return {
             books: [],
-            currentBook: {},
+            currentBook: undefined,
             searchText: undefined,
             filterStatuses: [
                 { text: "Nog te lezen", id: 0 },
@@ -158,7 +142,16 @@ export default {
     watch: {
         $route(to) {
             this.setCurrentBook(to.params.id);
-        }
+        },
+        currentBook:{
+            handler(newValue, oldValue){
+                if(oldValue){
+                    if(this.currentBook.key)
+                        this.save();
+                }
+            },
+            deep:true 
+        },
     },
     computed: {
         booksByAuthor() {
@@ -222,7 +215,9 @@ export default {
             return arr;
         },
         async save(e) {
-            e.preventDefault();            
+            if(e)
+                e.preventDefault();            
+
             let imageUploadElement = document.getElementById("fileToUpload");
             if (imageUploadElement && imageUploadElement.files.length > 0) {
                 if(this.currentBook.image ){
