@@ -4,11 +4,11 @@
       <div class="header">
         <figure v-bind:class="getClassByType(book.type)">   
           <picture  v-lazyimg>
-          <img :alt="book.title"
-              :data-url="book.image"
-              decoding="async"
-              loading="lazy"
-              class="cover img-center" />
+            <img :alt="book.title"
+                :data-url="book.image"
+                decoding="async"
+                loading="lazy"
+                class="cover img-center" />
               </picture>       
         </figure>
       </div>

@@ -4,6 +4,7 @@ export default {
             let root = window.location.origin;
             if (window.location.pathname && window.location.pathname !== "/") {
                 root += window.location.pathname;
+                root = root.replace("/index.html", "")
             }
             return root;
         },
