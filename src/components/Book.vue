@@ -2,8 +2,13 @@
   <div class="book">
     <router-link :to="'/edit/' + book.key">
       <div class="header">
-        <figure v-bind:class="getClassByType(book.type)">
-          <img :src="book.image" class="cover img-center" alt="image" />
+        <figure v-bind:class="getClassByType(book.type)"
+        v-lazyimg>          
+          <img :alt="book.title"
+              :data-url="book.image"
+              decoding="async"
+              loading="lazy"
+              class="cover img-center" />
         </figure>
       </div>
       <div class="content">

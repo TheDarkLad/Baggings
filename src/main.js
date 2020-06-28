@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import Notifications from 'vue-notification'
+import lazyimg from './directives/lazyimg'
 
 Vue.use(VueRouter)
 Vue.use(Notifications)
+Vue.use(lazyimg)
 Vue.prototype.$http = axios
 
 import App from './App.vue'
