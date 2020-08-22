@@ -8,12 +8,5 @@
 export default { };
 </script>
 <style scoped>
-menu {
-  margin: -10px 0 30px 0;
-  padding: 0;
-}
 
-menu a {
-  margin: 0 10px 0 0;
-}
 </style>

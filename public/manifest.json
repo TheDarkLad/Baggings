@@ -37,7 +37,7 @@
   "start_url": "index.html",
   "background_color": "#1976D2",
   "display": "standalone",
-  "theme_color": "#1976D2",
+  "theme_color": "#FFF",
   "serviceworker": {
     "src": "service-worker.js",    
     "update_via_cache": "none"
