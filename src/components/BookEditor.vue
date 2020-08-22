@@ -1,6 +1,5 @@
 <template>
   <div>
-    <books-menu></books-menu>
     <form v-if="currentBook">
       <fieldset>
         <div>
@@ -107,205 +106,204 @@
         <router-link :to="'/edit/' + book.key">{{ book.title }} - {{ book.author }}</router-link>
       </li>
     </ul>
-    <router-link :to="'/add/'" class="button add">
-      <i class="fa fa-plus"></i>
-    </router-link>
+    <a class="button add" @click="up">
+      <i class="fa fa-angle-up"></i>
+    </a>
   </div>
 </template>
 <script>
 import shared from "./../shared";
-import booksMenu from "./BooksMenu.vue";
 
 export default {
-    components: {
-        booksMenu
+  components: {},
+  mixins: [shared],
+  data() {
+    return {
+      books: [],
+      currentBook: undefined,
+      searchText: undefined,
+      filterStatuses: [
+        { text: "Nog te lezen", id: 0 },
+        { text: "Gelezen", id: 1 },
+        { text: "Mee Bezig", id: 2 },
+      ],
+      bookTypes: [
+        { text: "Boek", id: 1 },
+        { text: "Comic", id: 2 },
+        { text: "Reference", id: 3 },
+        { text: "Audiobook", id: 4 },
+      ],
+    };
+  },
+  watch: {
+    $route(to) {
+      this.setCurrentBook(to.params.id);
     },
-    mixins: [shared],
-    data() {
-        return {
-            books: [],
-            currentBook: undefined,
-            searchText: undefined,
-            filterStatuses: [
-                { text: "Nog te lezen", id: 0 },
-                { text: "Gelezen", id: 1 },
-                { text: "Mee Bezig", id: 2 }
-            ],
-            bookTypes: [
-                { text: "Boek", id: 1 },
-                { text: "Comic", id: 2 },
-                { text: "Reference", id: 3 },
-                { text: "Audiobook", id: 4 }
-            ]
-        };
-    },
-    watch: {
-        $route(to) {
-            this.setCurrentBook(to.params.id);
-        },
-        currentBook:{
-            handler(newValue, oldValue){
-                if(oldValue){
-                    if(this.currentBook.key)
-                        this.save();
-                }
-            },
-            deep:true 
-        },
-    },
-    computed: {
-        booksByAuthor() {
-            let booksByAuthor = this.books;
-            if (booksByAuthor) {
-                booksByAuthor = booksByAuthor.sort((a, b) =>
-                    a.author > b.author ? 1 : -1
-                );
-                booksByAuthor = this.groupBy(booksByAuthor, "author");
-            }
-            return booksByAuthor;
-        },
-        filteredBooks() {
-            let filteredBooks = this.books;
-            // filter text
-            if (this.searchText) {
-                filteredBooks = filteredBooks.filter(x => {
-                    var filterstrings = [this.searchText];
-                    console.log(x);
-                    var regex = new RegExp(filterstrings.join("|"), "i");
-                    return (
-                        (x.title && regex.test(x.title)) ||
-                        (x.author && regex.test(x.author)) ||
-                        (x.series && regex.test(x.series)) ||
-                        (x.subtitle && regex.test(x.subtitle))
-                    );
-                });
-            }
-
-            filteredBooks = filteredBooks.sort((a, b) =>
-                a.author > b.author ? 1 : -1
-            );
-
-            return filteredBooks;
+    currentBook: {
+      handler(newValue, oldValue) {
+        if (oldValue) {
+          if (this.currentBook.key) this.save();
         }
+      },
+      deep: true,
     },
-    methods: {
-        async init() {
-            fetch(`${this.bookUrl}?v=` + Date.now().valueOf())
-                .then(r => r.json())
-                .then(json => {
-                    this.books = json;
-                    this.setCurrentBook(this.$route.params.id);
-                });
-        },
-        setCurrentBook(id) {
-            if (id) {
-                let book = this.books.find(b => b.key == id);
-                if (!book) this.$router.push({ path: `/add` });
-                else this.currentBook = book;
-            } else {
-                this.currentBook = {};
-            }
-        },
-        groupBy(arr, prop) {
-            if (arr) {
-                const map = new Map(Array.from(arr, obj => [obj[prop], []]));
-                arr.forEach(obj => map.get(obj[prop]).push(obj));
-                return Array.from(map.values());
-            }
-            return arr;
-        },
-        async save(e) {
-            if(e)
-                e.preventDefault();            
+  },
+  computed: {
+    booksByAuthor() {
+      let booksByAuthor = this.books;
+      if (booksByAuthor) {
+        booksByAuthor = booksByAuthor.sort((a, b) =>
+          a.author > b.author ? 1 : -1
+        );
+        booksByAuthor = this.groupBy(booksByAuthor, "author");
+      }
+      return booksByAuthor;
+    },
+    filteredBooks() {
+      let filteredBooks = this.books;
+      // filter text
+      if (this.searchText) {
+        filteredBooks = filteredBooks.filter((x) => {
+          var filterstrings = [this.searchText];
+          console.log(x);
+          var regex = new RegExp(filterstrings.join("|"), "i");
+          return (
+            (x.title && regex.test(x.title)) ||
+            (x.author && regex.test(x.author)) ||
+            (x.series && regex.test(x.series)) ||
+            (x.subtitle && regex.test(x.subtitle))
+          );
+        });
+      }
 
-            let imageUploadElement = document.getElementById("fileToUpload");
-            if (imageUploadElement && imageUploadElement.files.length > 0) {
-                if(this.currentBook.image ){
-                    await this.removeImage(this.currentBook.image);
-                }
-                let filename = await this.uploadImage(imageUploadElement.files[0]);
-                this.currentBook.image = `uploads/${filename}`;
-            }
+      filteredBooks = filteredBooks.sort((a, b) =>
+        a.author > b.author ? 1 : -1
+      );
 
-            // new book
-            if (!this.currentBook.key && this.currentBook.title) {
-                var keys = this.books.map(o => o.key);
-                var newKey = Math.max.apply(this, keys);
-                this.currentBook.key = newKey + 1;
-                this.books.push(this.currentBook);
-            }
+      return filteredBooks;
+    },
+  },
+  methods: {
+    up() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    },
+    async init() {
+      fetch(`${this.bookUrl}?v=` + Date.now().valueOf())
+        .then((r) => r.json())
+        .then((json) => {
+          this.books = json;
+          this.setCurrentBook(this.$route.params.id);
+        });
+    },
+    setCurrentBook(id) {
+      if (id) {
+        let book = this.books.find((b) => b.key == id);
+        if (!book) this.$router.push({ path: `/add` });
+        else this.currentBook = book;
+      } else {
+        this.currentBook = {};
+      }
+    },
+    groupBy(arr, prop) {
+      if (arr) {
+        const map = new Map(Array.from(arr, (obj) => [obj[prop], []]));
+        arr.forEach((obj) => map.get(obj[prop]).push(obj));
+        return Array.from(map.values());
+      }
+      return arr;
+    },
+    async save(e) {
+      if (e) e.preventDefault();
 
-            await this.saveJsonBook(JSON.stringify(this.books));
-
-            document.getElementById('fileToUpload').value='';
-
-            // reroute
-            if (this.$route.name === "add") {
-                this.$router.push({ path: `/edit/${this.currentBook.key}` });
-            }
-        },
-        async remove(e, key) {
-            e.preventDefault();
-            var removeIndex = this.books.findIndex(b => b.key === key);
-            let book = this.books[removeIndex];
-
-            if (removeIndex > -1) {
-                if(book){
-                    await this.removeImage(book.image);
-                }
-
-                this.books.splice(removeIndex, 1);
-                console.log(this.books);
-                await this.saveJsonBook(JSON.stringify(this.books));
-                this.$notify({
-                    group: "foo",
-                    title: "Remove",
-                    text: `${book.title} was removed`
-                });
-                this.$router.push({ path: `/add` });
-            }
-        },
-        async uploadImage(file) {
-            var fd = new FormData();
-            fd.append("fileToUpload", file);
-            await this.$http.post(this.uploadUrl, fd).then(() => {
-                this.$notify({
-                    group: "foo",
-                    title: "Upload",
-                    text: "file was uploaded"
-                });
-            });
-            console.log(file.name);
-            return file.name;
-        },
-        async removeImage(fileName) {
-            var fd = new FormData();
-            fd.append("fileToRemove", fileName);
-
-            await this.$http.post(this.removeUrl, fd).then(() => {
-                this.$notify({
-                    group: "foo",
-                    title: "Remove",
-                    text: `${fileName} was removed`
-                });
-            });
-        },
-        async saveJsonBook(jsonBooks) {
-            var fd = new FormData();
-            fd.append("target", "books.json");
-            fd.append("json", jsonBooks);
-
-            await this.$http.post(this.saveUrl, fd).then(() => {
-                this.$notify({
-                    group: "foo",
-                    title: "Save",
-                    text: "Books where saved"
-                });
-            });
+      let imageUploadElement = document.getElementById("fileToUpload");
+      if (imageUploadElement && imageUploadElement.files.length > 0) {
+        if (this.currentBook.image) {
+          await this.removeImage(this.currentBook.image);
         }
+        let filename = await this.uploadImage(imageUploadElement.files[0]);
+        this.currentBook.image = `uploads/${filename}`;
+      }
+
+      // new book
+      if (!this.currentBook.key && this.currentBook.title) {
+        var keys = this.books.map((o) => o.key);
+        var newKey = Math.max.apply(this, keys);
+        this.currentBook.key = newKey + 1;
+        this.books.push(this.currentBook);
+      }
+
+      await this.saveJsonBook(JSON.stringify(this.books));
+
+      document.getElementById("fileToUpload").value = "";
+
+      // reroute
+      if (this.$route.name === "add") {
+        this.$router.push({ path: `/edit/${this.currentBook.key}` });
+      }
     },
-    async mounted() {
-        await this.init();
-    }
+    async remove(e, key) {
+      e.preventDefault();
+      var removeIndex = this.books.findIndex((b) => b.key === key);
+      let book = this.books[removeIndex];
+
+      if (removeIndex > -1) {
+        if (book) {
+          await this.removeImage(book.image);
+        }
+
+        this.books.splice(removeIndex, 1);
+        console.log(this.books);
+        await this.saveJsonBook(JSON.stringify(this.books));
+        this.$notify({
+          group: "foo",
+          title: "Remove",
+          text: `${book.title} was removed`,
+        });
+        this.$router.push({ path: `/add` });
+      }
+    },
+    async uploadImage(file) {
+      var fd = new FormData();
+      fd.append("fileToUpload", file);
+      await this.$http.post(this.uploadUrl, fd).then(() => {
+        this.$notify({
+          group: "foo",
+          title: "Upload",
+          text: "file was uploaded",
+        });
+      });
+      console.log(file.name);
+      return file.name;
+    },
+    async removeImage(fileName) {
+      var fd = new FormData();
+      fd.append("fileToRemove", fileName);
+
+      await this.$http.post(this.removeUrl, fd).then(() => {
+        this.$notify({
+          group: "foo",
+          title: "Remove",
+          text: `${fileName} was removed`,
+        });
+      });
+    },
+    async saveJsonBook(jsonBooks) {
+      var fd = new FormData();
+      fd.append("target", "books.json");
+      fd.append("json", jsonBooks);
+
+      await this.$http.post(this.saveUrl, fd).then(() => {
+        this.$notify({
+          group: "foo",
+          title: "Save",
+          text: "Books where saved",
+        });
+      });
+    },
+  },
+  async mounted() {
+    await this.init();
+  },
 };
 </script>

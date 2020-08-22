@@ -1,5 +1,6 @@
 <template>
     <article class="container">
+        <books-menu></books-menu>
         <transition>
             <router-view></router-view>
         </transition>
@@ -8,7 +9,12 @@
 </template>
 
 <script>
+
+import booksMenu from "./components/BooksMenu.vue";
 export default {
-    name: "app"
+    name: "app",
+    components:{
+        booksMenu
+    }
 };
 </script>

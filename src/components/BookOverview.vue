@@ -20,9 +20,7 @@
         <book v-for="book in orderedBooks(author)" :key="book.key" :book="book"></book>
       </div>
     </div>
-    <router-link :to="'/add/'" class="button add">
-      <i class="fa fa-plus"></i>
-    </router-link>
+    <a class="button add" @click="up()"><i class="fa fa-angle-up"></i></a>
   </div>
 </template>
 <script>
@@ -50,6 +48,10 @@ export default {
     book,
   },
   methods: {
+    up(){
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    },
     getCount(status) {
       if (!this.books || status.id < 0) return status.text;
 

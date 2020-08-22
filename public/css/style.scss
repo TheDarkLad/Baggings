@@ -7,6 +7,10 @@ $navColor: #1976D2;
     box-sizing: border-box;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: #fafafa !important;
     font-family: 'Open Sans', sans-serif;
