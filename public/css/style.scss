@@ -166,7 +166,7 @@ menu {
     height:35px;
     display: inline-block;
     text-align: center;
-    
+    z-index: 1000000;
     &:hover{
         color:white;
         text-decoration: none;

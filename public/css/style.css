@@ -104,7 +104,8 @@ menu {
   width: 35px;
   height: 35px;
   display: inline-block;
-  text-align: center; }
+  text-align: center;
+  z-index: 1000000; }
   .button:hover {
     color: white;
     text-decoration: none; }
