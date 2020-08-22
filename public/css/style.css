@@ -22,7 +22,6 @@ body {
     width: 100%; }
   .books div.book {
     width: 185px;
-    margin-bottom: 25px;
     border: 1px solid #d6d6d6;
     position: relative;
     background: #FFF;

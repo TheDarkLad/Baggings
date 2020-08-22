@@ -5,10 +5,11 @@
     </div>
     <div class="form-group">
       <select v-model="filterStatus" class="form-control">
-        <option v-for="status in filterStatuses" 
-        :key="status.id"
-        :value="status.id"
-        v-html="getCount(status)"
+        <option
+          v-for="status in filterStatuses"
+          :key="status.id"
+          :value="status.id"
+          v-html="getCount(status)"
         ></option>
       </select>
     </div>
@@ -40,25 +41,28 @@ export default {
         { text: "Alle boeken", id: -1 },
         { text: "Nog te lezen", id: 0 },
         { text: "Gelezen", id: 1 },
-        { text: "Mee Bezig", id: 2 }
+        { text: "Mee Bezig", id: 2 },
       ],
-      filterStatus: -1
+      filterStatus: -1,
     };
   },
   components: {
-    book
+    book,
   },
   methods: {
-    getCount(status){
-      if(!this.books || status.id < 0)
-        return status.text;
-        
-      let count = this.books.filter(r => r.status === status.id).length;
-      return `${status.text} (${count})`
+    getCount(status) {
+      if (!this.books || status.id < 0) return status.text;
+
+      let count = this.books.filter((r) => r.status === status.id).length;
+      if (status.id === 0) {
+        count += this.books.filter((r) => r.status === 2).length;
+      }
+
+      return `${status.text} (${count})`;
     },
     groupBy(arr, prop) {
-      const map = new Map(Array.from(arr, obj => [obj[prop], []]));
-      arr.forEach(obj => map.get(obj[prop]).push(obj));
+      const map = new Map(Array.from(arr, (obj) => [obj[prop], []]));
+      arr.forEach((obj) => map.get(obj[prop]).push(obj));
       return Array.from(map.values());
     },
     orderedBooks(books) {
@@ -70,11 +74,11 @@ export default {
     },
     loadData() {
       fetch(`${this.bookUrl}?v=` + Date.now().valueOf())
-        .then(r => r.json())
-        .then(json => {
+        .then((r) => r.json())
+        .then((json) => {
           this.books = json;
         });
-    }
+    },
   },
   computed: {
     filteredBooks() {
@@ -82,7 +86,7 @@ export default {
       if (filteredBooks) {
         // filter text
         if (this.searchText) {
-          filteredBooks = filteredBooks.filter(x => {
+          filteredBooks = filteredBooks.filter((x) => {
             var filterstrings = [this.searchText];
             var regex = new RegExp(filterstrings.join("|"), "i");
             return (
@@ -96,9 +100,18 @@ export default {
 
         // filter staus
         if (this.filterStatus > -1) {
-          filteredBooks = filteredBooks.filter(x => {
-            return x.status === this.filterStatus;
-          });
+
+
+          if (this.filterStatus === 0) {
+            filteredBooks = filteredBooks.filter((x) => {
+              return x.status === this.filterStatus || x.status === 2;
+            });
+          }
+          else {
+            filteredBooks = filteredBooks.filter((x) => {
+              return x.status === this.filterStatus;
+            });
+          }
         }
         // sort
         filteredBooks = filteredBooks.sort((a, b) =>
@@ -109,10 +122,10 @@ export default {
         filteredBooks = this.groupBy(filteredBooks, "author");
       }
       return filteredBooks;
-    }
+    },
   },
   mounted() {
     this.loadData();
-  }
+  },
 };
 </script>
