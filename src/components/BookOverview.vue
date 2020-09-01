@@ -20,7 +20,9 @@
         <book v-for="book in orderedBooks(author)" :key="book.key" :book="book"></book>
       </div>
     </div>
-    <a class="button add" @click="up()"><i class="fa fa-angle-up"></i></a>
+    <a class="button add" @click="up()">
+      <i class="fa fa-angle-up"></i>
+    </a>
   </div>
 </template>
 <script>
@@ -48,7 +50,7 @@ export default {
     book,
   },
   methods: {
-    up(){
+    up() {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     },
@@ -102,23 +104,25 @@ export default {
 
         // filter staus
         if (this.filterStatus > -1) {
-
-
           if (this.filterStatus === 0) {
             filteredBooks = filteredBooks.filter((x) => {
               return x.status === this.filterStatus || x.status === 2;
             });
-          }
-          else {
+          } else {
             filteredBooks = filteredBooks.filter((x) => {
               return x.status === this.filterStatus;
             });
           }
         }
         // sort
-        filteredBooks = filteredBooks.sort((a, b) =>
-          a.author > b.author ? 1 : -1
-        );
+        filteredBooks = filteredBooks.sort((a, b) => {
+          if (a.author > b.author) return 1;
+          else if (a.author > b.author) return -1;
+          else {
+             if (a.series > b.series) return 1;
+            else if (a.series > b.series) return -1;
+          }
+        });
 
         // group by author
         filteredBooks = this.groupBy(filteredBooks, "author");
