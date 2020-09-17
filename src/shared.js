@@ -1,4 +1,11 @@
-export default {
+export const statusses = {
+    TODO: 0,
+    DONE: 1,
+    DOING: 2,
+    ONHOLD: 3
+};
+
+export const shared = {
     computed: {
         rootPath() {
             let root = window.location.origin;
@@ -21,4 +28,4 @@ export default {
             return this.rootPath + "/upload.php";
         }
     }
-}
+};

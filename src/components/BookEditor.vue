@@ -112,7 +112,7 @@
   </div>
 </template>
 <script>
-import shared from "./../shared";
+import { shared, statusses } from "./../shared";
 
 export default {
   components: {},
@@ -123,15 +123,16 @@ export default {
       currentBook: undefined,
       searchText: undefined,
       filterStatuses: [
-        { text: "Nog te lezen", id: 0 },
-        { text: "Gelezen", id: 1 },
-        { text: "Mee Bezig", id: 2 },
+        { text: "Nog te lezen", id: statusses.TODO },
+        { text: "Klaar", id:  statusses.DONE },
+        { text: "Mee bezig", id:  statusses.DOING },
+        { text: "On hold", id:  statusses.ONHOLD },
       ],
       bookTypes: [
         { text: "Boek", id: 1 },
         { text: "Comic", id: 2 },
         { text: "Reference", id: 3 },
-        { text: "Audiobook", id: 4 },
+        { text: "Audio", id: 4 },
       ],
     };
   },
@@ -176,6 +177,8 @@ export default {
         });
       }
 
+      //filteredBooks.sort(this.fieldSorter(['author', 'status']));
+
       filteredBooks = filteredBooks.sort((a, b) =>
         a.author > b.author ? 1 : -1
       );
@@ -184,6 +187,7 @@ export default {
     },
   },
   methods: {
+    
     up() {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

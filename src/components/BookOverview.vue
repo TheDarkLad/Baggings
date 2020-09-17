@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import shared from "./../shared";
+import { shared, statusses } from "./../shared";
 import book from "./Book";
 
 export default {
@@ -38,10 +38,10 @@ export default {
       books: [],
       searchText: undefined,
       filterStatuses: [
-        { text: "Alle boeken", id: -1 },
-        { text: "Nog te lezen", id: 0 },
-        { text: "Gelezen", id: 1 },
-        { text: "Mee Bezig", id: 2 },
+        { text: "Alle", id: -1 },
+        { text: "Nog te lezen", id: statusses.TODO },
+        { text: "Klaar", id: statusses.DONE },
+        { text: "Mee bezig", id: statusses.DOING },
       ],
       filterStatus: -1,
     };
@@ -58,8 +58,13 @@ export default {
       if (!this.books || status.id < 0) return status.text;
 
       let count = this.books.filter((r) => r.status === status.id).length;
-      if (status.id === 0) {
-        count += this.books.filter((r) => r.status === 2).length;
+
+      if (status.id === statusses.TODO) {
+        count += this.books.filter((r) => r.status === statusses.DOING).length;
+      }
+
+      if (status.id === statusses.DONE) {
+        count += this.books.filter((r) => r.status === statusses.ONHOLD).length;
       }
 
       return `${status.text} (${count})`;
@@ -72,7 +77,7 @@ export default {
     orderedBooks(books) {
       if (books) {
         books = books.sort((a, b) => (a.series > b.series ? 1 : -1));
-        books = books.sort((a, b) => (a.number > b.number ? 1 : -1));
+        //books = books.sort((a, b) => (a.number > b.number ? 1 : -1));
       }
       return books;
     },
@@ -104,9 +109,17 @@ export default {
 
         // filter staus
         if (this.filterStatus > -1) {
-          if (this.filterStatus === 0) {
+          if (this.filterStatus === statusses.TODO) {
             filteredBooks = filteredBooks.filter((x) => {
-              return x.status === this.filterStatus || x.status === 2;
+              return (
+                x.status === this.filterStatus || x.status === statusses.DOING
+              );
+            });
+          } else if (this.filterStatuses === statusses.DONE) {
+            filteredBooks = filteredBooks.filter((x) => {
+              return (
+                x.status === this.filterStatus || x.status === statusses.ONHOLD
+              );
             });
           } else {
             filteredBooks = filteredBooks.filter((x) => {
@@ -119,15 +132,34 @@ export default {
           if (a.author > b.author) return 1;
           else if (a.author > b.author) return -1;
           else {
-             if (a.series > b.series) return 1;
+            if (a.series > b.series) return 1;
             else if (a.series > b.series) return -1;
           }
         });
-
-        // group by author
         filteredBooks = this.groupBy(filteredBooks, "author");
+
+     
+        //filteredBooks.sort(this.fieldSorter(['author', 'series', 'number']));
       }
       return filteredBooks;
+    },
+    fieldSorter(fields) {
+      return function (a, b) {
+        return fields
+          .map(function (o) {
+            var dir = 1;
+            if (o[0] === "-") {
+              dir = -1;
+              o = o.substring(1);
+            }
+            if (a[o] > b[o]) return dir;
+            if (a[o] < b[o]) return -dir;
+            return 0;
+          })
+          .reduce(function firstNonZeroValue(p, n) {
+            return p ? p : n;
+          }, 0);
+      };
     },
   },
   mounted() {
