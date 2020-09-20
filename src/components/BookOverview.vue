@@ -76,7 +76,25 @@ export default {
     },
     orderedBooks(books) {
       if (books) {
-        books = books.sort((a, b) => (a.series > b.series ? 1 : -1));
+        books = books.sort((ob1, ob2) => {
+          if (ob1.series > ob2.series) {
+            return 1;
+          } else if (ob1.series < ob2.series) {
+            return -1;
+          }
+
+          if (ob1.number) {
+            if (ob1.number < ob2.number) {
+              return -1;
+            } else if (ob1.number > ob2.number) {
+              return 1;
+            } else {
+              // nothing to split them
+              return 0;
+            }
+          }
+        });
+        //books = books.sort((a, b) => (a.series > b.series ? 1 : -1));
         //books = books.sort((a, b) => (a.number > b.number ? 1 : -1));
       }
       return books;
@@ -138,7 +156,6 @@ export default {
         });
         filteredBooks = this.groupBy(filteredBooks, "author");
 
-     
         //filteredBooks.sort(this.fieldSorter(['author', 'series', 'number']));
       }
       return filteredBooks;
