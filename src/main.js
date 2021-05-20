@@ -12,23 +12,27 @@ Vue.prototype.$http = axios
 import App from './App.vue'
 import Home from './components/BookOverview.vue';
 import Edit from './components/BookEditor.vue';
+import Scan from './components/BookScanner.vue';
 
 Vue.config.productionTip = false
 
 const id = 0;
+const isbn = 0;
 const router = new VueRouter({
   routes: [
     { name: 'home', path: '/', component: Home },
-    { name: 'add', path: '/add', component: Edit },
+    { name: 'add', path: '/add/:isbn?', component: Edit, params: { isbn } },
     { name: 'edit', path: '/edit/:id', component: Edit, params: { id } },
+    { name: 'scan', path: '/scan', component: Scan },
   ],
-  scrollBehavior () {
+  scrollBehavior() {
     return { x: 0, y: 0 }
   }
 })
 
+
 new Vue({
-  el:'#app',
-  router,  
+  el: '#app',
+  router,
   render: h => h(App)
 });

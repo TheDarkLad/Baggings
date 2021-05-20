@@ -26,6 +26,9 @@ export const shared = {
         },
         uploadUrl() {
             return this.rootPath + "/upload.php";
+        },
+        downloadUrl() {
+            return this.rootPath + "/download.php";
         }
     }
 };
