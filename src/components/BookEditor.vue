@@ -185,6 +185,10 @@ export default {
 				var keys = this.books.map((o) => o.key);
 				var newKey = Math.max.apply(this, keys);
 				this.currentBook.key = newKey + 1;
+				// delete the imagePattern property
+				delete this.currentBook.imagePattern;
+
+				// add to the array
 				this.books.push(this.currentBook);
 			}
 
@@ -291,7 +295,7 @@ export default {
 							this.isbnResponse = response;
 
 							// get image fallback
-							let imagePattern = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`;
+							let imagePattern = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`;
 
 							this.currentBook = {
 								title: response.title,
@@ -304,7 +308,7 @@ export default {
 								number: "",
 								isbn: isbn,
 								imagePattern,
-								image: imagePattern,
+								image: imagePattern + "?default=false",
 							};
 						}
 					},
