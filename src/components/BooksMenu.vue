@@ -2,7 +2,7 @@
 	<menu>
 		<router-link v-if="$route.path !== '/'" to="/">Home</router-link>
 		<router-link :to="'/add/'">Toevoegen</router-link>
-		<router-link v-if="hasCamera" :to="'/scan/'">Scan (Toevoegen)</router-link>
+		<router-link v-if="hasCamera" :to="'/scan/'">Scan</router-link>
 	</menu>
 </template>
 <script>
